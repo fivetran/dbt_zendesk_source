@@ -1,0 +1,192 @@
+version: 2
+
+sources:
+  - name: zendesk
+    database: "{{var ('zendesk_database', target.database)}}"
+    schema: "{{var ('zendesk_schema', 'zendesk')}}"
+
+    loader: fivetran
+    loaded_at_field: _fivetran_synced
+      
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+
+
+    tables:
+      - name: ticket
+        description: Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: id
+            description: Automatically assigned when the ticket is created
+            tests:
+                - unique
+                - not_null  
+          - name: url
+            description: The API url of this ticket
+          - name: assignee_id
+            description: The agent currently assigned to the ticket
+          - name: brand_id
+            description: Enterprise only. The id of the brand this ticket is associated with
+          - name: created_at
+            description: When this record was created
+          - name: type
+            description: The type of this ticket, possible values are problem, incident, question or task
+          - name: subject
+            description: The value of the subject field for this ticket
+          - name: description
+            description: Read-only first comment on the ticket
+          - name: priority
+            description: The urgency with which the ticket should be addressed, possible values are urgent, high, normal and low
+          - name: status
+            description: The state of the ticket, possible values are new, open, pending, hold, solved and closed
+          - name: recipient
+            description: The original recipient e-mail address of the ticket
+          - name: requester_id
+            description: The user who requested this ticket
+          - name: submitter_id
+            description: The user who submitted the ticket. The submitter always becomes the author of the first comment on the ticket
+          - name: organization_id
+            description: The organization of the requester
+          - name: group_id
+            description: The group this ticket is assigned to
+          - name: due_at
+            description: If this is a ticket of type "task" it has a due date. Due date format uses ISO 8601 format.
+          - name: ticket_form_id
+            description: Enterprise only. The id of the ticket form to render for the ticket
+          - name: is_public
+            description: Is true if any comments are public, false otherwise
+          - name: updated_at
+            description: When this record last got updated
+          - name: via_channel
+            description: The channel the ticket was created from
+          - name: via_source_from_id
+            description: The channel the ticket was created from 
+          - name: via_source_from_title
+            description: The channel the ticket was created from
+          - name: via_source_rel
+            description: The rel the ticket was created from 
+          - name: via_source_to_address
+            description: The address of the source the ticket was created from
+          - name: via_source_to_name
+            description: The name of the source the ticket was created from    
+
+      - name: group
+        description: >
+          When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
+          element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
+          only, or to an assigned agent within a Group. A ticket can never be assigned to an agent without also being 
+          assigned to a Group.
+        freshness: null
+        columns:
+          - name: id
+            description: Automatically assigned when creating groups
+            tests:
+                - unique
+                - not_null 
+          - name: name
+            description: The name of the group
+
+      - name: organization
+        description: >
+          Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
+          organizations. You can manually assign customers to an organization or automatically assign them to an organization 
+          by their email address domain. Organizations can be used in business rules to route tickets to groups of agents or 
+          to send email notifications.
+        freshness: null
+        columns:
+          - name: id
+            description: Automatically assigned when the organization is created
+            tests:
+                - unique
+                - not_null 
+          - name: name
+            description: A unique name for the organization
+          - name: details
+            description: Any details obout the organization, such as the address
+          - name: url
+            description: The API url of this organization
+          - name: external_id
+            description: A unique external id to associate organizations to an external record
+          - name: created_at
+            description: The time the organization was created
+          - name: updated_at
+            description: The time of the last update of the organization
+          - name: domain_names
+            description: An array of domain names associated with this organization
+          - name: details
+            description: Any details obout the organization, such as the address
+          - name: notes
+            description: Any notes you have about the organization
+          - name: group_id
+            description: New tickets from users in this organization are automatically put in this group
+          - name: shared_tickets
+            description: End users in this organization are able to see each other's tickets
+          - name: shared_comments
+            description: End users in this organization are able to see each other's comments on tickets
+          - name: tags
+            description: The tags of the organization
+          - name: organization_fields
+            description: Custom fields for this organization
+
+      - name: ticket_comment
+        description: Ticket comments represent the conversation between requesters, collaborators, and agents. Comments can be public or private.
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: id
+            description: Automatically assigned when the comment is created
+            tests:
+                - unique
+                - not_null 
+          - name: body
+            description: The comment string
+          - name: created
+            description: The time the comment was created
+          - name: public
+            description: Boolean field indicating if the comment is public (true), or if it is an internal note (false)
+          - name: ticket_id
+            description: The ticket id associated with this comment
+          - name: user_id
+            description: The id of the comment author
+          - name: facebook_comment
+            description: Boolean field indicating if the comment is a facebook comment
+          - name: tweet
+            description: Boolean field indicating if the comment is a twitter tweet
+          - name: voice_comment
+            description: Boolean field indicating if the comment is a voice comment
+
+
+      - name: user
+        description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
+        freshness: null
+        columns:
+          - name: id
+            description: Automatically assigned when the user is created
+            tests:
+                - unique
+                - not_null 
+          - name: email
+            description: The user's primary email address. *Writeable on create only. On update, a secondary email is added. See Email Address
+          - name: name
+            description: The user's name
+          - name: active
+            description: false if the user has been deleted
+          - name: created_at
+            description: The time the user was created
+          - name: organization_id
+            description: The id of the user's organization. If the user has more than one organization memberships, the id of the user's default organization
+          - name: role
+            description: The user's role. Possible values are "end-user", "agent", or "admin"
+          - name: time_zone
+            description: The user's time zone. See Time Zone
+          - name: ticket_restriction
+            description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
+      
+      - name: sla_policy_metric_history
+      - name: sla_policy_history
+      - name: ticket_field_history
+      - name: ticket_sla_policy
+      - name: ticket_schedule
+      - name: schedule
+        

@@ -1,0 +1,29 @@
+config-version: 2
+
+name: 'zendesk_source'
+version: '0.0.1'
+
+profile: 'fivetran'
+
+require-dbt-version: '>=0.17.0'
+
+models:
+    zendesk_source:
+        materialized: ephemeral
+
+vars:
+    zendesk_source:
+        group: "{{ source('zendesk', 'group') }}"
+        organization: "{{ source('zendesk', 'organization') }}"
+        ticket: "{{ source('zendesk', 'ticket') }}"
+        ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
+        ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
+        ticket_sla_policy: "{{ source('zendesk', 'ticket_sla_policy') }}"
+        ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
+        schedule: "{{ source('zendesk', 'schedule') }}"
+        sla_policy_metric_history: "{{ source('zendesk', 'sla_policy_metric_history') }}"
+        sla_policy_history: "{{ source('zendesk', 'sla_policy_history') }}"
+        user: "{{ source('zendesk', 'user') }}"
+        using_sla_policy: True
+        zendesk_schema: 'zendesk_new'
+        zendesk_database: 'target.database'
