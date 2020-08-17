@@ -1,4 +1,4 @@
-{{ config(enabled=var('using_sla_policy', True)) }}
+{{ config(enabled=var('using_schedules', True)) }}
 
 with base as (
 
@@ -11,7 +11,7 @@ with base as (
 
       ticket_id,
       created_at,
-      schedule_id,
+      cast(schedule_id as string) as schedule_id,
       
     from base
 

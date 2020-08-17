@@ -1,4 +1,4 @@
-{{ config(enabled=var('using_sla_policy', True)) }}
+{{ config(enabled=var('using_schedules', True)) }}
 
 with base as (
 
@@ -9,10 +9,11 @@ with base as (
     
     select
 
-      id as schedule_id,
+      cast(id as string) as schedule_id,
       end_time_utc,
       start_time_utc,
-      name as schedule_name
+      name as schedule_name,
+      created_at
       
     from base
     where not _fivetran_deleted
