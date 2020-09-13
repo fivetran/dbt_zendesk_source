@@ -8,7 +8,7 @@ with base as (
     select
 
       ticket_id,
-      tag
+      'tag' as tags
       
     from base
 

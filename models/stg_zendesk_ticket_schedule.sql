@@ -11,8 +11,8 @@ with base as (
 
       ticket_id,
       created_at,
-      cast(schedule_id as string) as schedule_id,
-      
+      cast(schedule_id as {{ dbt_utils.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
+
     from base
 
 )

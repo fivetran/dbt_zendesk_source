@@ -9,7 +9,7 @@ with base as (
     
     select
 
-      cast(id as string) as schedule_id,
+      cast(id as {{ dbt_utils.type_string() }}) as schedule_id, --need to convert from numeric to string for downstream models to work properly
       end_time_utc,
       start_time_utc,
       name as schedule_name,

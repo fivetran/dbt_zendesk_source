@@ -15,7 +15,9 @@ sources:
 
     tables:
       - name: ticket
-        description: Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
+        description: >
+          Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
+          originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
         loaded_at_field: _fivetran_synced
         columns:
           - name: id
@@ -182,12 +184,56 @@ sources:
             description: The user's time zone. See Time Zone
           - name: ticket_restriction
             description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
-      
-      - name: sla_policy_metric_history
-      - name: sla_policy_history
-      - name: ticket_field_history
-      - name: ticket_sla_policy
-      - name: ticket_schedule
+
       - name: schedule
+        description: The support schedules created with different business hours and holidays. 
+        freshness: null
+        columns: 
+          - name: id
+            description: ID automatically assigned to the schedule upon creation
+          - name: name
+            description: Name of the schedule
+          - name: created_at
+            description: Time the schedule was created
+          - name: start_time_utc
+            description: Start time of the schedule, in UTC
+          - name: end_time_utc
+            description: End time of the schedule, in UTC  
+          
+      - name: ticket_schedule
+        description: The schedules applied to tickets through a trigger.
+        freshness: null
+        columns: 
+          - name: ticket_id
+            description: The ID of the ticket assigned to the schedule
+          - name: created_at
+            description: The time the schedule was assigned to the ticket
+          - name: schedule_id
+            description: The ID of the schedule applied to the ticket
+      
       - name: ticket_tag
-        
+        description: >
+          Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
+          tags currently associated with a ticket.
+        freshness: null
+        columns: 
+          - name: ticket_id
+            description: The ID of the ticket associated with the tag
+          - name: tag
+            description: The tag, or word(s), associated with the ticket
+
+      
+      - name: ticket_field_history
+        description: All fields and field values associated with tickets.
+        freshness: null
+        columns: 
+          - name: ticket_id
+            description: The ID of the ticket associated with the field
+          - name: field_name
+            description: The name of the ticket field
+          - name: updated
+            description: The time the ticket field value was created
+          - name: value
+            description: The value of the field
+          - name: user_id
+            description: The id of the user who made the update

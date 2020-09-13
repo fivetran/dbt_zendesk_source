@@ -13,7 +13,7 @@ with base as (
       created as created_at,
       public as is_public,
       ticket_id,
-      user_id as user_id,
+      user_id,
       facebook_comment as is_facebook_comment,
       tweet as is_tweet,
       voice_comment as is_voice_comment
