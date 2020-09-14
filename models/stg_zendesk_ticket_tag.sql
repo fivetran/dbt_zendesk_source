@@ -8,7 +8,11 @@ with base as (
     select
 
       ticket_id,
-      'tag' as tags
+      {% if target.type == 'redshift' %}
+      "tag" as tags
+      {% else %}
+      tag as tags
+      {% endif %}
       
     from base
 
