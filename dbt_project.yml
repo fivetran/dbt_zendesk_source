@@ -6,19 +6,19 @@ version: '0.0.1'
 require-dbt-version: [">=0.18.0", "<0.19.0"]
 
 models:
-    zendesk_source:
-        materialized: table
+  zendesk_source:
+    materialized: table
 
 vars:
-    zendesk_source:
-        group: "{{ source('zendesk', 'group') }}"
-        organization: "{{ source('zendesk', 'organization') }}"
-        schedule: "{{ source('zendesk', 'schedule') }}"
-        ticket: "{{ source('zendesk', 'ticket') }}"
-        ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
-        ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
-        ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
-        ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
-        user: "{{ source('zendesk', 'user') }}"
-        using_sla_policy: True
-        using_schedules: True
+  zendesk_source:
+    group: "{{ source('zendesk', 'group') }}"
+    organization: "{{ source('zendesk', 'organization') }}"
+    schedule: "{{ source('zendesk', 'schedule') }}"
+    ticket: "{{ source('zendesk', 'ticket') }}"
+    ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
+    ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
+    ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
+    ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
+    user: "{{ source('zendesk', 'user') }}"
+    using_sla_policy: True
+    using_schedules: True
