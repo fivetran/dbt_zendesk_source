@@ -29,7 +29,7 @@ final as (
     
     select 
         ticket_id,
-        tags
+        tag as tags
     from fields
 )
 
