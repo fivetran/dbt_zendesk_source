@@ -32,6 +32,17 @@ vars:
     zendesk_database: your_schema_name
 ```
 
+### Disabling Models
+This package takes into consideration that not every Zendesk account utilizes the sla or business schedule features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
+```yml
+# dbt_project.yml
+
+...
+vars:
+    using_sla_policy: False
+    using_schedules:  False
+```
+
 ## Contributions
 
 Additional contributions to this package are very welcome! Please create issues

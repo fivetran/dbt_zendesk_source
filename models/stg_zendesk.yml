@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_zendesk_ticket
+  - name: stg_zendesk__ticket
     description: >
       Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
       originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
@@ -60,7 +60,7 @@ models:
       - name: source_to_name
         description: The name of the source the ticket was created from  
 
-  - name: stg_zendesk_group
+  - name: stg_zendesk__group
     description: >
       When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
       element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
@@ -75,7 +75,7 @@ models:
       - name: name
         description: The name of the group
 
-  - name: stg_zendesk_organization
+  - name: stg_zendesk__organization
     description: >
       Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
       organizations. You can manually assign customers to an organization or automatically assign them to an organization 
@@ -92,7 +92,7 @@ models:
       - name: details
         description: Any details obout the organization, such as the address
 
-  - name: stg_zendesk_ticket_comment
+  - name: stg_zendesk__ticket_comment
     description: Ticket comments represent the conversation between requesters, collaborators, and agents. Comments can be public or private.
     columns:
       - name: ticket_comment_id
@@ -118,7 +118,7 @@ models:
         description: Boolean field indicating if the comment is a voice comment
 
 
-  - name: stg_zendesk_user
+  - name: stg_zendesk__user
     description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
     columns:
       - name: user_id
@@ -143,7 +143,7 @@ models:
       - name: ticket_restriction
         description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
-  - name: stg_zendesk_schedule
+  - name: stg_zendesk__schedule
     description: The support schedules created with different business hours and holidays. 
     columns: 
       - name: schedule_id
@@ -157,7 +157,7 @@ models:
       - name: end_time_utc
         description: End time of the schedule, in UTC  
       
-  - name: stg_zendesk_ticket_schedule
+  - name: stg_zendesk__ticket_schedule
     description: The schedules applied to tickets through a trigger.
     columns: 
       - name: ticket_id
@@ -167,7 +167,7 @@ models:
       - name: schedule_id
         description: The ID of the schedule applied to the ticket
   
-  - name: stg_zendesk_ticket_tag
+  - name: stg_zendesk__ticket_tag
     description: >
       Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
       tags currently associated with a ticket.
@@ -178,7 +178,7 @@ models:
         description: The tag, or word(s), associated with the ticket
 
   
-  - name: stg_zendesk_ticket_field_history
+  - name: stg_zendesk__ticket_field_history
     description: All fields and field values associated with tickets.
     columns: 
       - name: ticket_id
