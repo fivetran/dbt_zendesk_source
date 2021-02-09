@@ -1,1 +1,2 @@
-select * from {{ var('ticket_field_history') }}
+select * 
+from {{ var('ticket_field_history') }}

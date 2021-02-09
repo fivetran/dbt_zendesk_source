@@ -1,1 +1,2 @@
-select * from {{ var('organization') }}
+select * 
+from {{ var('organization') }}
