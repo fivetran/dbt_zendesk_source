@@ -174,7 +174,7 @@ models:
     columns: 
       - name: ticket_id
         description: The ID of the ticket associated with the tag
-      - name: tag
+      - name: tags
         description: The tag, or word(s), associated with the ticket
 
   
