@@ -29,7 +29,7 @@ final as (
     
     select 
         ticket_id,
-        tag as tags
+        "{{ 'tag' if target.type == 'redshift' else tag }}" as tags
     from fields
 )
 
