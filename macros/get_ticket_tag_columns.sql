@@ -8,9 +8,12 @@
 {% if target.type == 'redshift' %}
     {{ columns.append( {"name": "tag", "datatype": dbt_utils.type_string(), "quote": True } ) }}
 
+{% elif target.type == 'snowflake' %}
+    {{ columns.append( {"name": "TAG", "datatype": dbt_utils.type_string(), "quote": True } ) }}
+
 {% else %}
     {{ columns.append( {"name": "tag", "datatype": dbt_utils.type_string()} ) }}
-    
+
 {% endif %}
 
 {{ return(columns) }}

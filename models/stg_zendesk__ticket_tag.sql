@@ -29,7 +29,11 @@ final as (
     
     select 
         ticket_id,
-        "{{ 'tag' if target.type == 'redshift' else tag }}" as tags
+        {% if target.type == 'redshift' %}
+        "tag" as tags
+        {% else %}
+        tag as tags
+        {% endif %}
     from fields
 )
 
