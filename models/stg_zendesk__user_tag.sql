@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__organization_tmp') }}
+    from {{ ref('stg_zendesk__user_tag_tmp') }}
 
 ),
 
@@ -17,8 +17,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__organization_tmp')),
-                staging_columns=get_organization_columns()
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__user_tag_tmp')),
+                staging_columns=get_user_tag_columns()
             )
         }}
         
@@ -28,15 +28,13 @@ fields as (
 final as (
     
     select 
-        id as organization_id,
-        created_at,
-        updated_at,
-        details,
-        name,
-        external_id
-
+        user_id,
+        {% if target.type == 'redshift' %}
+        "tag" as tags
+        {% else %}
+        tag as tags
+        {% endif %}
     from fields
 )
 
-select * 
-from final
+select * from final

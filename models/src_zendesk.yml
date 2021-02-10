@@ -149,6 +149,7 @@ sources:
           - name: voice_comment
             description: Boolean field indicating if the comment is a voice comment
 
+      - name: user_tag
 
       - name: user
         description: Zendesk has three types of users, end-users (your customers), agents, and administrators.

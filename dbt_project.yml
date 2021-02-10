@@ -21,6 +21,7 @@ vars:
     ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
     ticket_schedule:      "{{ source('zendesk', 'ticket_schedule') }}"
     ticket_tag:           "{{ source('zendesk', 'ticket_tag') }}"
+    user_tag:             "{{ source('zendesk', 'user_tag') }}"
     user:                 "{{ source('zendesk', 'user') }}"
 
     using_sla_policy: True

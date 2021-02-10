@@ -25,19 +25,23 @@ fields as (
     from base
 ),
 
-final as (
+final as ( 
     
     select 
         id as user_id,
+        external_id,
         _fivetran_synced,
         created_at,
+        updated_at,
         email,
         name,
         organization_id,
         role,
         ticket_restriction,
         time_zone,
-        active as is_active
+        locale,
+        active as is_active,
+        last_login_at
     from fields
 )
 

@@ -117,7 +117,8 @@ models:
       - name: is_voice_comment
         description: Boolean field indicating if the comment is a voice comment
 
-
+  - name: stg_zendesk__user_tag
+  
   - name: stg_zendesk__user
     description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
     columns:
