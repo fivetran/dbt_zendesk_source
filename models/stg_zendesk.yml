@@ -60,6 +60,10 @@ models:
       - name: source_to_name
         description: The name of the source the ticket was created from  
 
+  - name: stg_zendesk__brand
+
+  - name: stg_zendesk__domain_name
+
   - name: stg_zendesk__group
     description: >
       When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
@@ -74,6 +78,8 @@ models:
             - not_null 
       - name: name
         description: The name of the group
+
+  - name: stg_zendesk__organization_tag
 
   - name: stg_zendesk__organization
     description: >
@@ -118,7 +124,7 @@ models:
         description: Boolean field indicating if the comment is a voice comment
 
   - name: stg_zendesk__user_tag
-  
+
   - name: stg_zendesk__user
     description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
     columns:
@@ -144,6 +150,8 @@ models:
       - name: ticket_restriction
         description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
+  - name: stg_zendesk__satisfaction_rating
+
   - name: stg_zendesk__schedule
     description: The support schedules created with different business hours and holidays. 
     columns: 
@@ -168,6 +176,8 @@ models:
       - name: schedule_id
         description: The ID of the schedule applied to the ticket
   
+  - name: stg_zendesk__ticket_form_history
+
   - name: stg_zendesk__ticket_tag
     description: >
       Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all

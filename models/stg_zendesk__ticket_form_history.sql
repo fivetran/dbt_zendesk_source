@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__user_tag_tmp') }}
+    from {{ ref('stg_zendesk__ticket_form_history_tmp') }}
 
 ),
 
@@ -17,8 +17,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__user_tag_tmp')),
-                staging_columns=get_user_tag_columns()
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__ticket_form_history_tmp')),
+                staging_columns=get_ticket_form_history_columns()
             )
         }}
         
@@ -28,12 +28,12 @@ fields as (
 final as (
     
     select 
-        user_id,
-        {% if target.type == 'redshift' %}
-        "tag" as tags
-        {% else %}
-        tag as tags
-        {% endif %}
+        id as ticket_form_id,
+        created_at,
+        updated_at,
+        display_name,
+        active,
+        name
     from fields
 )
 

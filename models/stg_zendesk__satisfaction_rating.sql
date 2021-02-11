@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__user_tag_tmp') }}
+    from {{ ref('stg_zendesk__satisfaction_rating_tmp') }}
 
 ),
 
@@ -17,8 +17,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__user_tag_tmp')),
-                staging_columns=get_user_tag_columns()
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__satisfaction_rating_tmp')),
+                staging_columns=get_satisfaction_rating_columns()
             )
         }}
         
@@ -28,12 +28,16 @@ fields as (
 final as (
     
     select 
-        user_id,
-        {% if target.type == 'redshift' %}
-        "tag" as tags
-        {% else %}
-        tag as tags
-        {% endif %}
+        id as satifaction_rating_id,
+        ticket_id,
+        requester_id,
+        assignee_id,
+        group_id,
+        score,
+        created_at,
+        updated_at,
+        comment,
+        reason
     from fields
 )
 

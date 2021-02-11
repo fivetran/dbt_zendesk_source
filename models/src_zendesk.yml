@@ -71,6 +71,10 @@ sources:
           - name: via_source_to_name
             description: The name of the source the ticket was created from    
 
+      - name: brand
+
+      - name: domain_name
+
       - name: group
         description: >
           When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
@@ -86,6 +90,8 @@ sources:
             description: Automatically assigned when creating groups
           - name: name
             description: The name of the group
+
+      - name: organization_tag
 
       - name: organization
         description: >
@@ -174,6 +180,8 @@ sources:
           - name: ticket_restriction
             description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
+      - name: satisfaction_rating
+
       - name: schedule
         description: The support schedules created with different business hours and holidays. 
         freshness: null
@@ -200,6 +208,8 @@ sources:
           - name: schedule_id
             description: The ID of the schedule applied to the ticket
       
+      - name: ticket_form_history
+
       - name: ticket_tag
         description: >
           Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
