@@ -41,6 +41,7 @@ final as (
         time_zone,
         locale,
         active as is_active,
+        suspended as is_suspended,
         last_login_at
     from fields
 )
