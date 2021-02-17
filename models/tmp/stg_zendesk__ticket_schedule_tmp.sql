@@ -6,13 +6,15 @@
 {% set table_exists=source_relation is not none  %}
 
 {% if table_exists %}
+{{ log("Table exists", info=True) }}
 
 select * 
-from {{ var('ticket_schedule') }}
+from {{ source('zendesk', 'ticket_schedule') }}
 
 {% else %}
+{{ log("Table does not exists", info=True) }}
 
-select 
+select
     cast(null as {{ dbt_utils.type_timestamp() }}) as _fivetran_synced,
     cast(null as {{ dbt_utils.type_timestamp() }}) as created_at,
     cast(null as {{ dbt_utils.type_int() }}) as schedule_id,
