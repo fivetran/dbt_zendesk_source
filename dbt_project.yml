@@ -29,5 +29,6 @@ vars:
     user_tag:             "{{ source('zendesk', 'user_tag') }}"
     user:                 "{{ source('zendesk', 'user') }}"
 
-    using_sla_policy: True
-    using_schedules:  True
+    using_sla_policy:         True
+    using_schedules:          True
+    using_organization_tags:  True
