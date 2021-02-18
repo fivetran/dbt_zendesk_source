@@ -195,7 +195,6 @@ models:
       - name: satifaction_rating_id
         description: Automatically assigned upon creation
         tests:
-          - unique
           - not_null
       - name: ticket_id
         description: The id of ticket being rated
@@ -246,7 +245,6 @@ models:
       - name: ticket_form_id
         description: Automatically assigned when creating ticket form
         tests:
-          - unique
           - not_null
       - name: created_at
         description: The time the ticket form was created
