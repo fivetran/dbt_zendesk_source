@@ -28,8 +28,8 @@ By default, this package looks for your Zendesk data in the `zendesk` schema of 
 config-version: 2
 
 vars:
-    zendesk_schema: your_database_name
-    zendesk_database: your_schema_name
+    zendesk_database: your_database_name
+    zendesk_schema: your_schema_name
 ```
 
 ## Contributions
