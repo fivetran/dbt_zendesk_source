@@ -1,3 +1,6 @@
+--To disable this model, set the using_schedules variable within your dbt_project.yml file to False.
+{{ config(enabled=var('using_schedules', True)) }}
+
 {%- set source_relation = adapter.get_relation(
       database=source('zendesk', 'ticket_schedule').database,
       schema=source('zendesk', 'ticket_schedule').schema,
@@ -6,13 +9,11 @@
 {% set table_exists=source_relation is not none  %}
 
 {% if table_exists %}
-{{ log("Table exists", info=True) }}
 
-select * 
+select *
 from {{ source('zendesk', 'ticket_schedule') }}
 
 {% else %}
-{{ log("Table does not exists", info=True) }}
 
 select
     cast(null as {{ dbt_utils.type_timestamp() }}) as _fivetran_synced,

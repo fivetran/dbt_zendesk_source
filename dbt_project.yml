@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source'
-version: '0.1.2'
+version: '0.2.0'
 
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 
@@ -29,6 +29,9 @@ vars:
     user_tag:             "{{ source('zendesk', 'user_tag') }}"
     user:                 "{{ source('zendesk', 'user') }}"
 
-    using_sla_policy:         True
-    using_schedules:          True
-    using_organization_tags:  True
+    using_schedules:            True
+    using_domain_names:         True
+    using_user_tags:            True
+    using_ticket_form_history:  True
+    using_organization_tags:    True
+    using_satisfaction_ratings: True

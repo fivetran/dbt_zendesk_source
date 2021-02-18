@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.1.2'
+version: '0.2.0'
 
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 profile: 'integration_tests'
@@ -24,8 +24,13 @@ vars:
     organization_tag:       "{{ ref('organization_tag_data') }}"
     satisfaction_rating:    "{{ ref('satisfaction_rating_data') }}"
     user:                   "{{ snowflake_seed_data('user_data') }}"
-    using_sla_policy: True
-    using_schedules:  True
+
+    using_schedules:            True
+    using_domain_names:         True
+    using_user_tags:            True
+    using_ticket_form_history:  True
+    using_organization_tags:    True
+    using_satisfaction_ratings: True
     
 seeds:
   +quote_columns: "{{ true if target.type == 'redshift' else false }}"

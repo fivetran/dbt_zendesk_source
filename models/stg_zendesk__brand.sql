@@ -32,7 +32,7 @@ final as (
         brand_url,
         name,
         subdomain,
-        active
+        active as is_active
     from fields
 )
 
