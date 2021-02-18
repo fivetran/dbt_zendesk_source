@@ -32,10 +32,11 @@ final as (
     select 
         user_id,
         {% if target.type == 'redshift' %}
-        "tag" as tags
+        'tag'
         {% else %}
-        tag as tags
+        tag
         {% endif %}
+        as tags
     from fields
 )
 

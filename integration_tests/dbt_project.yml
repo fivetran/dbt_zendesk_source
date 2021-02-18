@@ -17,13 +17,13 @@ vars:
     ticket_field_history:   "{{ ref('ticket_field_history_data') }}"
     ticket_schedule:        "{{ ref('ticket_schedule_data') }}"
     ticket_tag:             "{{ ref('ticket_tag_data') }}"
-    user_tag:               "{{ ref('user_tag_data') }}"
+    user_tag:               "{{ fivetran_utils.snowflake_seed_data('user_tag_data') }}" 
     brand:                  "{{ ref('brand_data') }}"
     ticket_form_history:    "{{ ref('ticket_form_history_data') }}"
     domain_name:            "{{ ref('domain_name_data') }}"
-    organization_tag:       "{{ ref('organization_tag_data') }}"
+    organization_tag:       "{{ fivetran_utils.snowflake_seed_data('organization_tag_data') }}" 
     satisfaction_rating:    "{{ ref('satisfaction_rating_data') }}"
-    user:                   "{{ snowflake_seed_data('user_data') }}"
+    user:                   "{{ fivetran_utils.snowflake_seed_data('user_data') }}" 
 
     using_schedules:            True
     using_domain_names:         True
@@ -124,4 +124,8 @@ seeds:
         locale_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         organization_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+    user_tag_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+    organization_tag_data_snowflake:
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
