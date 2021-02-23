@@ -7,8 +7,6 @@
     {"name": "authenticity_token", "datatype": dbt_utils.type_int()},
     {"name": "chat_only", "datatype": "boolean"},
     {"name": "created_at", "datatype": dbt_utils.type_timestamp()},
-    {"name": "custom_pre_order_", "datatype": "boolean"},
-    {"name": "custom_role_id", "datatype": dbt_utils.type_int()},
     {"name": "details", "datatype": dbt_utils.type_int()},
     {"name": "email", "datatype": dbt_utils.type_string()},
     {"name": "external_id", "datatype": dbt_utils.type_int()},
