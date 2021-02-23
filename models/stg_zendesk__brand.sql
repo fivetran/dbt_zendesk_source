@@ -34,6 +34,7 @@ final as (
         subdomain,
         active as is_active
     from fields
+    where not coalesce(_fivetran_deleted, false)
 )
 
 select * 

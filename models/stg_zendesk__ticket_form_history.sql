@@ -37,6 +37,8 @@ final as (
         active as is_active,
         name
     from fields
+    where not coalesce(_fivetran_deleted, false)
+    
 )
 
 select * 
