@@ -28,8 +28,23 @@ By default, this package looks for your Zendesk data in the `zendesk` schema of 
 config-version: 2
 
 vars:
-    zendesk_database: your_database_name
     zendesk_schema: your_schema_name
+    zendesk_database: your_database_name
+```
+
+### Disabling Models
+This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, `ticket_form_history`, or `satisfaction_rating` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
+```yml
+# dbt_project.yml
+
+...
+vars:
+    using_schedules:            False
+    using_domain_names:         False
+    using_user_tags:            False
+    using_ticket_form_history:  False
+    using_organization_tags:    False
+    using_satisfaction_ratings: False
 ```
 
 ## Contributions

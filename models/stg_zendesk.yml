@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_zendesk_ticket
+  - name: stg_zendesk__ticket
     description: >
       Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
       originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
@@ -60,7 +60,38 @@ models:
       - name: source_to_name
         description: The name of the source the ticket was created from  
 
-  - name: stg_zendesk_group
+  - name: stg_zendesk__brand
+    description: >
+      Brands are your customer-facing identities. They might represent multiple products or services, or they 
+      might literally be multiple brands owned and represented by your company.
+    columns:
+      - name: brand_id
+        description: The ID automatically assigned when the brand is created
+        tests:
+          - unique
+          - not_null
+      - name: brand_url
+        description: The url of the brand
+      - name: name
+        description: The name of the brand
+      - name: subdomain
+        description: The subdomain of the brand
+      - name: active
+        description: If the brand is set as active
+
+  - name: stg_zendesk__domain_name
+    description: Domain names associated with an organization. An organization may have multiple domain names.
+    columns:
+      - name: organization_id
+        description: Reference to the organization
+        tests:
+          - not_null
+      - name: domain_name
+        description: The name of the domain associated with the organization
+      - name: index
+        description: Index number of the domain name associated with the organization
+
+  - name: stg_zendesk__group
     description: >
       When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
       element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
@@ -70,12 +101,20 @@ models:
       - name: group_id
         description: Automatically assigned when creating groups
         tests:
-            - unique
-            - not_null 
+          - unique
+          - not_null 
       - name: name
         description: The name of the group
 
-  - name: stg_zendesk_organization
+  - name: stg_zendesk__organization_tag
+    description: The tags associated with an organization. An organization may have multiple tags.
+    columns:
+      - name: organization_id
+        description: Reference to the organization
+      - name: tag
+        description: Tag associated with the organization
+
+  - name: stg_zendesk__organization
     description: >
       Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
       organizations. You can manually assign customers to an organization or automatically assign them to an organization 
@@ -85,21 +124,21 @@ models:
       - name: organization_id
         description: Automatically assigned when the organization is created
         tests:
-            - unique
-            - not_null 
+          - unique
+          - not_null 
       - name: name
         description: A unique name for the organization
       - name: details
         description: Any details obout the organization, such as the address
 
-  - name: stg_zendesk_ticket_comment
+  - name: stg_zendesk__ticket_comment
     description: Ticket comments represent the conversation between requesters, collaborators, and agents. Comments can be public or private.
     columns:
       - name: ticket_comment_id
         description: Automatically assigned when the comment is created
         tests:
-            - unique
-            - not_null 
+          - unique
+          - not_null 
       - name: body
         description: The comment string
       - name: created_at
@@ -117,15 +156,22 @@ models:
       - name: is_voice_comment
         description: Boolean field indicating if the comment is a voice comment
 
+  - name: stg_zendesk__user_tag
+    description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
+    columns:
+      - name: user_id
+        description: Reference to the user
+      - name: tag
+        description: Tag associated with the user
 
-  - name: stg_zendesk_user
+  - name: stg_zendesk__user
     description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
     columns:
       - name: user_id
         description: Automatically assigned when the user is created
         tests:
-            - unique
-            - not_null 
+          - unique
+          - not_null 
       - name: email
         description: The user's primary email address. *Writeable on create only. On update, a secondary email is added. See Email Address
       - name: name
@@ -143,7 +189,33 @@ models:
       - name: ticket_restriction
         description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
-  - name: stg_zendesk_schedule
+  - name: stg_zendesk__satisfaction_rating
+    description: If you have enabled satisfaction ratings for your account, this table allows you to quickly retrieve all ratings.
+    columns:
+      - name: satifaction_rating_id
+        description: Automatically assigned upon creation
+        tests:
+          - not_null
+      - name: ticket_id
+        description: The id of ticket being rated
+      - name: requester_id
+        description: The id of ticket requester submitting the rating
+      - name: assignee_id
+        description: The id of agent assigned to at the time of rating
+      - name: group_id
+        description: The id of group assigned to at the time of rating
+      - name: score
+        description: The rating "offered", "unoffered", "good" or "bad"
+      - name: created_at
+        description: The time the satisfaction rating got created
+      - name: updated_at
+        description: The time the satisfaction rating got updated
+      - name: comment
+        description: The comment received with this rating, if available
+      - name: reason
+        description: The reason for a bad rating given by the requester in a follow-up question
+
+  - name: stg_zendesk__schedule
     description: The support schedules created with different business hours and holidays. 
     columns: 
       - name: schedule_id
@@ -157,7 +229,7 @@ models:
       - name: end_time_utc
         description: End time of the schedule, in UTC  
       
-  - name: stg_zendesk_ticket_schedule
+  - name: stg_zendesk__ticket_schedule
     description: The schedules applied to tickets through a trigger.
     columns: 
       - name: ticket_id
@@ -167,18 +239,36 @@ models:
       - name: schedule_id
         description: The ID of the schedule applied to the ticket
   
-  - name: stg_zendesk_ticket_tag
+  - name: stg_zendesk__ticket_form_history
+    description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
+    columns:
+      - name: ticket_form_id
+        description: Automatically assigned when creating ticket form
+        tests:
+          - not_null
+      - name: created_at
+        description: The time the ticket form was created
+      - name: updated_at
+        description: The time of the last update of the ticket form
+      - name: display_name
+        description: The name of the form that is displayed to an end user
+      - name: active
+        description: If the form is set as active
+      - name: name
+        description: The name of the form
+
+  - name: stg_zendesk__ticket_tag
     description: >
       Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
       tags currently associated with a ticket.
     columns: 
       - name: ticket_id
         description: The ID of the ticket associated with the tag
-      - name: tag
+      - name: tags
         description: The tag, or word(s), associated with the ticket
 
   
-  - name: stg_zendesk_ticket_field_history
+  - name: stg_zendesk__ticket_field_history
     description: All fields and field values associated with tickets.
     columns: 
       - name: ticket_id

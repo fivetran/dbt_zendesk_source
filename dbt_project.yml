@@ -1,24 +1,37 @@
 config-version: 2
 
 name: 'zendesk_source'
-version: '0.0.1'
+version: '0.2.0'
 
-require-dbt-version: [">=0.18.0", "<0.19.0"]
+require-dbt-version: [">=0.18.0", "<0.20.0"]
 
 models:
-    zendesk_source:
-        materialized: table
+  zendesk_source:
+    materialized: table
+    tmp:
+      materialized: view
 
 vars:
-    zendesk_source:
-        group: "{{ source('zendesk', 'group') }}"
-        organization: "{{ source('zendesk', 'organization') }}"
-        schedule: "{{ source('zendesk', 'schedule') }}"
-        ticket: "{{ source('zendesk', 'ticket') }}"
-        ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
-        ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
-        ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
-        ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
-        user: "{{ source('zendesk', 'user') }}"
-        using_sla_policy: True
-        using_schedules: True
+  zendesk_source:
+    group:                "{{ source('zendesk', 'group') }}"
+    brand:                "{{ source('zendesk', 'brand') }}"
+    domain_name:          "{{ source('zendesk', 'domain_name') }}"
+    organization_tag:     "{{ source('zendesk', 'organization_tag') }}"
+    organization:         "{{ source('zendesk', 'organization') }}"
+    schedule:             "{{ source('zendesk', 'schedule') }}"
+    satisfaction_rating:  "{{ source('zendesk', 'satisfaction_rating') }}"
+    ticket:               "{{ source('zendesk', 'ticket') }}"
+    ticket_form_history:  "{{ source('zendesk', 'ticket_form_history') }}"
+    ticket_comment:       "{{ source('zendesk', 'ticket_comment') }}"
+    ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
+    ticket_schedule:      "{{ source('zendesk', 'ticket_schedule') }}"
+    ticket_tag:           "{{ source('zendesk', 'ticket_tag') }}"
+    user_tag:             "{{ source('zendesk', 'user_tag') }}"
+    user:                 "{{ source('zendesk', 'user') }}"
+
+    using_schedules:            True
+    using_domain_names:         True
+    using_user_tags:            True
+    using_ticket_form_history:  True
+    using_organization_tags:    True
+    using_satisfaction_ratings: True

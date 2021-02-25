@@ -22,9 +22,6 @@ sources:
         columns:
           - name: id
             description: Automatically assigned when the ticket is created
-            tests:
-                - unique
-                - not_null  
           - name: url
             description: The API url of this ticket
           - name: assignee_id
@@ -74,6 +71,32 @@ sources:
           - name: via_source_to_name
             description: The name of the source the ticket was created from    
 
+      - name: brand
+        description: >
+          Brands are your customer-facing identities. They might represent multiple products or services, or they 
+          might literally be multiple brands owned and represented by your company.
+        columns:
+          - name: id
+            description: The ID automatically assigned when the brand is created
+          - name: brand_url
+            description: The url of the brand
+          - name: name
+            description: The name of the brand
+          - name: subdomain
+            description: The subdomain of the brand
+          - name: active
+            description: If the brand is set as active
+
+      - name: domain_name
+        description: Domain names associated with an organization. An organization may have multiple domain names.
+        columns:
+          - name: organization_id
+            description: Reference to the organization
+          - name: domain_name
+            description: The name of the domain associated with the organization
+          - name: index
+            description: Index number of the domain name associated with the organization
+
       - name: group
         description: >
           When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
@@ -87,11 +110,16 @@ sources:
         columns:
           - name: id
             description: Automatically assigned when creating groups
-            tests:
-                - unique
-                - not_null 
           - name: name
             description: The name of the group
+
+      - name: organization_tag
+        description: The tags associated with an organization. An organization may have multiple tags.
+        columns:
+          - name: organization_id
+            description: Reference to the organization
+          - name: tag
+            description: Tag associated with the organization
 
       - name: organization
         description: >
@@ -103,9 +131,6 @@ sources:
         columns:
           - name: id
             description: Automatically assigned when the organization is created
-            tests:
-                - unique
-                - not_null 
           - name: name
             description: A unique name for the organization
           - name: details
@@ -141,9 +166,6 @@ sources:
         columns:
           - name: id
             description: Automatically assigned when the comment is created
-            tests:
-                - unique
-                - not_null 
           - name: body
             description: The comment string
           - name: created
@@ -161,6 +183,13 @@ sources:
           - name: voice_comment
             description: Boolean field indicating if the comment is a voice comment
 
+      - name: user_tag
+        description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
+        columns:
+          - name: user_id
+            description: Reference to the user
+          - name: tag
+            description: Tag associated with the user
 
       - name: user
         description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
@@ -168,9 +197,6 @@ sources:
         columns:
           - name: id
             description: Automatically assigned when the user is created
-            tests:
-                - unique
-                - not_null 
           - name: email
             description: The user's primary email address. *Writeable on create only. On update, a secondary email is added. See Email Address
           - name: name
@@ -187,6 +213,30 @@ sources:
             description: The user's time zone. See Time Zone
           - name: ticket_restriction
             description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
+
+      - name: satisfaction_rating
+        description: If you have enabled satisfaction ratings for your account, this table allows you to quickly retrieve all ratings.
+        columns:
+          - name: id
+            description: Automatically assigned upon creation
+          - name: ticket_id
+            description: The id of ticket being rated
+          - name: requester_id
+            description: The id of ticket requester submitting the rating
+          - name: assignee_id
+            description: The id of agent assigned to at the time of rating
+          - name: group_id
+            description: The id of group assigned to at the time of rating
+          - name: score
+            description: The rating "offered", "unoffered", "good" or "bad"
+          - name: created_at
+            description: The time the satisfaction rating got created
+          - name: updated_at
+            description: The time the satisfaction rating got updated
+          - name: comment
+            description: The comment received with this rating, if available
+          - name: reason
+            description: The reason for a bad rating given by the requester in a follow-up question
 
       - name: schedule
         description: The support schedules created with different business hours and holidays. 
@@ -214,6 +264,22 @@ sources:
           - name: schedule_id
             description: The ID of the schedule applied to the ticket
       
+      - name: ticket_form_history
+        description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
+        columns:
+          - name: id
+            description: Automatically assigned when creating ticket form
+          - name: created_at
+            description: The time the ticket form was created
+          - name: updated_at
+            description: The time of the last update of the ticket form
+          - name: display_name
+            description: The name of the form that is displayed to an end user
+          - name: active
+            description: If the form is set as active
+          - name: name
+            description: The name of the form
+
       - name: ticket_tag
         description: >
           Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
@@ -222,7 +288,7 @@ sources:
         columns: 
           - name: ticket_id
             description: The ID of the ticket associated with the tag
-          - name: tag
+          - name: tags
             description: The tag, or word(s), associated with the ticket
 
       
