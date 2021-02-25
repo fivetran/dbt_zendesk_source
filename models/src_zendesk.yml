@@ -214,30 +214,6 @@ sources:
           - name: ticket_restriction
             description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
-      - name: satisfaction_rating
-        description: If you have enabled satisfaction ratings for your account, this table allows you to quickly retrieve all ratings.
-        columns:
-          - name: id
-            description: Automatically assigned upon creation
-          - name: ticket_id
-            description: The id of ticket being rated
-          - name: requester_id
-            description: The id of ticket requester submitting the rating
-          - name: assignee_id
-            description: The id of agent assigned to at the time of rating
-          - name: group_id
-            description: The id of group assigned to at the time of rating
-          - name: score
-            description: The rating "offered", "unoffered", "good" or "bad"
-          - name: created_at
-            description: The time the satisfaction rating got created
-          - name: updated_at
-            description: The time the satisfaction rating got updated
-          - name: comment
-            description: The comment received with this rating, if available
-          - name: reason
-            description: The reason for a bad rating given by the requester in a follow-up question
-
       - name: schedule
         description: The support schedules created with different business hours and holidays. 
         freshness: null
