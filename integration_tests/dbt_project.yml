@@ -22,7 +22,6 @@ vars:
     ticket_form_history:    "{{ ref('ticket_form_history_data') }}"
     domain_name:            "{{ ref('domain_name_data') }}"
     organization_tag:       "{{ fivetran_utils.snowflake_seed_data('organization_tag_data') }}" 
-    satisfaction_rating:    "{{ ref('satisfaction_rating_data') }}"
     user:                   "{{ fivetran_utils.snowflake_seed_data('user_data') }}" 
 
     using_schedules:            True
@@ -30,7 +29,6 @@ vars:
     using_user_tags:            True
     using_ticket_form_history:  True
     using_organization_tags:    True
-    using_satisfaction_ratings: True
     
 seeds:
   +quote_columns: "{{ true if target.type == 'redshift' else false }}"
@@ -112,10 +110,6 @@ seeds:
     organization_tag_data:
       +column_types:
         organization_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        _fivetran_synced: timestamp
-    satisfaction_rating_data:
-      +column_types:
-        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: timestamp
     user_data_snowflake:
       +column_types:
