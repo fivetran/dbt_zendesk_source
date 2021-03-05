@@ -32,6 +32,19 @@ vars:
     zendesk_database: your_database_name
 ```
 
+Additionally, by default this package will write to a schema titled (target.schema + `_zendesk_staging` within your target database. If this is not where you would like you Zendesk Support staging data to be written to, add the following configuration to your `dbt_project.yml` file:
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+models:
+    zendesk_source:
+        +schema: my_new_schema_name
+```
+
 ### Disabling Models
 This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
 ```yml
