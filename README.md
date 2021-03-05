@@ -32,8 +32,8 @@ vars:
     zendesk_database: your_database_name
 ```
 
-### Schema Changes
-By default this package will write to a schema titled (target.schema + `_zendesk_staging` within your target database. If this is not where you would like you Zendesk Support staging data to be written to, add the following configuration to your `dbt_project.yml` file:
+### Changing the Build Schema
+By default this package will build the Zendesk Support staging models within a schema titled (<target_schema> + `_zendesk_staging`) in your target database. If this is not where you would like you Zendesk Support staging data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
