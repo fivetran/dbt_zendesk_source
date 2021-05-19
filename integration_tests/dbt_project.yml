@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.3.0'
+version: '0.3.1'
 
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 profile: 'integration_tests'
@@ -31,8 +31,8 @@ vars:
     using_organization_tags:    True
     
 seeds:
-  +quote_columns: "{{ true if target.type == 'redshift' else false }}"
   zendesk_source_integration_tests:
+    +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     +column_types:
       _fivetran_synced: timestamp
     group_data:
