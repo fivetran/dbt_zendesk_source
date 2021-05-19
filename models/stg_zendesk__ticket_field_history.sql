@@ -35,8 +35,6 @@ final as (
         value,
         user_id
     from fields
-    
-    order by 1,2,3
 )
 
 select * 
