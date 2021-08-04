@@ -29,10 +29,3 @@ vars:
     ticket_tag:           "{{ source('zendesk', 'ticket_tag') }}"
     user_tag:             "{{ source('zendesk', 'user_tag') }}"
     user:                 "{{ source('zendesk', 'user') }}"
-
-    using_schedules:            True
-    using_domain_names:         True
-    using_user_tags:            True
-    using_ticket_form_history:  True
-    using_organization_tags:    True
-    using_satisfaction_ratings: True
