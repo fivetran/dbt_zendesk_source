@@ -89,6 +89,8 @@ sources:
 
       - name: domain_name
         description: Domain names associated with an organization. An organization may have multiple domain names.
+        meta:
+          is_enabled: "{{ var('using_domain_names', true) }}"
         columns:
           - name: organization_id
             description: Reference to the organization
@@ -115,6 +117,8 @@ sources:
 
       - name: organization_tag
         description: The tags associated with an organization. An organization may have multiple tags.
+        meta:
+          is_enabled: "{{ var('using_organization_tags', true) }}"
         columns:
           - name: organization_id
             description: Reference to the organization
@@ -185,6 +189,8 @@ sources:
 
       - name: user_tag
         description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
+        meta:
+          is_enabled: "{{ var('using_user_tags', true) }}"
         columns:
           - name: user_id
             description: Reference to the user
@@ -217,6 +223,8 @@ sources:
       - name: schedule
         description: The support schedules created with different business hours and holidays. 
         freshness: null
+        meta:
+          is_enabled: "{{ var('using_schedules', true) }}"
         columns: 
           - name: id
             description: ID automatically assigned to the schedule upon creation
@@ -242,6 +250,8 @@ sources:
       
       - name: ticket_form_history
         description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
+        meta:
+          is_enabled: "{{ var('using_ticket_form_history', true) }}"
         columns:
           - name: id
             description: Automatically assigned when creating ticket form
