@@ -31,8 +31,13 @@ final as (
     
     select 
         id as ticket_form_id,
-        created_at,
-        updated_at,
+        {% if target.type == 'redshift' -%}
+            cast(created_at as timestamp without time zone) as created_at,
+            cast(updated_at as timestamp without time zone) as updated_at,
+        {% else -%}
+            created_at,
+            updated_at,
+        {% endif %}
         display_name,
         active as is_active,
         name

@@ -31,7 +31,11 @@ final as (
     
     select 
         ticket_id,
-        created_at,
+        {% if target.type == 'redshift' -%}
+            cast(created_at as timestamp without time zone) as created_at,
+        {% else -%}
+            created_at,
+        {% endif %}
         cast(schedule_id as {{ dbt_utils.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
     from fields
 )
