@@ -38,7 +38,7 @@ final as (
         {% else -%}
             created_at,
             updated_at,
-            last_login_at
+            last_login_at,
         {% endif %}
         email,
         name,
