@@ -1,9 +1,10 @@
 config-version: 2
 
 name: 'zendesk_source'
-version: '0.4.2'
+version: '0.5.0'
 
-require-dbt-version: ">=0.20.0"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
   zendesk_source:
@@ -14,18 +15,18 @@ models:
 
 vars:
   zendesk_source:
-    group:                "{{ source('zendesk', 'group') }}"
-    brand:                "{{ source('zendesk', 'brand') }}"
-    domain_name:          "{{ source('zendesk', 'domain_name') }}"
-    organization_tag:     "{{ source('zendesk', 'organization_tag') }}"
-    organization:         "{{ source('zendesk', 'organization') }}"
-    schedule:             "{{ source('zendesk', 'schedule') }}"
-    satisfaction_rating:  "{{ source('zendesk', 'satisfaction_rating') }}"
-    ticket:               "{{ source('zendesk', 'ticket') }}"
-    ticket_form_history:  "{{ source('zendesk', 'ticket_form_history') }}"
-    ticket_comment:       "{{ source('zendesk', 'ticket_comment') }}"
+    group: "{{ source('zendesk', 'group') }}"
+    brand: "{{ source('zendesk', 'brand') }}"
+    domain_name: "{{ source('zendesk', 'domain_name') }}"
+    organization_tag: "{{ source('zendesk', 'organization_tag') }}"
+    organization: "{{ source('zendesk', 'organization') }}"
+    schedule: "{{ source('zendesk', 'schedule') }}"
+    satisfaction_rating: "{{ source('zendesk', 'satisfaction_rating') }}"
+    ticket: "{{ source('zendesk', 'ticket') }}"
+    ticket_form_history: "{{ source('zendesk', 'ticket_form_history') }}"
+    ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
     ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
-    ticket_schedule:      "{{ source('zendesk', 'ticket_schedule') }}"
-    ticket_tag:           "{{ source('zendesk', 'ticket_tag') }}"
-    user_tag:             "{{ source('zendesk', 'user_tag') }}"
-    user:                 "{{ source('zendesk', 'user') }}"
+    ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
+    ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
+    user_tag: "{{ source('zendesk', 'user_tag') }}"
+    user: "{{ source('zendesk', 'user') }}"
