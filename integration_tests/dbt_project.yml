@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.4.1'
+version: '0.4.2'
 
 profile: 'integration_tests'
 
@@ -89,6 +89,8 @@ seeds:
         locale_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         organization_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
+        last_login_at: timestamp
+        updated_at: timestamp
       +enabled: "{{ true if target.type != 'snowflake' else false }}"
     user_tag_data:
       +column_types:

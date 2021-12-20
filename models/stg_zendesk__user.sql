@@ -31,8 +31,15 @@ final as (
         id as user_id,
         external_id,
         _fivetran_synced,
-        created_at,
-        updated_at,
+        {% if target.type == 'redshift' -%}
+            cast(last_login_at as timestamp without time zone) as last_login_at,
+            cast(created_at as timestamp without time zone) as created_at,
+            cast(updated_at as timestamp without time zone) as updated_at,
+        {% else -%}
+            last_login_at,
+            created_at,
+            updated_at,
+        {% endif %}
         email,
         name,
         organization_id,
@@ -41,8 +48,7 @@ final as (
         time_zone,
         locale,
         active as is_active,
-        suspended as is_suspended,
-        last_login_at
+        suspended as is_suspended
     from fields
 )
 

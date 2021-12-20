@@ -32,7 +32,13 @@ final as (
         _fivetran_synced,
         assignee_id,
         brand_id,
-        created_at,
+        {% if target.type == 'redshift' -%}
+            cast(created_at as timestamp without time zone) as created_at,
+            cast(updated_at as timestamp without time zone) as updated_at,
+        {% else -%}
+            created_at,
+            updated_at,
+        {% endif %}
         description,
         due_at,
         group_id,
@@ -48,7 +54,6 @@ final as (
         submitter_id,
         ticket_form_id,
         type,
-        updated_at,
         url,
         via_channel as created_channel,
         via_source_from_id as source_from_id,
