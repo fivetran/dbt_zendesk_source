@@ -36,9 +36,9 @@ final as (
             cast(created_at as timestamp without time zone) as created_at,
             cast(updated_at as timestamp without time zone) as updated_at,
         {% else -%}
+            last_login_at,
             created_at,
             updated_at,
-            last_login_at,
         {% endif %}
         email,
         name,
