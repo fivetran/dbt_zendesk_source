@@ -7,5 +7,13 @@
 - Upgrades the package dependency to refer to the latest `dbt_fivetran_utils`. The latest `dbt_fivetran_utils` package also has a dependency on `dbt_utils` [">=0.8.0", "<0.9.0"].
   - Please note, if you are installing a version of `dbt_utils` in your `packages.yml` that is not in the range above then you will encounter a package dependency error.
 
+# dbt_zendesk_source v0.4.2
+## Fixes
+- Adjusted timestamp fields within staging models to explicitly cast the data type as `timestamp without time zone`. This fixes a Redshift error where downstream datediff and dateadd functions would result in an error if the timestamp fields are synced as `timestamp_tz`. ([#23](https://github.com/fivetran/dbt_zendesk_source/pull/23))
+
+## Contributors
+- @juanbriones ([#55](https://github.com/fivetran/dbt_zendesk/issues/55))
+
+
 # dbt_zendesk_source v0.1.0 -> v0.4.1
 Refer to the relevant release notes on the Github repository for specific details for the previous releases. Thank you!

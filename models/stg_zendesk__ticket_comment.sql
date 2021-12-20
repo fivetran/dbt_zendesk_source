@@ -31,7 +31,11 @@ final as (
         id as ticket_comment_id,
         _fivetran_synced,
         body,
-        created as created_at,
+        {% if target.type == 'redshift' -%}
+            cast(created as timestamp without time zone) as created_at,
+        {% else -%}
+            created as created_at,
+        {% endif %}
         public as is_public,
         ticket_id,
         user_id,
