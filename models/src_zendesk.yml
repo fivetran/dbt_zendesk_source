@@ -292,3 +292,7 @@ sources:
             description: The value of the field
           - name: user_id
             description: The id of the user who made the update
+      
+      - name: daylight_time
+      # todo: document columns
+      - name: time_zone

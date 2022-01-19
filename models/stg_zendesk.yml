@@ -198,10 +198,10 @@ models:
         description: Name of the schedule
       - name: created_at
         description: Time the schedule was created
-      - name: start_time_utc
-        description: Start time of the schedule, in UTC
+      - name: start_time
+        description: Start time of the schedule, in the schedule's time zone.
       - name: end_time_utc
-        description: End time of the schedule, in UTC  
+        description: End time of the schedule, in the schedule's time zone.
       
   - name: stg_zendesk__ticket_schedule
     description: The schedules applied to tickets through a trigger.
@@ -257,3 +257,7 @@ models:
         description: The value of the field
       - name: user_id
         description: The id of the user who made the update
+
+  - name: stg_zendesk__daylight_time
+  # todo: add descriptions
+  - name: stg_zendesk__time_zone

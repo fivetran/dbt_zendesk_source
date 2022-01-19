@@ -30,3 +30,5 @@ vars:
     ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
     user_tag: "{{ source('zendesk', 'user_tag') }}"
     user: "{{ source('zendesk', 'user') }}"
+    time_zone: "{{ source('zendesk', 'time_zone') }}"
+    daylight_time: "{{ source('zendesk', 'daylight_time') }}"
