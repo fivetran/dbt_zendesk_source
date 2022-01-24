@@ -38,7 +38,7 @@ final as (
         time_zone
         
     from fields
-    where not coalesce(_fivetran_deleted, false)
+    {# where not coalesce(_fivetran_deleted, false) #}
 )
 
 select * 
