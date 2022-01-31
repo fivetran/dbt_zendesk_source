@@ -35,10 +35,12 @@ final as (
         start_time,
         name as schedule_name,
         created_at,
-        time_zone
+        time_zone,
+        end_time_utc,
+        start_time_utc
         
     from fields
-    {# where not coalesce(_fivetran_deleted, false) #}
+    where not coalesce(_fivetran_deleted, false)
 )
 
 select * 
