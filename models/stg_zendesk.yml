@@ -263,6 +263,11 @@ models:
   - name: stg_zendesk__daylight_time
     description: >
       Appropriate offsets (from UTC) for timezones that engage or have engaged with Daylight Savings at some point since 1970.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - time_zone
+            - year    
     columns:
       - name: daylight_end_utc
         description: UTC timestamp of when Daylight Time ended in this year.
@@ -282,6 +287,9 @@ models:
     columns:
       - name: time_zone
         description: Name of the time zone. 
+        tests:
+          - unique
+          - not_null
       - name: standard_offset 
         description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.
       - name: standard_offset_minutes
