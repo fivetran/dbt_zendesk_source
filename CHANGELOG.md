@@ -1,4 +1,4 @@
-# dbt_zendesk_source v0.5.1
+# dbt_zendesk_source v0.6.0
 
 # Features
 - Incorporates the `daylight_time` and `time_zone` source tables into the package. In the transform package, these tables are used to more precisely calculate business hour metrics ([#62](https://github.com/fivetran/dbt_zendesk/issues/62)). 
