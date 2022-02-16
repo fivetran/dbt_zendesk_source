@@ -232,10 +232,12 @@ sources:
             description: Name of the schedule
           - name: created_at
             description: Time the schedule was created
-          - name: start_time_utc
-            description: Start time of the schedule, in UTC
-          - name: end_time_utc
-            description: End time of the schedule, in UTC  
+          - name: start_time
+            description: Start time of the schedule, in the schedule's time zone.
+          - name: end_time
+            description: End time of the schedule, in the schedule's time zone.
+          - name: time_zone
+            description: Timezone in which the schedule operates. 
           
       - name: ticket_schedule
         description: The schedules applied to tickets through a trigger.
@@ -292,3 +294,28 @@ sources:
             description: The value of the field
           - name: user_id
             description: The id of the user who made the update
+      
+      - name: daylight_time
+        description: >
+          Appropriate offsets (from UTC) for timezones that engage or have engaged with Daylight Savings at some point since 1970.
+        freshness: null
+        columns:
+          - name: daylight_end_utc
+            description: UTC timestamp of when Daylight Time ended in this year.
+          - name: daylight_offset
+            description: Number of **hours** added during Daylight Savings Time. 
+          - name: daylight_start_utc
+            description: UTC timestamp of when Daylight Time began in this year.
+          - name: time_zone
+            description: Name of the timezone. 
+          - name: year
+            description: Year in which daylight savings occurred. 
+
+      - name: time_zone
+        description: Offsets (from UTC) for each timezone. 
+        freshness: null
+        columns:
+          - name: time_zone
+            description: Name of the time zone. 
+          - name: standard_offset 
+            description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.

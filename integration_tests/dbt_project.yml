@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.4.2'
+version: '0.6.0'
 
 profile: 'integration_tests'
 
@@ -20,6 +20,8 @@ vars:
     brand:                  "{{ ref('brand_data') }}"
     ticket_form_history:    "{{ ref('ticket_form_history_data') }}"
     domain_name:            "{{ ref('domain_name_data') }}"
+    time_zone:              "{{ ref('time_zone_data') }}"
+    daylight_time:          "{{ ref('daylight_time_data') }}"
     organization_tag:       "{{ fivetran_utils.snowflake_seed_data('organization_tag_data') }}" 
     user:                   "{{ fivetran_utils.snowflake_seed_data('user_data') }}" 
 
