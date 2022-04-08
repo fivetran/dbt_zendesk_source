@@ -23,7 +23,7 @@ fields as (
         }}
 
         --The below script allows for pass through columns.
-        {% if var('zendesk__ticket_passthrough_columns') %}
+        {% if var('zendesk__ticket_passthrough_columns',[]) %}
         ,
         {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
 
@@ -70,7 +70,7 @@ final as (
         via_source_to_name as source_to_name
 
         --The below script allows for pass through columns.
-        {% if var('zendesk__ticket_passthrough_columns') %}
+        {% if var('zendesk__ticket_passthrough_columns',[]) %}
         ,
         {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
 
