@@ -41,6 +41,15 @@ vars:
     zendesk_database: your_database_name
 ```
 
+### Adding Passthrough Columns
+This package includes all source columns defined in the staging models. However, the `stg_zendesk__ticket` model allows for additional columns to be added using a pass-through column variable. This is extremely useful if you'd like to include custom fields to the package.
+```yml
+# dbt_project.yml
+
+...
+vars:
+  zendesk__ticket_passthrough_columns: [account_custom_field_1, account_custom_field_2]
+```
 ### Changing the Build Schema
 By default this package will build the Zendesk Support staging models within a schema titled (<target_schema> + `_zendesk_staging`) in your target database. If this is not where you would like you Zendesk Support staging data to be written to, add the following configuration to your `dbt_project.yml` file:
 
