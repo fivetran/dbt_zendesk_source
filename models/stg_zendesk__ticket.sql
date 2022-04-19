@@ -21,6 +21,13 @@ fields as (
                 staging_columns=get_ticket_columns()
             )
         }}
+
+        --The below script allows for pass through columns.
+        {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}
+        ,
+        {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
+
+        {% endif %}
         
     from base
 ),
@@ -61,6 +68,14 @@ final as (
         via_source_rel as source_rel,
         via_source_to_address as source_to_address,
         via_source_to_name as source_to_name
+
+        --The below script allows for pass through columns.
+        {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}
+        ,
+        {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
+
+        {% endif %}
+
     from fields
 )
 
