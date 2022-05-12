@@ -8,7 +8,7 @@ profile: 'integration_tests'
 vars:
   zendesk_schema: zendesks_sources_integration_tests
   zendesk_source:
-    zendesk_group_identifier:                  "group_data"
+    zendesk_group_identifier:                  "{% if target.type == snowflake %} GROUP_DATA {% else %} group_data {% endif %}"
     zendesk_organization_identifier:           "organization_data"
     zendesk_schedule_identifier:               "schedule_data"
     zendesk_ticket_identifier:                 "ticket_data"
