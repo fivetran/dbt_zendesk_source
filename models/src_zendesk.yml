@@ -15,6 +15,7 @@ sources:
 
     tables:
       - name: ticket
+        identifier: "{{ var('zendesk_ticket_identifier', 'ticket')}}"
         description: >
           Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
           originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
@@ -72,6 +73,7 @@ sources:
             description: The name of the source the ticket was created from    
 
       - name: brand
+        identifier: "{{ var('zendesk_brand_identifier', 'brand')}}"
         description: >
           Brands are your customer-facing identities. They might represent multiple products or services, or they 
           might literally be multiple brands owned and represented by your company.
@@ -88,6 +90,7 @@ sources:
             description: If the brand is set as active
 
       - name: domain_name
+        identifier: "{{ var('zendesk_domain_name_identifier', 'domain_name')}}"
         description: Domain names associated with an organization. An organization may have multiple domain names.
         meta:
           is_enabled: "{{ var('using_domain_names', true) }}"
@@ -100,12 +103,12 @@ sources:
             description: Index number of the domain name associated with the organization
 
       - name: group
+        identifier: "{%- if target.type == 'snowflake' -%} {{ var('zendesk_group_identifier', 'GROUP') }} {%- else -%} {{ var('zendesk_group_identifier', 'group') }} {%- endif -%}"
         description: >
           When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
           element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
           only, or to an assigned agent within a Group. A ticket can never be assigned to an agent without also being 
           assigned to a Group.
-        identifier: "{%- if target.type == 'snowflake' -%} GROUP {%- else -%} group {%- endif -%}"
         quoting:
           identifier: true
         freshness: null
@@ -116,6 +119,7 @@ sources:
             description: The name of the group
 
       - name: organization_tag
+        identifier: "{{ var('zendesk_organization_tag_identifier', 'organization_tag') }}"
         description: The tags associated with an organization. An organization may have multiple tags.
         meta:
           is_enabled: "{{ var('using_organization_tags', true) }}"
@@ -126,6 +130,7 @@ sources:
             description: Tag associated with the organization
 
       - name: organization
+        identifier: "{{ var('zendesk_organization_identifier', 'organization') }}"
         description: >
           Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
           organizations. You can manually assign customers to an organization or automatically assign them to an organization 
@@ -165,6 +170,7 @@ sources:
             description: Custom fields for this organization
 
       - name: ticket_comment
+        identifier: "{{ var('zendesk_ticket_comment_identifier', 'ticket_comment') }}"
         description: Ticket comments represent the conversation between requesters, collaborators, and agents. Comments can be public or private.
         loaded_at_field: _fivetran_synced
         columns:
@@ -188,6 +194,7 @@ sources:
             description: Boolean field indicating if the comment is a voice comment
 
       - name: user_tag
+        identifier: "{{ var('zendesk_user_tag_identifier', 'user_tag') }}"
         description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
         meta:
           is_enabled: "{{ var('using_user_tags', true) }}"
@@ -198,6 +205,7 @@ sources:
             description: Tag associated with the user
 
       - name: user
+        identifier: "{{ var('zendesk_user_identifier', 'user') }}"
         description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
         freshness: null
         columns:
@@ -221,6 +229,7 @@ sources:
             description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
       - name: schedule
+        identifier: "{{ var('zendesk_schedule_identifier', 'schedule') }}"
         description: The support schedules created with different business hours and holidays. 
         freshness: null
         meta:
@@ -240,6 +249,7 @@ sources:
             description: Timezone in which the schedule operates. 
           
       - name: ticket_schedule
+        identifier: "{{ var('zendesk_ticket_schedule_identifier', 'ticket_schedule') }}"
         description: The schedules applied to tickets through a trigger.
         freshness: null
         columns: 
@@ -251,6 +261,7 @@ sources:
             description: The ID of the schedule applied to the ticket
       
       - name: ticket_form_history
+        identifier: "{{ var('zendesk_ticket_form_history_identifier', 'ticket_form_history') }}"
         description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
         meta:
           is_enabled: "{{ var('using_ticket_form_history', true) }}"
@@ -269,6 +280,7 @@ sources:
             description: The name of the form
 
       - name: ticket_tag
+        identifier: "{{ var('zendesk_ticket_tag_identifier', 'ticket_tag') }}"
         description: >
           Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
           tags currently associated with a ticket.
@@ -279,8 +291,8 @@ sources:
           - name: tags
             description: The tag, or word(s), associated with the ticket
 
-      
       - name: ticket_field_history
+        identifier: "{{ var('zendesk_ticket_field_history_identifier', 'ticket_field_history') }}"
         description: All fields and field values associated with tickets.
         freshness: null
         columns: 
@@ -296,6 +308,7 @@ sources:
             description: The id of the user who made the update
       
       - name: daylight_time
+        identifier: "{{ var('zendesk_daylight_time_identifier', 'daylight_time') }}"
         description: >
           Appropriate offsets (from UTC) for timezones that engage or have engaged with Daylight Savings at some point since 1970.
         freshness: null
@@ -312,6 +325,7 @@ sources:
             description: Year in which daylight savings occurred. 
 
       - name: time_zone
+        identifier: "{{ var('zendesk_time_zone_identifier', 'time_zone') }}"
         description: Offsets (from UTC) for each timezone. 
         freshness: null
         columns:
