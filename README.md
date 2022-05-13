@@ -15,9 +15,12 @@
 
 # Zendesk Source dbt Package ([Docs](https://fivetran.github.io/dbt_zendesk_source/))
 # 📣 What does this dbt package do?
-- Cleans, tests, and prepares your zendesk data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis.
-- Generates a comprehensive data dictionary of your zendesk data through the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/)
-- Materializes staging tables that leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk/#schemainformation). These tables are designed to work simultaneously with our [Zendesk modeling package](https://github.com/fivetran/dbt_zendesk). Learn more about these models on the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/#!/overview/zendesk_source/models/?g_v=1).
+- Materializes [Zendesk staging tables](https://fivetran.github.io/dbt_github_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
+  - Name columns for consistency across all packages and easier analysis
+  - Adds freshness tests to source data
+  - Adds column-level testing where applicable. For example, all primary keys are tested for uniqueness and non-null values.
+- Generates a comprehensive data dictionary of your Zendesk data through the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/).
+- These tables are designed to work simultaneously with our [Zendesk transformation package](https://github.com/fivetran/dbt_zendesk).
 
 # 🎯 How do I use the dbt package?
 ## Step 1: Prerequisites
@@ -38,7 +41,7 @@ By default, this package runs using your target database and the `zendesk` schem
 
 ```yml
 vars:
-    zendesk_database: your_database_name
+    zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
 ## Step 4: Disable models for non-existent sources
@@ -86,12 +89,12 @@ vars:
 <details><summary>Expand to view details</summary>
 <br>
     
-Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
+Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core™ setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
 </details>
     
 # 🔍 Does this package have dependencies?
-This dbt package is dependent on the following dbt packages. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
-> IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them to avoid package version conflicts.
+This dbt package is dependent on the following dbt packages. Please be aware that these dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
+> IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them from your root `packages.yml` to avoid package version conflicts.
 ```yml
 packages:
     - package: fivetran/fivetran_utils
