@@ -26,7 +26,7 @@
 ## Step 1: Prerequisites
 To use this dbt package, you must have the following:
 - A Fivetran Zendesk connector syncing data into your destination. 
-- A **BigQuery**, **Snowflake**, **Redshift**, or **PostgreSQL** destination.
+- A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
 ## Step 2: Install the package
 Include the following zendesk_source package version in your `packages.yml` file.
