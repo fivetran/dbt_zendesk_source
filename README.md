@@ -28,8 +28,16 @@ To use this dbt package, you must have the following:
 - A Fivetran Zendesk connector syncing data into your destination. 
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
+### Databricks Dispatch Configuration
+If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
+```yml
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+```
+
 ## Step 2: Install the package
-Include the following zendesk_source package version in your `packages.yml` file.
+Include the following zendesk_source package version in your `packages.yml` file **only if you are NOT also installing the [Zendesk transformation package](https://github.com/fivetran/dbt_zendesk)**. The transform package has a dependency on this source package.
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
