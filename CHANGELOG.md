@@ -1,9 +1,12 @@
 # dbt_zendesk_source v0.7.0
+🚨 This includes Breaking Changes! 🚨
+
 ## 🎉 Documentation and Feature Updates 🎉
-- Updated README documentation for easier navigation and dbt package setup.
-- Included the `zendesk_[source_table_name]_identifier` variables for easier flexibility of the package models to refer to differently named sources tables.
+- Updated README documentation for easier navigation and dbt package setup ([#28](https://github.com/fivetran/dbt_zendesk_source/pull/28)).
+- Included the `zendesk_[source_table_name]_identifier` variables for easier flexibility of the package models to refer to differently named sources tables ([#28](https://github.com/fivetran/dbt_zendesk_source/pull/28)).
 - Databricks compatibility 🧱 ([#29](https://github.com/fivetran/dbt_zendesk_source/pull/29))
-- README clarifications on installing the source and transform Zendesk packages together.
+- By default, this package now builds the Zendesk staging models within a schema titled (`<target_schema>` + `_zendesk_source`) in your target database. This was previously `<target_schema>` + `_zendesk_staging`, but we have changed it to maintain consistency with our other packges. See the README for instructions on how to configure the build schema differently. 
+
 # dbt_zendesk_source v0.6.1
 ## Features
 - The `stg_zendesk__ticket` table now allows for your custom passthrough columns to be added via the `zendesk__ticket_passthrough_columns` variable. You can add your passthrough columns as a list within the variable in your project configuration. ([#27](https://github.com/fivetran/dbt_zendesk_source/pull/27))
