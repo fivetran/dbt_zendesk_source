@@ -1,4 +1,6 @@
 
+{{ config(materialized='view') }}
+
 with base as (
 
     select * 
