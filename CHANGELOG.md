@@ -1,3 +1,9 @@
+# dbt_zendesk v0.7.1
+## Bugfix: 
+- finish
+## Contributors
+[@fbertsch](https://github.com/fbertsch) ([#71](https://github.com/fivetran/dbt_zendesk/issues/71))
+
 # dbt_zendesk_source v0.7.0
 🚨 This includes Breaking Changes! 🚨
 
