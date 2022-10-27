@@ -1,12 +1,12 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.7.0'
+version: '0.8.0'
 
 profile: 'integration_tests'
 
 vars:
-  zendesk_schema: zendesks_sources_integration_tests
+  zendesk_schema: zendesk_source_integration_tests
   zendesk_source:
     zendesk_organization_identifier:           "organization_data"
     zendesk_schedule_identifier:               "schedule_data"
@@ -135,4 +135,4 @@ seeds:
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ['!!!!!!! REPLACE 'spark' WITH 'spark','databricks' OR EQUIV !!!!!!!_utils', 'dbt_utils']
+    search_order: ['spark_utils', 'dbt_utils']
