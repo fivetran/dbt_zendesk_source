@@ -7,7 +7,7 @@ models:
     materialized: table
     +schema: zendesk_source
     tmp:
-      materialized: view
+      materialized: view 
 vars:
   zendesk_source:
     group: "{{ source('zendesk', 'group') }}"
