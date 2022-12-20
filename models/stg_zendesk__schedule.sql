@@ -30,7 +30,7 @@ fields as (
 final as (
     
     select 
-        cast(id as {{ dbt_utils.type_string() }}) as schedule_id, --need to convert from numeric to string for downstream models to work properly
+        cast(id as {{ dbt.type_string() }}) as schedule_id, --need to convert from numeric to string for downstream models to work properly
         end_time,
         start_time,
         name as schedule_name,

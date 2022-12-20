@@ -36,7 +36,7 @@ final as (
         {% else -%}
             created_at,
         {% endif %}
-        cast(schedule_id as {{ dbt_utils.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
+        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
     from fields
 )
 

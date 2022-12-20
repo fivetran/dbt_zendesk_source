@@ -28,8 +28,8 @@ final as (
         time_zone,
         -- the standard_offset is a string written as [+/-]HH:MM
         -- let's convert it to an integer value of minutes
-        cast( {{ dbt_utils.split_part(string_text='standard_offset', delimiter_text="':'", part_number=1) }} as {{ dbt_utils.type_int() }} ) * 60 +
-            (cast( {{ dbt_utils.split_part(string_text='standard_offset', delimiter_text="':'", part_number=2) }} as {{ dbt_utils.type_int() }} ) *
+        cast( {{ dbt.split_part(string_text='standard_offset', delimiter_text="':'", part_number=1) }} as {{ dbt.type_int() }} ) * 60 +
+            (cast( {{ dbt.split_part(string_text='standard_offset', delimiter_text="':'", part_number=2) }} as {{ dbt.type_int() }} ) *
                 (case when standard_offset like '-%' then -1 else 1 end) ) as standard_offset_minutes
     
     from fields
