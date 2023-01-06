@@ -16,9 +16,9 @@ from {{ source('zendesk', 'ticket_schedule') }}
 {% else %}
 
 select
-    cast(null as {{ dbt_utils.type_timestamp() }}) as _fivetran_synced,
-    cast(null as {{ dbt_utils.type_timestamp() }}) as created_at,
-    cast(null as {{ dbt_utils.type_int() }}) as schedule_id,
-    cast(null as {{ dbt_utils.type_int() }}) as ticket_id
+    cast(null as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+    cast(null as {{ dbt.type_timestamp() }}) as created_at,
+    cast(null as {{ dbt.type_int() }}) as schedule_id,
+    cast(null as {{ dbt.type_int() }}) as ticket_id
 
 {% endif %}
