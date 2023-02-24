@@ -49,6 +49,17 @@ vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
+
+If you cannot hard-code your database or schema, you can provide the names of environment variables that contain these values:
+
+```yml
+vars:
+    zendesk_database_env_var: your_destination_name
+    zendesk_schema_env_var: your_schema_name 
+```
+
+If `_env_var` values are set, they will be used before falling back to hard-coded `var` values.
+
 ## Step 4: Disable models for non-existent sources
 This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
 ```yml
