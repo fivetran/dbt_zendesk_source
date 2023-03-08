@@ -5,6 +5,10 @@
 ## Contributors
 - [stumelius](https://github.com/stumelius) ([#32](https://github.com/fivetran/dbt_zendesk_source/pull/32))
 
+# dbt_zendesk_source v0.8.2
+
+# Features
+- Added the ability to set source database and schema using environment variables.
 # dbt_zendesk_source v0.8.0
 
 ## 🚨 Breaking Changes 🚨:
