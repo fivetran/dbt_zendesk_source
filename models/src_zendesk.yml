@@ -332,3 +332,19 @@ sources:
             description: Name of the time zone. 
           - name: standard_offset 
             description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.
+      
+      - name: schedule_holiday
+        identifier: "{{ var('zendesk_schedule_holiday_identifier', 'schedule_holiday') }}"
+        description: Offsets (from UTC) for each timezone. 
+        freshness: null
+        columns:
+          - name: end_date
+            description: ISO 8601 representation of the holiday end date.
+          - name: id
+            description: 	The ID of the scheduled holiday.
+          - name: name
+            description: Name of the holiday.
+          - name: schedule_id
+            description: 	The ID of the schedule.
+          - name: start_date
+            description: 	ISO 8601 representation of the holiday start date.

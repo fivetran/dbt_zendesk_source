@@ -294,3 +294,20 @@ models:
         description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.
       - name: standard_offset_minutes
         description: Standard offset of the timezone (non-daylight savings hours) in minutes.
+
+  - name: stg_zendesk__schedule_holiday
+    description: Information about holidays for each specified schedule.
+    columns:
+          - name: end_date_at
+            description: ISO 8601 representation of the holiday end date.
+          - name: holiday_id
+            description: 	The ID of the scheduled holiday.
+            tests:
+              - unique
+              - not_null
+          - name: holiday_name
+            description: Name of the holiday.
+          - name: schedule_id
+            description: 	The ID of the schedule.
+          - name: start_date_at
+            description: 	ISO 8601 representation of the holiday start date.

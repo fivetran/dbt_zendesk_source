@@ -16,6 +16,7 @@ vars:
     organization_tag: "{{ source('zendesk', 'organization_tag') }}"
     organization: "{{ source('zendesk', 'organization') }}"
     schedule: "{{ source('zendesk', 'schedule') }}"
+    schedule_holiday: "{{ source('zendesk', 'schedule_holiday') }}"
     satisfaction_rating: "{{ source('zendesk', 'satisfaction_rating') }}"
     ticket: "{{ source('zendesk', 'ticket') }}"
     ticket_form_history: "{{ source('zendesk', 'ticket_form_history') }}"
