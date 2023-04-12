@@ -335,7 +335,7 @@ sources:
       
       - name: schedule_holiday
         identifier: "{{ var('zendesk_schedule_holiday_identifier', 'schedule_holiday') }}"
-        description: Offsets (from UTC) for each timezone. 
+        description: Information about holidays for each specified schedule.
         freshness: null
         columns:
           - name: end_date
