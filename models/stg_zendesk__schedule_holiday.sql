@@ -24,11 +24,11 @@ final as (
     select
         _fivetran_deleted,
         _fivetran_synced,
-        end_date as holiday_end_date_at,
-        cast(id as {{ dbt.type_string() }}) as holiday_id,
+        cast(end_date as {{ dbt.type_timestamp() }} ) as holiday_end_date_at,
+        cast(id as {{ dbt.type_string() }} ) as holiday_id,
         name as holiday_name,
-        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id,
-        start_date as holiday_start_date_at
+        cast(schedule_id as {{ dbt.type_string() }} ) as schedule_id,
+        cast(start_date as {{ dbt.type_timestamp() }} ) as holiday_start_date_at
     from fields
 )
 
