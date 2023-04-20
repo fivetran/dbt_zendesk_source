@@ -1,3 +1,9 @@
+# dbt_zendesk_source v0.8.2
+## Bug Fixes
+- Enable historical modeling: updated the `stg_zendesk__group` model to keep deleted groups. Added `is_deleted` tag to enable filtering in downstream models.
+## Contributors
+- [Estelle Wolski](https://github.com/EstelleBarnoud) ([#36](https://github.com/fivetran/dbt_zendesk_source/pull/36))
+
 # dbt_zendesk_source v0.8.1
 ## Bug Fixes
 - Updated the dbt-utils dispatch within the `stg_zendesk__ticket_schedule_tmp` model to properly dispatch `dbt` as opposed to `dbt_utils` for the cross-db-macros. ([#32](https://github.com/fivetran/dbt_zendesk_source/pull/32))
