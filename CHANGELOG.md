@@ -1,3 +1,9 @@
+# dbt_zendesk_source v0.UPDATE.UPDATE
+
+ ## Under the Hood:
+
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
+- Updated the pull request [templates](/.github).
 # dbt_zendesk_source v0.8.1
 ## Bug Fixes
 - Updated the dbt-utils dispatch within the `stg_zendesk__ticket_schedule_tmp` model to properly dispatch `dbt` as opposed to `dbt_utils` for the cross-db-macros. ([#32](https://github.com/fivetran/dbt_zendesk_source/pull/32))
