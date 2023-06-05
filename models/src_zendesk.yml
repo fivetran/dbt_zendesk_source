@@ -341,10 +341,10 @@ sources:
           - name: end_date
             description: ISO 8601 representation of the holiday end date.
           - name: id
-            description: 	The ID of the scheduled holiday.
-          - name: name
+            description: The ID of the scheduled holiday.
+          - name: nameå
             description: Name of the holiday.
           - name: schedule_id
-            description: 	The ID of the schedule.
+            description: The ID of the schedule.
           - name: start_date
-            description: 	ISO 8601 representation of the holiday start date.
+            description: ISO 8601 representation of the holiday start date.
