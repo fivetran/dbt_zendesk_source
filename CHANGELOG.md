@@ -1,8 +1,8 @@
-# dbt_zendesk_source v0.9.1
+# dbt_zendesk_source v0.9.0
 
 
 # 🚨 New Schedule Holiday Table 🚨
-- Adding the `schedule_holiday` source table so that downstream models that involve business minutes calculations will accurately take holiday time into account. ([#92](https://github.com/fivetran/dbt_zendesk/issues/92))
+- Adding the `schedule_holiday` source table so that downstream models that involve business minutes calculations will accurately take holiday time into account. This staging model may be disabled by setting `using_schedules` to false. ([#92](https://github.com/fivetran/dbt_zendesk/issues/92))
 
 # dbt_zendesk_source v0.8.1
 ## Bug Fixes
