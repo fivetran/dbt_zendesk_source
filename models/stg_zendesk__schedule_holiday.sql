@@ -22,8 +22,8 @@ fields as (
 final as (
     
     select
-        _fivetran_deleted,
-        _fivetran_synced,
+        cast(_fivetran_deleted as {{ dbt.type_timestamp() }} ) as _fivetran_deleted,
+        cast(_fivetran_synced as {{ dbt.type_timestamp() }} ) as _fivetran_synced,
         cast(end_date as {{ dbt.type_timestamp() }} ) as holiday_end_date_at,
         cast(id as {{ dbt.type_string() }} ) as holiday_id,
         name as holiday_name,
