@@ -337,6 +337,8 @@ sources:
         identifier: "{{ var('zendesk_schedule_holiday_identifier', 'schedule_holiday') }}"
         description: Information about holidays for each specified schedule.
         freshness: null
+        meta:
+          is_enabled: "{{ var('using_schedules', true) }}"
         columns:
           - name: end_date
             description: ISO 8601 representation of the holiday end date.
