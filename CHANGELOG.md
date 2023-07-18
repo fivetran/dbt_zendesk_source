@@ -1,8 +1,11 @@
 # dbt_zendesk_source v0.9.0
 
-
 # 🚨 New Schedule Holiday Table 🚨
 - Adding the `schedule_holiday` source table so that downstream models that involve business minutes calculations will accurately take holiday time into account. This staging model may be disabled by setting `using_schedules` to false. ([#92](https://github.com/fivetran/dbt_zendesk/issues/92))
+
+## Under the Hood:
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
+- Updated the pull request [templates](/.github).
 
 # dbt_zendesk_source v0.8.1
 ## Bug Fixes
