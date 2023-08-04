@@ -15,6 +15,9 @@ models:
         description: The API url of this ticket
       - name: assignee_id
         description: The agent currently assigned to the ticket
+        tests:
+          - unique
+          - not_null
       - name: brand_id
         description: Enterprise only. The id of the brand this ticket is associated with
       - name: created_at
