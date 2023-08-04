@@ -48,6 +48,7 @@ final as (
         {% endif %}
         description,
         due_at,
+        fail_here,
         group_id,
         external_id,
         is_public,
