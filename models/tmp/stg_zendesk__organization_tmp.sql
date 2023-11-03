@@ -1,2 +1,2 @@
-select {{ dbt_utils.star(from=source('zendesk', 'organization')) }}
+select {{ dbt_utils.star(source('zendesk', 'organization')) }}
 from {{ var('organization') }}
