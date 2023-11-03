@@ -1,3 +1,9 @@
+# dbt_zendesk_source v0.9.1
+[PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
+
+# 🎉 Feature Update 🎉 
+- Updated our `tmp` models to utilize the `dbt_utils.star` macro rather than the select * function. This removes Snowflake issues that arise when a source's dimensions change. 
+
 # dbt_zendesk_source v0.9.0
 
 # 🚨 New Schedule Holiday Table 🚨
