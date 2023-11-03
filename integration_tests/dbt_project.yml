@@ -20,11 +20,11 @@ vars:
     zendesk_domain_name_identifier:            "domain_name_data"
     zendesk_time_zone_identifier:              "time_zone_data"
     zendesk_daylight_time_identifier:          "daylight_time_data"
-    zendesk_group_identifier:                  "{{ ref('group_data') }}" 
-    zendesk_brand_identifier:                  "{{ fivetran_utils.seed_data_helper('brand_data',['postgres']) }}" 
-    zendesk_user_tag_identifier:               "{{ fivetran_utils.snowflake_seed_data('user_tag_data') }}" 
-    zendesk_organization_tag_identifier:       "{{ fivetran_utils.snowflake_seed_data('organization_tag_data') }}" 
-    zendesk_user_identifier:                   "{{ fivetran_utils.snowflake_seed_data('user_data') }}" 
+    group:                                     "{{ ref('group_data') }}" 
+    brand:                                     "{{ fivetran_utils.seed_data_helper('brand_data',['postgres']) }}" 
+    user_tag:                                  "{{ fivetran_utils.snowflake_seed_data('user_tag_data') }}" 
+    organization_tag:                          "{{ fivetran_utils.snowflake_seed_data('organization_tag_data') }}" 
+    user:                                      "{{ fivetran_utils.snowflake_seed_data('user_data') }}" 
 
     using_schedules:            True
     using_domain_names:         True
