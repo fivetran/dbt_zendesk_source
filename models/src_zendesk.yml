@@ -102,14 +102,13 @@ sources:
             description: Index number of the domain name associated with the organization
 
       - name: group
-        identifier: "{%- if target.type == 'snowflake' -%} {{ var('zendesk_group_identifier', 'GROUP') }} {%- else -%} {{ var('zendesk_group_identifier', 'group') }} {%- endif -%}"
+        identifier: >
+          {% if target.type == 'snowflake' %} {{ var('zendesk_group_identifier', '"GROUP"') }} {% else %} {{ var('zendesk_group_identifier', 'group') }} {% endif %}
         description: >
           When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
           element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
           only, or to an assigned agent within a Group. A ticket can never be assigned to an agent without also being 
           assigned to a Group.
-        quoting:
-          identifier: true
         freshness: null
         columns:
           - name: id
