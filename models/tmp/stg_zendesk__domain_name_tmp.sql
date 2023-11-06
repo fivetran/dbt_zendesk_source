@@ -2,4 +2,4 @@
 {{ config(enabled=var('using_domain_names', True)) }}
 
 select {{ dbt_utils.star(source('zendesk', 'domain_name')) }}
-from {{ var('domain_name') }}
+from {{ source('zendesk', 'domain_name') }}

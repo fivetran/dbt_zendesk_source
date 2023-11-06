@@ -2,4 +2,4 @@
 {{ config(enabled=var('using_schedules', True)) }}
 
 select {{ dbt_utils.star(source('zendesk', 'schedule')) }}
-from {{ var('schedule') }}
+from {{ source('zendesk', 'schedule') }}

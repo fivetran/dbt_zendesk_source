@@ -2,4 +2,4 @@
 {{ config(enabled=var('using_ticket_form_history', True)) }}
 
 select {{ dbt_utils.star(source('zendesk', 'ticket_form_history')) }}
-from {{ var('ticket_form_history') }}
+from {{ source('zendesk', 'ticket_form_history') }}

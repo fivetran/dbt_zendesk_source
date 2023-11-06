@@ -2,4 +2,4 @@
 {{ config(enabled=var('using_schedules', True)) }}
 
 select {{ dbt_utils.star(source('zendesk', 'time_zone')) }}
-from {{ var('time_zone') }}
+from {{ source('zendesk', 'time_zone') }}

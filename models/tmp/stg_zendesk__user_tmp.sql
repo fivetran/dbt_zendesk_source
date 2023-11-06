@@ -1,2 +1,2 @@
-select {{ dbt_utils.star(fivetran_utils.snowflake_seed_data('user_data')) }}   
-from {{ var('user') }}
+select {{ dbt_utils.star(source('zendesk','user')) }}   
+from {{ source('zendesk','user') }}
