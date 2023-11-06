@@ -48,7 +48,7 @@ seeds:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
         updated_at: timestamp
-      +enabled: "{{ true if target.type !== 'snowflake' else false }}"
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
     groups_data_snowflake:
       +alias: group_data
       +column_types:
