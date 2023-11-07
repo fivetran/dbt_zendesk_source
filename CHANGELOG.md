@@ -4,6 +4,9 @@
 # 🎉 Feature Update 🎉 
 - Updated our `tmp` models to utilize the `dbt_utils.star` macro rather than the select * function. This removes Snowflake issues that arise when a source's dimensions change. 
 
+## 🔎 Under the Hood 🔎 
+- Updates to the seed files and seed file configurations for the package integration tests to ensure updates are properly tested.
+
 # dbt_zendesk_source v0.9.0
 
 # 🚨 New Schedule Holiday Table 🚨
