@@ -70,6 +70,7 @@ seeds:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
         due_at: timestamp
+        updated_at: timestamp
         assignee_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         brand_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         external_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -108,6 +109,8 @@ seeds:
         locale_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         organization_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
+        last_login_at: timestamp
+        updated_at: timestamp
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
     brand_data:
       +column_types:
