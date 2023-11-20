@@ -2,4 +2,4 @@
 {{ config(enabled=var('using_schedules', True)) }}
 
 select {{ dbt_utils.star(source('zendesk', 'schedule_holiday')) }}
-from {{ source('zendesk', 'schedule_holiday') }}
+from {{ source('zendesk', 'schedule_holiday') }} as schedule_holiday_table
