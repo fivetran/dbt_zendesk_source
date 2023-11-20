@@ -92,6 +92,16 @@ If an individual source table has a different name than the package expects, add
 vars:
     zendesk_<default_source_table_name>_identifier: your_table_name 
 ```
+
+### 🚨 Snowflake Users
+If you do **not** use the default all-caps naming conventions for Snowflake, you may need to provide the case-sensitive spelling of your source tables that are also Snowflake reserved words. 
+
+In this package, this would apply to the `GROUP` source. If you are receiving errors for this source, include the below identifier in your `dbt_project.yml` file:
+
+```yml
+vars:
+    zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case!
+```  
     
 </details>
 
