@@ -1,3 +1,15 @@
+# dbt_zendesk_source v0.10.0
+[PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
+
+# 🚨 Breaking Change (Snowflake users) 🚨
+- We have changed the identifier logic in `src_zendesk.yml` to account for `group` being both a Snowflake reserved word and a source table. Snowflake users will want to execute a `dbt run --full-refresh` before using the new version of the package.
+
+# 🎉 Feature Update 🎉 
+- Updated our `tmp` models to utilize the `dbt_utils.star` macro rather than the select * function. This removes Snowflake issues that arise when a source's dimensions change. 
+
+## 🔎 Under the Hood 🔎 
+- Updates to the seed files and seed file configurations for the package integration tests to ensure updates are properly tested.
+
 # dbt_zendesk_source v0.9.0
 
 # 🚨 New Schedule Holiday Table 🚨

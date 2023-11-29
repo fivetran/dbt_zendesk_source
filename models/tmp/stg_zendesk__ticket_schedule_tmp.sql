@@ -10,8 +10,8 @@
 
 {% if table_exists %}
 
-select *
-from {{ source('zendesk', 'ticket_schedule') }}
+select {{ dbt_utils.star(source('zendesk', 'ticket_schedule')) }}
+from {{ source('zendesk', 'ticket_schedule') }} as ticket_schedule_table
 
 {% else %}
 
