@@ -43,7 +43,7 @@ final as (
         email,
         name,
         organization_id,
-        {%- if var('zendesk__internal_user_criteria', false) %}
+        {% if var('zendesk__internal_user_criteria', false) -%}
             case 
                 when role in ('admin', 'agent') then role
                 when {{ var('zendesk__internal_user_criteria', false) }} then 'agent'
