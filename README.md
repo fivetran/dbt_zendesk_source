@@ -66,13 +66,23 @@ vars:
 ```
 
 ## (Optional) Step 5: Additional configurations
-<details><summary>Expand to view configurations</summary>
-    
+
 ### Add passthrough columns
 This package includes all source columns defined in the staging models. However, the `stg_zendesk__ticket` model allows for additional columns to be added using a pass-through column variable. This is extremely useful if you'd like to include custom fields to the package.
 ```yml
 vars:
   zendesk__ticket_passthrough_columns: [account_custom_field_1, account_custom_field_2]
+```
+
+### Mark Former Internal Users as Agents
+If a team member leaves your organization and their internal account is deactivated, their `USER.role` will switch from `agent` or `admin` to `end-user`. This will skew historical ticket SLA metrics, as we leverage user role to calculate them.
+
+To persist the integrity of historical ticket SLAs and mark these former employees as agents, provide the `zendesk__internal_user_criteria` variable with a SQL clause to identify them.
+
+```yml
+# dbt_project.yml
+vars:
+  zendesk__internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = 12345 or name in ('Garrett', 'Alfredo')"
 ```
 
 ### Change the build schema
@@ -102,8 +112,7 @@ In this package, this would apply to the `GROUP` source. If you are receiving er
 vars:
     zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case!
 ```  
-    
-</details>
+
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand to view details</summary>

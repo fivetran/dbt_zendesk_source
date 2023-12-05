@@ -1,3 +1,19 @@
+# dbt_zendesk_source v0.10.1
+[PR #something]() introduces the following updates:
+
+## Feature Updates
+- Added the `zendesk__internal_user_criteria` variable, which can be used to mark internal users whose `USER.role` may have changed from `agent` to `end-user` after they left your organization.
+  - Example usage:
+```yml
+# dbt_project.yml
+vars:
+  zendesk__internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = 12345"
+```
+  - Output: In `stg_zendesk__user`, users who match your criteria and have a role of `end-user` will have their role switched to `agent`.
+
+## Under the Hood
+- Updated the way we dynamically disable `sources`. Previously, we used a custom `meta.is_enabled` flag, but dbt-core introduced a native `config.enabled` attribute, which we have opted to use.
+
 # dbt_zendesk_source v0.10.0
 [PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
 

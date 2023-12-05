@@ -39,11 +39,18 @@ final as (
             last_login_at,
             created_at,
             updated_at,
-        {% endif %}
+        {% endif -%}
         email,
         name,
         organization_id,
+        {%- if var('zendesk__internal_user_criteria') %}
+            case 
+                when role in ('admin', 'agent') then role
+                when {{ var('zendesk__internal_user_criteria') }} then 'agent'
+            else role end as role,
+        {% else -%}
         role,
+        {% endif -%}
         ticket_restriction,
         time_zone,
         locale,
