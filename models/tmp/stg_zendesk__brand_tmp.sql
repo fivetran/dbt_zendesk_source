@@ -1,2 +1,12 @@
-select {{ dbt_utils.star(source('zendesk','brand')) }}  
-from {{ source('zendesk','brand') }} as brand_table
+{{
+    fivetran_utils.union_data(
+        table_identifier='brand', 
+        database_variable='zendesk_database', 
+        schema_variable='zendesk_schema', 
+        default_database=target.database,
+        default_schema='zendesk',
+        default_variable='brand',
+        union_schema_variable='zendesk_union_schemas',
+        union_database_variable='zendesk_union_databases'
+    )
+}}

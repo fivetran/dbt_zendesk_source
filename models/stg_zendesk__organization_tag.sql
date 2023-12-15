@@ -24,6 +24,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -36,7 +41,9 @@ final as (
         {% else %}
         tag
         {% endif %}
-        as tags
+        as tags,
+        source_relation
+        
     from fields
 )
 

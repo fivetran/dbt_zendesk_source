@@ -16,6 +16,12 @@ fields as (
                 staging_columns=get_schedule_holiday_columns()
             )
         }}
+
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -28,7 +34,9 @@ final as (
         cast(id as {{ dbt.type_string() }} ) as holiday_id,
         name as holiday_name,
         cast(schedule_id as {{ dbt.type_string() }} ) as schedule_id,
-        cast(start_date as {{ dbt.type_timestamp() }} ) as holiday_start_date_at
+        cast(start_date as {{ dbt.type_timestamp() }} ) as holiday_start_date_at,
+        source_relation
+        
     from fields
 )
 

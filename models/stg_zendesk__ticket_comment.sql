@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -41,7 +46,9 @@ final as (
         user_id,
         facebook_comment as is_facebook_comment,
         tweet as is_tweet,
-        voice_comment as is_voice_comment
+        voice_comment as is_voice_comment,
+        source_relation
+        
     from fields
 )
 

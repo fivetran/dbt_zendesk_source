@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -30,10 +35,12 @@ final as (
     select 
         ticket_id,
         {% if target.type == 'redshift' %}
-        "tag" as tags
+        "tag"
         {% else %}
-        tag as tags
-        {% endif %}
+        tag
+        {% endif %} as tags,
+        source_relation
+
     from fields
 )
 

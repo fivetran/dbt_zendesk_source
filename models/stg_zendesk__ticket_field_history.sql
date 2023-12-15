@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -38,7 +43,9 @@ final as (
             lead(updated) over (partition by ticket_id, field_name order by updated) as valid_ending_at,
         {% endif %}
         value,
-        user_id
+        user_id,
+        source_relation
+        
     from fields
 )
 

@@ -1,3 +1,7 @@
+# dbt_zendesk_source v0.11.0
+
+Unioning....
+
 # dbt_zendesk_source v0.10.0
 [PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
 

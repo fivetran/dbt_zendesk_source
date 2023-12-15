@@ -24,6 +24,10 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
     from base
 ),
 
@@ -35,7 +39,8 @@ final as (
         start_time,
         name as schedule_name,
         created_at,
-        time_zone
+        time_zone,
+        source_relation
         
     from fields
     where not coalesce(_fivetran_deleted, false)

@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -48,7 +53,9 @@ final as (
         time_zone,
         locale,
         active as is_active,
-        suspended as is_suspended
+        suspended as is_suspended,
+        source_relation
+        
     from fields
 )
 

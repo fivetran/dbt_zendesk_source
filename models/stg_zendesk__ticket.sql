@@ -22,6 +22,11 @@ fields as (
             )
         }}
 
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
         --The below script allows for pass through columns.
         {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}
         ,
@@ -67,7 +72,8 @@ final as (
         via_source_from_title as source_from_title,
         via_source_rel as source_rel,
         via_source_to_address as source_to_address,
-        via_source_to_name as source_to_name
+        via_source_to_name as source_to_name,
+        source_relation
 
         --The below script allows for pass through columns.
         {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}

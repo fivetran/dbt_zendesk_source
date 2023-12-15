@@ -21,6 +21,11 @@ fields as (
                 staging_columns=get_brand_columns()
             )
         }}
+
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
         
     from base
 ),
@@ -32,7 +37,9 @@ final as (
         brand_url,
         name,
         subdomain,
-        active as is_active
+        active as is_active,
+        source_relation
+        
     from fields
     where not coalesce(_fivetran_deleted, false)
 )

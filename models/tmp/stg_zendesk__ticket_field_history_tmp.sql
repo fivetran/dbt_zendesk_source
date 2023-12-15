@@ -1,2 +1,12 @@
-select {{ dbt_utils.star(source('zendesk', 'ticket_field_history')) }}
-from {{ source('zendesk', 'ticket_field_history') }} as ticket_field_history_table
+{{
+    fivetran_utils.union_data(
+        table_identifier='ticket_field_history', 
+        database_variable='zendesk_database', 
+        schema_variable='zendesk_schema', 
+        default_database=target.database,
+        default_schema='zendesk',
+        default_variable='ticket_field_history',
+        union_schema_variable='zendesk_union_schemas',
+        union_database_variable='zendesk_union_databases'
+    )
+}}
