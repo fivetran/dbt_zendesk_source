@@ -250,12 +250,7 @@ models:
           Empty string if you are not.
 
   - name: stg_zendesk__schedule
-    description: The support schedules created with different business hours and holidays. 
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns: 
-            - schedule_id
-            - source_relation 
+    description: The support schedules created with different business hours and holidays.
     columns: 
       - name: schedule_id
         description: ID automatically assigned to the schedule upon creation

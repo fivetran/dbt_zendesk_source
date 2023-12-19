@@ -47,6 +47,7 @@ packages:
     version: [">=0.10.0", "<0.11.0"]
 ```
 ## Step 3: Define database and schema variables
+### Option 1: Single connector
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
@@ -54,6 +55,31 @@ vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
+
+### Option 2: Union multiple connectors
+If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `zendesk_union_schemas` OR `zendesk_union_databases` variables (cannot do both, though a more flexible approach is in the works...) in your root `dbt_project.yml` file:
+
+```yml
+# dbt_project.yml
+
+vars:
+    zendesk_union_schemas: ['zendesk_usa','zendesk_canada'] # use this if the data is in different schemas/datasets of the same database/project
+    zendesk_union_databases: ['zendesk_usa','zendesk_canada'] # use this if the data is in different databases/projects but uses the same schema name
+```
+
+#### Recommended: Incorporate unioned sources into DAG
+By default, this package defines one source, called `zendesk`. This will point to the data in the first entry provided to `zendesk_union_schemas` or `zendesk_union_databases` (so `zendesk_usa` in the above example).
+
+To properly incorporate all of your Zendesk connectors into your project's DAG:
+1. Define your sources in a `.yml` file in your project. Please copy and paste the table and column configs from our [pre-defined](models/src_zendesk.yml) zendesk source.
+2. Set the `has_defined_sources` variable (scoped to the `zendesk_source` package) to true, like such:
+```yml
+# dbt_project.yml
+vars:
+  zendesk_source:
+    has_defined_sources: true
+```
+
 ## Step 4: Disable models for non-existent sources
 This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
 ```yml
