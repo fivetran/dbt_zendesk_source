@@ -2,15 +2,17 @@ version: 2
 
 sources:
   - name: zendesk
-    schema: "{{ var('zendesk_schema', 'zendesk') if var('zendesk_union_schemas', []) == [] else var('zendesk_union_schemas', [])[0] }}"
+    schema: "{{ var('zendesk_schema', 'zendesk') }}"
     database: "{% if target.type != 'spark'%}{{ var('zendesk_database', target.database) }}{% endif %}"
     loader: fivetran
     loaded_at_field: _fivetran_synced
+
+    config:
+      enabled: "{{ var('zendesk_union_schemas', []) == [] and var('zendesk_union_databases', []) == [] }}"
       
     freshness:
       warn_after: {count: 72, period: hour}
       error_after: {count: 168, period: hour}
-
 
     tables:
       - name: ticket
