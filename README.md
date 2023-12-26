@@ -75,6 +75,8 @@ To properly incorporate all of your Zendesk connectors into your project's DAG:
 
   <details><summary><i>Expand for source configuration template</i></summary><p>
 
+> If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`. Otherwise, you may remove them from your source definition.
+
 ```yml
 sources:
   - name: <name>
