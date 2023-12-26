@@ -37,10 +37,10 @@ final as (
         field_name,
         {% if target.type == 'redshift' -%}
             cast(updated as timestamp without time zone) as valid_starting_at,
-            cast(lead(updated) over (partition by ticket_id, field_name order by updated) as timestamp without time zone) as valid_ending_at,
+            cast(lead(updated) over (partition by ticket_id, field_name, source_relation order by updated) as timestamp without time zone) as valid_ending_at,
         {% else -%}
             updated as valid_starting_at,
-            lead(updated) over (partition by ticket_id, field_name order by updated) as valid_ending_at,
+            lead(updated) over (partition by ticket_id, field_name, source_relation order by updated) as valid_ending_at,
         {% endif %}
         value,
         user_id,
