@@ -46,6 +46,7 @@ packages:
   - package: fivetran/zendesk_source
     version: [">=0.10.0", "<0.11.0"]
 ```
+
 ## Step 3: Define database and schema variables
 ### Option 1: Single connector
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -55,6 +56,7 @@ vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
+> **Note**: If you are running the package on one source connector, each model will have a `source_relation` column that is just an empty string.
 
 ### Option 2: Union multiple connectors
 If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `zendesk_union_schemas` OR `zendesk_union_databases` variables (cannot do both, though a more flexible approach is in the works...) in your root `dbt_project.yml` file:
@@ -75,7 +77,7 @@ To properly incorporate all of your Zendesk connectors into your project's DAG:
 
   <details><summary><i>Expand for source configuration template</i></summary><p>
 
-> If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`. Otherwise, you may remove them from your source definition.
+> **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`. Otherwise, you may remove them from your source definition.
 
 ```yml
 sources:

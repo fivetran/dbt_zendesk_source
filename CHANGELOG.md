@@ -1,6 +1,7 @@
 # dbt_zendesk_source v0.11.0
 
-Unioning....
+## 🎉 Feature Update 🎉 
+This release supports runnning the package on multiple Zendesk sources at once! See the [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
 
 # dbt_zendesk_source v0.10.0
 [PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
