@@ -77,12 +77,13 @@ vars:
 ### Mark Former Internal Users as Agents
 If a team member leaves your organization and their internal account is deactivated, their `USER.role` will switch from `agent` or `admin` to `end-user`. This will skew historical ticket SLA metrics, as we calculate reply times and other metrics based on `agent` or `admin` activity only.
 
-To persist the integrity of historical ticket SLAs and mark these former team members as agents, provide the `zendesk__internal_user_criteria` variable with a SQL clause to identify them, based on fields in the `USER` table:
+To persist the integrity of historical ticket SLAs and mark these former team members as agents, provide the `internal_user_criteria` variable with a SQL clause to identify them, based on fields in the `USER` table:
 
 ```yml
 # dbt_project.yml
 vars:
-  zendesk__internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = 12345 or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
+  zendesk_source:
+    internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = 12345 or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
 ```
 
 ### Change the build schema
