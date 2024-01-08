@@ -422,7 +422,9 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. 
+> _This step is unnecessary (but still available for use) if you are unioning multiple connectors together in the previous step. That is, the `union_data` macro we use will create completely empty staging models for sources that are not found in any of your Zendesk schemas/databases. However, you can still leverage the below variables if you would like to avoid this behavior_
+
+This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality.
 
 By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
 ```yml
@@ -461,6 +463,8 @@ If an individual source table has a different name than the package expects, add
 vars:
     zendesk_<default_source_table_name>_identifier: your_table_name 
 ```
+
+This solution is most relevant to users running the package on a single connector.
 
 ### 🚨 Snowflake Users
 If you do **not** use the default all-caps naming conventions for Snowflake, you may need to provide the case-sensitive spelling of your source tables that are also Snowflake reserved words. 
