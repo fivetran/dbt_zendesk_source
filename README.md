@@ -84,7 +84,7 @@ Example usage:
 # dbt_project.yml
 vars:
   zendesk_source:
-    internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = 12345 or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
+    internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = '12345' or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
 ```
 
 ### Change the build schema
