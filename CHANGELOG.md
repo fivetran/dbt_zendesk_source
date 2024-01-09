@@ -2,7 +2,7 @@
 [PR #43](https://github.com/fivetran/dbt_zendesk_source/pull/43) introduces the following updates:
 
 ## Feature Updates
-- Added the `internal_user_criteria` variable, which can be used to mark internal users whose `USER.role` may have changed from `agent` to `end-user` after they left your organization.
+- Added the `internal_user_criteria` variable, which can be used to mark internal users whose `USER.role` may have changed from `agent` to `end-user` after they left your organization. This variable accepts SQL that may reference any non-custom field in `USER`, and it will be wrapped in a `case when` statement in the `stg_zendesk__user` model.
   - Example usage:
 ```yml
 # dbt_project.yml
