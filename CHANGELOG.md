@@ -14,6 +14,8 @@ vars:
 
 ## Under the Hood
 - Updated the way we dynamically disable sources. Previously, we used a custom `meta.is_enabled` flag, but, since we added this, dbt-core introduced a native `config.enabled` attribute.  We have opted to use the dbt-native config instead.
+- Updated the pull request [templates](/.github).
+- Included auto-releaser GitHub Actions workflow to automate future releases.
 
 # dbt_zendesk_source v0.10.0
 [PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
