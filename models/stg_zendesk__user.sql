@@ -44,11 +44,18 @@ final as (
             last_login_at,
             created_at,
             updated_at,
-        {% endif %}
+        {% endif -%}
         email,
         name,
         organization_id,
+        {% if var('internal_user_criteria', false) -%}
+            case 
+                when role in ('admin', 'agent') then role
+                when {{ var('internal_user_criteria', false) }} then 'agent'
+            else role end as role,
+        {% else -%}
         role,
+        {% endif -%}
         ticket_restriction,
         time_zone,
         locale,

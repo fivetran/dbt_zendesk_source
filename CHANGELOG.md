@@ -6,6 +6,25 @@
 ## 🔧 Under the Hood 🔧
 - Swaps Redshift-speciifc casting logic in the `stg_zendesk__ticket_field_history` model with the cross-database `dbt.type_timestamp()` macro ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
 
+# dbt_zendesk_source v0.10.1
+[PR #43](https://github.com/fivetran/dbt_zendesk_source/pull/43) introduces the following updates:
+
+## Feature Updates
+- Added the `internal_user_criteria` variable, which can be used to mark internal users whose `USER.role` may have changed from `agent` to `end-user` after they left your organization. This variable accepts SQL that may reference any non-custom field in `USER`, and it will be wrapped in a `case when` statement in the `stg_zendesk__user` model.
+  - Example usage:
+```yml
+# dbt_project.yml
+vars:
+  zendesk_source:
+    internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = '12345' or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
+```
+  - Output: In `stg_zendesk__user`, users who match your criteria and have a role of `end-user` will have their role switched to `agent`. This will ensure that downstream SLA metrics are appropriately calculated.
+
+## Under the Hood
+- Updated the way we dynamically disable sources. Previously, we used a custom `meta.is_enabled` flag, but, since we added this, dbt-core introduced a native `config.enabled` attribute.  We have opted to use the dbt-native config instead.
+- Updated the pull request [templates](/.github).
+- Included auto-releaser GitHub Actions workflow to automate future releases.
+
 # dbt_zendesk_source v0.10.0
 [PR #42](https://github.com/fivetran/dbt_zendesk_source/pull/42) introduces the following updates: 
 
