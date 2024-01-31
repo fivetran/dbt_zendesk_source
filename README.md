@@ -48,7 +48,7 @@ packages:
 ```
 
 ## Step 3: Define database and schema variables
-### Option 1: Single connector
+### Option 1: Single connector 💃
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
@@ -58,7 +58,7 @@ vars:
 ```
 > **Note**: If you are running the package on one source connector, each model will have a `source_relation` column that is just an empty string.
 
-### Option 2: Union multiple connectors
+### Option 2: Union multiple connectors 👯
 If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `zendesk_union_schemas` OR `zendesk_union_databases` variables (cannot do both, though a more flexible approach is in the works...) in your root `dbt_project.yml` file:
 
 ```yml
@@ -422,7 +422,7 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-> _This step is unnecessary (but still available for use) if you are unioning multiple connectors together in the previous step. That is, the `union_data` macro we use will create completely empty staging models for sources that are not found in any of your Zendesk schemas/databases. However, you can still leverage the below variables if you would like to avoid this behavior_
+> _This step is unnecessary (but still available for use) if you are unioning multiple connectors together in the previous step. That is, the `union_data` macro we use will create completely empty staging models for sources that are not found in any of your Zendesk schemas/databases. However, you can still leverage the below variables if you would like to avoid this behavior._
 
 This package takes into consideration that not every Zendesk account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality.
 
@@ -437,6 +437,7 @@ vars:
 ```
 
 ## (Optional) Step 5: Additional configurations
+<details open><summary>Expand/collapse configurations</summary>
 
 ### Add passthrough columns
 This package includes all source columns defined in the staging models. However, the `stg_zendesk__ticket` model allows for additional columns to be added using a pass-through column variable. This is extremely useful if you'd like to include custom fields to the package.
@@ -467,7 +468,7 @@ models:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
     
-### Change the source table references
+### Change the source table references (only if using a single connector)
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 > IMPORTANT: See this project's [dbt_project.yml](https://github.com/fivetran/dbt_zendesk_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
     
@@ -475,8 +476,6 @@ If an individual source table has a different name than the package expects, add
 vars:
     zendesk_<default_source_table_name>_identifier: your_table_name 
 ```
-
-This solution is most relevant to users running the package on a single connector.
 
 ### 🚨 Snowflake Users
 If you do **not** use the default all-caps naming conventions for Snowflake, you may need to provide the case-sensitive spelling of your source tables that are also Snowflake reserved words. 
@@ -488,6 +487,7 @@ vars:
     zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case!
 ```  
 
+</details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand to view details</summary>
