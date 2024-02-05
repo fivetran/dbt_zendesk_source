@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -33,7 +38,8 @@ final as (
         updated_at,
         details,
         name,
-        external_id
+        external_id,
+        source_relation
 
     from fields
 )

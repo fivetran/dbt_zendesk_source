@@ -24,6 +24,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -35,7 +40,8 @@ final as (
         daylight_start_utc,
         time_zone,
         year,
-        daylight_offset * 60 as daylight_offset_minutes
+        daylight_offset * 60 as daylight_offset_minutes,
+        source_relation
         
     from fields
 )

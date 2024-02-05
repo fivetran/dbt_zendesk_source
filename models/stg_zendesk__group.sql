@@ -21,7 +21,12 @@ fields as (
                 staging_columns=get_group_columns()
             )
         }}
-        
+
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -29,9 +34,10 @@ final as (
     
     select 
         id as group_id,
-        name
+        name,
+        source_relation
+
     from fields
-    
     where not coalesce(_fivetran_deleted, false)
 )
 

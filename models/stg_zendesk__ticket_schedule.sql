@@ -24,6 +24,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -36,7 +41,9 @@ final as (
         {% else -%}
             created_at,
         {% endif %}
-        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
+        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id, --need to convert from numeric to string for downstream models to work properly
+        source_relation
+        
     from fields
 )
 

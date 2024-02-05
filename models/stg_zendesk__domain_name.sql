@@ -23,6 +23,11 @@ fields as (
                 staging_columns=get_domain_name_columns()
             )
         }}
+
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
         
     from base
 ),
@@ -32,7 +37,9 @@ final as (
     select 
         organization_id,
         domain_name,
-        index
+        index,
+        source_relation
+        
     from fields
 )
 

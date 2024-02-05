@@ -23,7 +23,12 @@ fields as (
                 staging_columns=get_ticket_form_history_columns()
             )
         }}
-        
+
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -40,7 +45,9 @@ final as (
         {% endif %}
         display_name,
         active as is_active,
-        name
+        name,
+        source_relation
+        
     from fields
     where not coalesce(_fivetran_deleted, false)
     

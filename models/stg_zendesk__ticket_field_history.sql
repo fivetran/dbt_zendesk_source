@@ -22,6 +22,11 @@ fields as (
             )
         }}
         
+        {{ fivetran_utils.source_relation(
+            union_schema_variable='zendesk_union_schemas', 
+            union_database_variable='zendesk_union_databases') 
+        }}
+
     from base
 ),
 
@@ -30,15 +35,12 @@ final as (
     select 
         ticket_id,
         field_name,
-        {% if target.type == 'redshift' -%}
-            cast(updated as timestamp without time zone) as valid_starting_at,
-            cast(lead(updated) over (partition by ticket_id, field_name order by updated) as timestamp without time zone) as valid_ending_at,
-        {% else -%}
-            updated as valid_starting_at,
-            lead(updated) over (partition by ticket_id, field_name order by updated) as valid_ending_at,
-        {% endif %}
+        cast(updated as {{ dbt.type_timestamp() }}) as valid_starting_at,
+        cast(lead(updated) over (partition by ticket_id, field_name, source_relation order by updated) as {{ dbt.type_timestamp() }}) as valid_ending_at,
         value,
-        user_id
+        user_id,
+        source_relation
+        
     from fields
 )
 
