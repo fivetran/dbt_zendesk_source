@@ -1,8 +1,14 @@
 # dbt_zendesk_source v0.11.0
 
 ## Bug Fixes
-- Updated the following staging models to leverage the `{{ dbt.type_timestamp() }}` macro in order to ensure timestamp with no timezone is used in downstream models.
-  - We found that some destinations would try to convert timestamps that did not need to be converted to UTC and would therefore cause incorrect timestamps.
+- Updated the following staging models to leverage the `{{ dbt.type_timestamp() }}` macro on timestamp fields in order to ensure timestamp with no timezone is used in downstream models.
+  - `stg_zendesk__ticket`
+  - `stg_zendesk__ticket_comment`
+  - `stg_zendesk__ticket_field_history`
+  - `stg_zendesk__ticket_form_history`
+  - `stg_zendesk__ticket_schedule`
+  - `stg_zendesk__time_zone`
+  - `stg_zendesk__user`
 
 # dbt_zendesk_source v0.10.1
 [PR #43](https://github.com/fivetran/dbt_zendesk_source/pull/43) introduces the following updates:
