@@ -10,6 +10,9 @@
   - `stg_zendesk__time_zone`
   - `stg_zendesk__user`
 
+## Documentation Updates
+- Updated "Zendesk" references within the README to now refer to "Zendesk Support" in order to more accurately reflect the name of the Fivetran Zendesk Support Connector.
+
 # dbt_zendesk_source v0.10.1
 [PR #43](https://github.com/fivetran/dbt_zendesk_source/pull/43) introduces the following updates:
 
