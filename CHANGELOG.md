@@ -1,5 +1,7 @@
 # dbt_zendesk_source v0.11.0
 
+[PR #46](https://github.com/fivetran/dbt_zendesk_source/pull/46) includes the following updates:
+
 ## Bug Fixes
 - Updated the following staging models to leverage the `{{ dbt.type_timestamp() }}` macro on timestamp fields in order to ensure timestamp with no timezone is used in downstream models.
   - `stg_zendesk__ticket`
