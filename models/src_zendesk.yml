@@ -204,7 +204,7 @@ sources:
 
       - name: user
         identifier: "{{ var('zendesk_user_identifier', 'user') }}"
-        description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
+        description: Zendesk Support has three types of users, end-users (your customers), agents, and administrators.
         freshness: null
         columns:
           - name: id
