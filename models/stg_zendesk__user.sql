@@ -31,15 +31,9 @@ final as (
         id as user_id,
         external_id,
         _fivetran_synced,
-        {% if target.type == 'redshift' -%}
-            cast(last_login_at as timestamp without time zone) as last_login_at,
-            cast(created_at as timestamp without time zone) as created_at,
-            cast(updated_at as timestamp without time zone) as updated_at,
-        {% else -%}
-            last_login_at,
-            created_at,
-            updated_at,
-        {% endif -%}
+        cast(last_login_at as {{ dbt.type_timestamp() }}) as last_login_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         email,
         name,
         organization_id,

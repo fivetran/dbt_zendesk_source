@@ -165,7 +165,7 @@ models:
         description: Tag associated with the user
 
   - name: stg_zendesk__user
-    description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
+    description: Zendesk Support has three types of users, end-users (your customers), agents, and administrators.
     columns:
       - name: user_id
         description: Automatically assigned when the user is created

@@ -30,13 +30,8 @@ final as (
     select 
         ticket_id,
         field_name,
-        {% if target.type == 'redshift' -%}
-            cast(updated as timestamp without time zone) as valid_starting_at,
-            cast(lead(updated) over (partition by ticket_id, field_name order by updated) as timestamp without time zone) as valid_ending_at,
-        {% else -%}
-            updated as valid_starting_at,
-            lead(updated) over (partition by ticket_id, field_name order by updated) as valid_ending_at,
-        {% endif %}
+        cast(updated as {{ dbt.type_timestamp() }}) as valid_starting_at,
+        cast(lead(updated) over (partition by ticket_id, field_name order by updated) as {{ dbt.type_timestamp() }}) as valid_ending_at,
         value,
         user_id
     from fields
