@@ -219,6 +219,8 @@ sources:
             description: The time the user was created
           - name: organization_id
             description: The id of the user's organization. If the user has more than one organization memberships, the id of the user's default organization
+          - name: phone
+            description: User's phone number.
           - name: role
             description: The user's role. Possible values are "end-user", "agent", or "admin"
           - name: time_zone

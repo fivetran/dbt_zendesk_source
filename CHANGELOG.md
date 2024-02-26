@@ -1,3 +1,10 @@
+# dbt_zendesk_source v0.11.1
+
+[PR #46](https://github.com/fivetran/dbt_zendesk_source/pull/46) includes the following updates:
+
+## Feature Updates
+- Adds the `phone` field to `stg_zendesk__user`. 
+
 # dbt_zendesk_source v0.11.0
 
 [PR #46](https://github.com/fivetran/dbt_zendesk_source/pull/46) includes the following updates:
