@@ -37,7 +37,7 @@ final as (
         email,
         name,
         organization_id,
-        phone,
+        case when phone in ('-', 'null', 'NA') then null else phone end as phone,
         {% if var('internal_user_criteria', false) -%}
             case 
                 when role in ('admin', 'agent') then role
