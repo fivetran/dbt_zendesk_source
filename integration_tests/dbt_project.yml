@@ -100,6 +100,7 @@ seeds:
         created_at: timestamp
         last_login_at: timestamp
         updated_at: timestamp
+        phone: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
       +enabled: "{{ true if target.type != 'snowflake' else false }}"
     user_data_snowflake:
       +alias: user_data

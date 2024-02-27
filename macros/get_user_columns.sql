@@ -19,7 +19,7 @@
     {"name": "notes", "datatype": dbt.type_int()},
     {"name": "only_private_comments", "datatype": "boolean"},
     {"name": "organization_id", "datatype": dbt.type_int()},
-    {"name": "phone", "datatype": dbt.type_int()},
+    {"name": "phone", "datatype": dbt.type_string()},
     {"name": "remote_photo_url", "datatype": dbt.type_int()},
     {"name": "restricted_agent", "datatype": "boolean"},
     {"name": "role", "datatype": dbt.type_string()},
