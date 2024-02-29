@@ -4,6 +4,7 @@
 
 ## Feature Updates
 - Adds the `phone` field to `stg_zendesk__user` and ensures it is a `string`.
+- Adds documentation for `user` fields that were previously missing yml descriptions.
 
 # dbt_zendesk_source v0.11.0
 
