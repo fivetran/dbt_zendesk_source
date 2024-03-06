@@ -3,7 +3,7 @@
 [PR #48](https://github.com/fivetran/dbt_zendesk_source/pull/48) includes the following updates:
 
 ## Feature Updates
-- Adds the `phone` field to `stg_zendesk__user` and ensures it is a `string`.
+- Adds the `phone` field to `stg_zendesk__user` and ensures it is a `string` if the column is not found in your source data.
 - Adds documentation for `user` fields that were previously missing yml descriptions.
 
 # dbt_zendesk_source v0.11.0
