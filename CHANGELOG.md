@@ -1,6 +1,6 @@
 # dbt_zendesk_source v0.11.2
 
-[PR #48](https://github.com/fivetran/dbt_zendesk_source/pull/48) includes the following updates:
+[PR #49](https://github.com/fivetran/dbt_zendesk_source/pull/49) includes the following updates:
 
 ## Feature Updates
 - Adds passthrough column support for `USER` and `ORGANIZATION`. 

@@ -28,3 +28,7 @@ vars:
     user: "{{ source('zendesk', 'user') }}"
     time_zone: "{{ source('zendesk', 'time_zone') }}"
     daylight_time: "{{ source('zendesk', 'daylight_time') }}"
+
+  zendesk__ticket_passthrough_columns: []
+  zendesk__user_passthrough_columns: []
+  zendesk__organization_passthrough_columns: []
