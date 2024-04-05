@@ -15,6 +15,8 @@
     {"name": "url", "datatype": dbt.type_string()}
 ] %}
 
+{{ fivetran_utils.add_pass_through_columns(columns, var('zendesk__organization_passthrough_columns')) }}
+
 {{ return(columns) }}
 
 {% endmacro %}

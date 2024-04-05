@@ -1,3 +1,14 @@
+# dbt_zendesk_source v0.11.2
+
+[PR #48](https://github.com/fivetran/dbt_zendesk_source/pull/48) includes the following updates:
+
+## Feature Updates
+- Adds passthrough column support for `USER` and `ORGANIZATION`. 
+  - Using the new `zendesk__user_passthrough_columns` and `zendesk__organizations_passthrough_columns` variables, you can include custom columns from these source tables in their respective staging models. See [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#add-passthrough-columns) for more details on how to configure.
+- Also updated the format of the pre-existing `TICKET` passthrough column variable, `zendesk__ticket_passthrough_columns`.
+  - Previously, you could only provide a list of custom fields to be included in `stg_zendesk__ticket`. Now, you can provide an `alias` and `transform_sql` clause to be applied to each field (see [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#add-passthrough-columns) for more details).
+  - **Note**: the package is and will continue to be backwards compatible with the old list-format.
+
 # dbt_zendesk_source v0.11.1
 
 [PR #48](https://github.com/fivetran/dbt_zendesk_source/pull/48) includes the following updates:

@@ -51,6 +51,9 @@ final as (
         locale,
         active as is_active,
         suspended as is_suspended
+
+        {{ fivetran_utils.fill_pass_through_columns('zendesk__user_passthrough_columns') }}
+
     from fields
 )
 

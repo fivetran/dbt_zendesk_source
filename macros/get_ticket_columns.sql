@@ -46,6 +46,8 @@
     {"name": "via_source_to_name", "datatype": dbt.type_int()}
 ] %}
 
+{{ fivetran_utils.add_pass_through_columns(columns, var('zendesk__ticket_passthrough_columns')) }}
+
 {{ return(columns) }}
 
 {% endmacro %}

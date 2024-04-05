@@ -35,6 +35,8 @@
     {"name": "verified", "datatype": "boolean"}
 ] %}
 
+{{ fivetran_utils.add_pass_through_columns(columns, var('zendesk__user_passthrough_columns')) }}
+
 {{ return(columns) }}
 
 {% endmacro %}

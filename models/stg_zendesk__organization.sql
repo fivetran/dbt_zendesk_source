@@ -35,6 +35,8 @@ final as (
         name,
         external_id
 
+        {{ fivetran_utils.fill_pass_through_columns('zendesk__organization_passthrough_columns') }}
+
     from fields
 )
 
