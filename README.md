@@ -69,13 +69,16 @@ vars:
 <details open><summary>Collapse/Expand configurations</summary>
 
 ### Add passthrough columns
-This package includes all source columns defined in the macros folder. You can add more columns from the `TICKET`, `USER`, and `ORGANIZATION` tables using our pass-through column variables, which will persist these custom fields to the `stg_zendesk__ticket`, `stg_zendesk__user`, and `stg_zendesk__organization` models, repsectively. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables:
+This package includes all source columns defined in the macros folder. You can add more columns from the `TICKET`, `USER`, and `ORGANIZATION` tables using our pass-through column variables, which will persist these custom fields to the `stg_zendesk__ticket`, `stg_zendesk__user`, and `stg_zendesk__organization` models, respectively.
+
+These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-through fields will be casted accordingly. Use the below format for declaring the respective pass-through variables:
+
 ```yml
 vars:
   zendesk__ticket_passthrough_columns:
     - name: "account_custom_field_1" # required
       alias: "account_1" # optional
-      transform_sql: "cast(account_1 as string)" # optional, must reference the alias (if provided)
+      transform_sql: "cast(account_1 as string)" # optional, must reference the alias if an alias is provided (otherwise the original name)
     - name: "account_custom_field_2"
       transform_sql: "cast(account_custom_field_2 as string)"
     - name: "account_custom_field_3"
