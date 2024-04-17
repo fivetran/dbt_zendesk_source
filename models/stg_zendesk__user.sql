@@ -55,12 +55,12 @@ final as (
         {{ fivetran_utils.fill_pass_through_columns('zendesk__user_passthrough_columns') }}
 
         {%- set custom_fields = var('zendesk__user_passthrough_columns') -%}
-        {%- set unique_custom_field_list = [] -%}
+        {%- set unique_custom_field_list = ['user_id', 'external_id', '_fivetran_synced', 'last_login_at', 'created_at', 'updated_at', 'email', 'name', 'organization_id', 'phone', 'role', 'ticket_restriction', 'locale', 'is_active', 'is_suspended'] -%}
         {%- for field in custom_fields %}
             {%- if field is mapping %}
-                {%- do unique_custom_field_list.append(field.alias if field.alias else field.name) %}
+                {%- do unique_custom_field_list.append(field.alias|lower if field.alias else field.name|lower) %}
             {%- else %}
-                {%- do unique_custom_field_list.append(field) %}
+                {%- do unique_custom_field_list.append(field|lower) %}
             {%- endif %}
         {% endfor -%}
 
@@ -68,11 +68,11 @@ final as (
             {%- for match_set in var('customer360_internal_match_ids') %}
                 {%- if match_set.zendesk and match_set.zendesk.source|lower == 'user' %}
                     {%- if match_set.zendesk.map_table %}
-                        {%- if match_set.zendesk.join_with_map_on not in unique_custom_field_list -%}
+                        {%- if match_set.zendesk.join_with_map_on|lower not in unique_custom_field_list -%}
                             , {{ match_set.zendesk.join_with_map_on }}
                         {% endif %}
                     {%- else %}
-                        {%- if match_set.zendesk.match_key not in unique_custom_field_list -%}
+                        {%- if match_set.zendesk.match_key|lower not in unique_custom_field_list -%}
                             , {{ match_set.zendesk.match_key }}
                         {% endif %}
                     {%- endif %}
