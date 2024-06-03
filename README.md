@@ -44,7 +44,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.11.0", "<0.12.0"]
+    version: [">=0.12.0", "<0.13.0"]
 ```
 ## Step 3: Define database and schema variables
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk Support data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
