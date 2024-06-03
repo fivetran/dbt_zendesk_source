@@ -13,6 +13,10 @@ sources:
 
 
     tables:
+      - name: audit_log
+        identifier: "{{ var('zendesk_audit_log_identifier', 'audit_log')}}"
+        freshness: null
+
       - name: ticket
         identifier: "{{ var('zendesk_ticket_identifier', 'ticket')}}"
         description: >
