@@ -56,10 +56,10 @@ final as (
         via_source_rel as source_rel,
         via_source_to_address as source_to_address,
         via_source_to_name as source_to_name,
-        case when followup_ids in ('null', '[]') then null else followup_ids end as followup_ids
+        via_followup_source_id
 
-        -- added followup_ids in v.blah.blah. Ensuring backwards compatibility + avoiding potential dupe column errors if someone's added followup_ids as a passthrough column already
-        {{ zendesk_fill_pass_through_columns(pass_through_variable=var('zendesk__ticket_passthrough_columns'), except=['followup_ids']) }}
+        -- added via_followup_source_id in v.blah.blah. Ensuring backwards compatibility + avoiding potential dupe column errors if someone's added via_followup_source_id as a passthrough column already
+        {{ zendesk_fill_pass_through_columns(pass_through_variable=var('zendesk__ticket_passthrough_columns'), except=['via_followup_source_id']) }}
 
     from fields
 )
