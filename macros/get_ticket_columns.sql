@@ -9,6 +9,7 @@
     {"name": "description", "datatype": dbt.type_string()},
     {"name": "due_at", "datatype": dbt.type_timestamp()},
     {"name": "external_id", "datatype": dbt.type_int()},
+    {"name": "followup_ids", "datatype": dbt.type_string()},
     {"name": "forum_topic_id", "datatype": dbt.type_int()},
     {"name": "group_id", "datatype": dbt.type_int()},
     {"name": "has_incidents", "datatype": "boolean"},

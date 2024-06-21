@@ -70,6 +70,8 @@ sources:
             description: The address of the source the ticket was created from
           - name: via_source_to_name
             description: The name of the source the ticket was created from    
+          - name: followup_ids
+            description: Array of the ids of the followups created from this ticket. Ids are only visible once the ticket is closed.
 
       - name: brand
         identifier: "{{ var('zendesk_brand_identifier', 'brand')}}"
