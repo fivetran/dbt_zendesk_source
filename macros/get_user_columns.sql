@@ -47,8 +47,8 @@
     {%- endif %}
 {% endfor -%}
 
-{%- if var('customer360_internal_match_ids') %}
-    {%- for match_set in var('customer360_internal_match_ids') %}
+{%- if var('customer360_internal_match_ids', none) %}
+    {%- for match_set in var('customer360_internal_match_ids', []) %}
         {%- if match_set.zendesk and match_set.zendesk.source|lower == 'user' %}
             {%- if match_set.zendesk.map_table %}
                 {%- if match_set.zendesk.join_with_map_on not in unique_custom_field_list -%}
