@@ -64,7 +64,7 @@ final as (
             {%- endif %}
         {% endfor -%}
 
-        {%- if var('customer360_internal_match_ids', none) %}
+        {%- if var('customer360_internal_match_ids', []) != [] %}
             {%- for match_set in var('customer360_internal_match_ids', []) %}
                 {%- if match_set.zendesk and match_set.zendesk.source|lower == 'user' %}
                     {%- if match_set.zendesk.map_table %}
