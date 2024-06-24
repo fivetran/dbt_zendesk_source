@@ -55,9 +55,11 @@ final as (
         via_source_from_title as source_from_title,
         via_source_rel as source_rel,
         via_source_to_address as source_to_address,
-        via_source_to_name as source_to_name
+        via_source_to_name as source_to_name,
+        via_followup_source_id
 
-        {{ fivetran_utils.fill_pass_through_columns('zendesk__ticket_passthrough_columns') }}
+        -- added via_followup_source_id in v.blah.blah. Ensuring backwards compatibility + avoiding potential dupe column errors if someone's added via_followup_source_id as a passthrough column already
+        {{ zendesk_fill_pass_through_columns(pass_through_variable=var('zendesk__ticket_passthrough_columns'), except=['via_followup_source_id']) }}
 
     from fields
 )

@@ -43,7 +43,8 @@
     {"name": "via_source_from_title", "datatype": dbt.type_int()},
     {"name": "via_source_rel", "datatype": dbt.type_int()},
     {"name": "via_source_to_address", "datatype": dbt.type_int()},
-    {"name": "via_source_to_name", "datatype": dbt.type_int()}
+    {"name": "via_source_to_name", "datatype": dbt.type_int()},
+    {"name": "via_followup_source_id", "datatype": dbt.type_int()}
 ] %}
 
 {{ fivetran_utils.add_pass_through_columns(columns, var('zendesk__ticket_passthrough_columns')) }}
