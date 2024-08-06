@@ -1,5 +1,5 @@
 --To disable this model, set the using_schedules variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_schedules', True)) }}
+{{ config(enabled=var('using_schedules', True) and var('customer360__using_zendesk', true)) }}
 
 {%- set source_relation = adapter.get_relation(
       database=source('zendesk', 'ticket_schedule').database,

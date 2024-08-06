@@ -1,5 +1,5 @@
 --To disable this model, set the using_domain_names variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_domain_names', True)) }}
+{{ config(enabled=var('using_domain_names', True) and var('customer360__using_zendesk', true)) }}
 
 with base as (
 
