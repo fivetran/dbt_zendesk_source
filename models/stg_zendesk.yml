@@ -58,8 +58,8 @@ models:
       - name: source_to_address
         description: The address of the source the ticket was created from
       - name: source_to_name
-        description: The name of the source the ticket was created from  
-      - name: via_followup_source_id	
+        description: The name of the source the ticket was created from
+      - name: via_followup_source_id
         description: The id of a closed ticket when creating a follow-up ticket.
 
   - name: stg_zendesk__brand
