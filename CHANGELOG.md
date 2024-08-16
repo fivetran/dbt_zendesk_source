@@ -1,3 +1,14 @@
+# dbt_zendesk_source v0.12.0
+[PR #49](https://github.com/fivetran/dbt_zendesk_source/pull/49) includes the following updates:
+## Breaking changes
+- Added field `_fivetran_deleted` to the following models for use downstream:
+  - `stg_zendesk__ticket`
+  - `stg_zendesk__ticket_comment`
+  - `stg_zendesk__user`
+
+## Documentation
+- Updated documentation to include `_fivetran_deleted`.
+
 # dbt_zendesk_source v0.11.2
 
 [PR #49](https://github.com/fivetran/dbt_zendesk_source/pull/49) includes the following updates:
