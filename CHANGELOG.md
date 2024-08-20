@@ -5,6 +5,7 @@
   - `stg_zendesk__ticket`
   - `stg_zendesk__ticket_comment`
   - `stg_zendesk__user`
+  - If you have already added any of these fields as passthrough columns via the `zendesk__ticket_passthrough_columns` or `zendesk__user_passthrough_columns` vars, you will need to remove or alias these fields from the variable to avoid duplicate column errors.
 
 ## Documentation
 - Updated documentation to include `_fivetran_deleted`.
