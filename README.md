@@ -131,7 +131,7 @@ In this package, this would apply to the `GROUP` source. If you are receiving er
 
 ```yml
 vars:
-    zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case!
+    zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case
 ```  
 
 </details>
