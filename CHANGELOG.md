@@ -1,3 +1,15 @@
+# dbt_zendesk_source v0.12.0
+[PR #53](https://github.com/fivetran/dbt_zendesk_source/pull/53) includes the following updates:
+## Breaking changes
+- Added field `_fivetran_deleted` to the following models for use downstream:
+  - `stg_zendesk__ticket`
+  - `stg_zendesk__ticket_comment`
+  - `stg_zendesk__user`
+  - If you have already added `_fivetran_deleted` as a passthrough columns using the `zendesk__ticket_passthrough_columns` or `zendesk__user_passthrough_columns` vars, you will need to remove or alias this field from the variable to avoid duplicate column errors.
+
+## Documentation
+- Updated documentation to include `_fivetran_deleted`.
+
 # dbt_zendesk_source v0.11.2
 
 [PR #49](https://github.com/fivetran/dbt_zendesk_source/pull/49) includes the following updates:
