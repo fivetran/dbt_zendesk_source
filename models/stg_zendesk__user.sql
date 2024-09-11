@@ -31,6 +31,7 @@ final as (
         id as user_id,
         external_id,
         _fivetran_synced,
+        _fivetran_deleted,
         cast(last_login_at as {{ dbt.type_timestamp() }}) as last_login_at,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,

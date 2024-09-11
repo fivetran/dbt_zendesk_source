@@ -30,6 +30,7 @@ final as (
     select 
         id as ticket_id,
         _fivetran_synced,
+        _fivetran_deleted,
         assignee_id,
         brand_id,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,

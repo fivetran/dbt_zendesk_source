@@ -30,6 +30,7 @@ final as (
     select 
         id as ticket_comment_id,
         _fivetran_synced,
+        _fivetran_deleted,
         body,
         cast(created as {{ dbt.type_timestamp() }}) as created_at,
         public as is_public,

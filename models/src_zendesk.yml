@@ -74,6 +74,8 @@ sources:
             description: The address of the source the ticket was created from
           - name: via_source_to_name
             description: The name of the source the ticket was created from    
+          - name: _fivetran_deleted
+            description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
       - name: brand
         identifier: "{{ var('zendesk_brand_identifier', 'brand')}}"
@@ -194,6 +196,8 @@ sources:
             description: Boolean field indicating if the comment is a twitter tweet
           - name: voice_comment
             description: Boolean field indicating if the comment is a voice comment
+          - name: _fivetran_deleted
+            description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
       - name: user_tag
         identifier: "{{ var('zendesk_user_tag_identifier', 'user_tag') }}"
@@ -241,6 +245,8 @@ sources:
             description: Last time the user signed in to Zendesk Support or made an API request using an API token or basic authentication.
           - name: locale 
             description: The user's locale. A BCP-47 compliant tag for the locale. If both "locale" and "locale_id" are present on create or update, "locale_id" is ignored and only "locale" is used.
+          - name: _fivetran_deleted
+            description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
       - name: schedule
         identifier: "{{ var('zendesk_schedule_identifier', 'schedule') }}"
