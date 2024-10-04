@@ -1,3 +1,4 @@
+{{ config(enabled=var('using_schedules', True) and var('using_schedule_histories', True)) }}
 
 with base as (
 
@@ -26,10 +27,8 @@ fields as (
 ),
 
 final as (
-    
     select 
-        
-        id as audit_log_id,
+        cast(id as {{ dbt.type_string() }}) as audit_log_id,
         action,
         actor_id,
         change_description,

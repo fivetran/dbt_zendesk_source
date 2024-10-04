@@ -15,7 +15,33 @@ sources:
     tables:
       - name: audit_log
         identifier: "{{ var('zendesk_audit_log_identifier', 'audit_log')}}"
+        config:
+          enabled: "var('using_schedules', true) and var('using_schedule_histories', true))"
         freshness: null
+        description: >
+          The `audit_log` table captures historical changes and actions within Zendesk. It provides a record of modifications 
+          made to tickets, schedules, and other objects, allowing for a detailed audit trail. Each row represents an action 
+          performed by an actor, including the time of the action, the affected entity, and a description of the changes. This 
+          table is especially useful for tracking schedule modifications and maintaining a history of schedule changes.
+        columns:
+          - name: id
+            description: The unique identifier for each audit log entry, representing a distinct action or change.
+          - name: action
+            description: Describes the specific action performed within Zendesk, such as ticket updates or schedule modifications.
+          - name: actor_id
+            description: The unique identifier of the user or system responsible for performing the action.
+          - name: change_description
+            description: A detailed description of the changes made during the action, capturing what was altered.
+          - name: created_at
+            description: The timestamp indicating when the action was performed and recorded in the audit log.
+          - name: source_id
+            description: The unique identifier of the entity affected by the action, such as a ticket or schedule.
+          - name: source_label
+            description: A label that provides additional context about the affected entity, typically related to its type or name.
+          - name: source_type
+            description: Specifies the type of entity impacted by the action, such as a ticket, schedule, or user.
+          - name: _fivetran_synced
+            description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
 
       - name: ticket
         identifier: "{{ var('zendesk_ticket_identifier', 'ticket')}}"

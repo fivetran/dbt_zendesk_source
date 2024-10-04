@@ -1,3 +1,7 @@
+# dbt_zendesk_source v0.13.0
+[PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
+- Update this
+
 # dbt_zendesk_source v0.12.0
 [PR #53](https://github.com/fivetran/dbt_zendesk_source/pull/53) includes the following updates:
 ## Breaking changes
