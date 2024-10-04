@@ -1,5 +1,4 @@
-{{ config(enabled=var('using_schedules', True) and var('using_schedule_histories', True)) }}
-
+{{ config(enabled=fivetran_utils.enabled_vars(['using_schedules','using_schedule_histories'])) }}
 with base as (
 
     select * 
