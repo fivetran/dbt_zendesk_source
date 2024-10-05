@@ -385,7 +385,7 @@ sources:
         description: Information about holidays for each specified schedule.
         freshness: null
         config:
-          enabled: "{{ var('using_schedules', true) }}"
+          enabled: "{{ var('using_schedules', true) and var('using_holidays', true) }}"
         columns:
           - name: end_date
             description: ISO 8601 representation of the holiday end date.
