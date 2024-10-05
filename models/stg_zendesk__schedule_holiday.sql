@@ -1,5 +1,5 @@
---To disable this model, set the using_schedules variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_schedules', True) and var('using_holidays', True)) }}
+--To disable this model, set the using_schedules or using_holidays variable within your dbt_project.yml file to False.
+{{ config(enabled=fivetran_utils.enabled_vars(['using_schedules','using_holidays'])) }}
 
 with base as (
 
