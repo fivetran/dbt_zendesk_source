@@ -6,6 +6,10 @@ version: '0.13.0'
 profile: 'integration_tests'
 
 vars:
+
+  # enable when generating docs
+  # using_schedule_histories: true
+
   zendesk_schema: zendesk_source_integrations_tests_5
   zendesk_source:
     zendesk_organization_identifier:           "organization_data"
@@ -27,13 +31,6 @@ vars:
     zendesk_user_tag_identifier:               "user_tag_data"
     zendesk_audit_log_identifier:              "audit_log_data"
 
-
-    using_schedules:            True
-    using_domain_names:         True
-    using_user_tags:            True
-    using_ticket_form_history:  True
-    using_organization_tags:    True
-    
 seeds:
   zendesk_source_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
