@@ -7,7 +7,7 @@
   - While currently used for schedule tracking, this table has possible future applications, such as tracking user changes.
 
 ## Features
-- Updated the `stg_zendesk__schedule_holidays` model to allow users to disable holiday processing by setting `using_holidays` to `false`.
+- Updated the `stg_zendesk__schedule_holidays` model to allow users to disable holiday processing (while still using schedules) by setting `using_holidays` to `false`.
 - Added field-level documentation for the `stg_zendesk__audit_log` table.
 
 ## Under the Hood Improvements
