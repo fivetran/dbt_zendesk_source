@@ -3,7 +3,7 @@
 
 ## Breaking Changes
 - Introduced the `stg_zendesk__audit_log` table for capturing schedule changes from Zendesk's audit log.
-  - This model is disabled by default, to enable it set variable `using_schedule_histories` to `true` in `dbt_project.yml`.
+  - This model is disabled by default, to enable it set variable `using_schedule_histories` to `true` in your `dbt_project.yml`.
   - While currently used for schedule tracking, this table has possible future applications, such as tracking user changes.
 
 ## Features
