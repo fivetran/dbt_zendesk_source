@@ -44,7 +44,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.12.0", "<0.13.0"]
+    version: [">=0.13.0", "<0.14.0"]
 ```
 ### Step 3: Define database and schema variables
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk Support data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -54,11 +54,13 @@ vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
-### Step 4: Disable models for non-existent sources
-This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
+### Step 4: Enable/Disable models for non-existent sources
+This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`, except for `using_schedule_histories`. Add variables for only the tables you want to enable/disable:
 ```yml
 vars:
-    using_schedules:            False         #Disable if you are not using schedules
+    using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
+    using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
+    using_holidays:             False         #Disable if you are not using schedule_holidays for holidays
     using_domain_names:         False         #Disable if you are not using domain names
     using_user_tags:            False         #Disable if you are not using user tags
     using_ticket_form_history:  False         #Disable if you are not using ticket form history

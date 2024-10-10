@@ -1,3 +1,18 @@
+# dbt_zendesk_source v0.13.0
+[PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
+
+## Breaking Changes
+- Introduced the `stg_zendesk__audit_log` table for capturing schedule changes from Zendesk's audit log.
+  - This model is disabled by default, to enable it set variable `using_schedule_histories` to `true` in your `dbt_project.yml`.
+  - While currently used for schedule tracking, this table has possible future applications, such as tracking user changes.
+
+## Features
+- Updated the `stg_zendesk__schedule_holidays` model to allow users to disable holiday processing (while still using schedules) by setting `using_holidays` to `false`.
+- Added field-level documentation for the `stg_zendesk__audit_log` table.
+
+## Under the Hood Improvements
+- Added seed data for `audit_log` to enhance integration testing capabilities.
+
 # dbt_zendesk_source v0.12.0
 [PR #53](https://github.com/fivetran/dbt_zendesk_source/pull/53) includes the following updates:
 ## Breaking changes
