@@ -36,18 +36,14 @@ final as (
         id as user_id,
         external_id,
         _fivetran_synced,
-        {% if target.type == 'redshift' -%}
-            cast(last_login_at as timestamp without time zone) as last_login_at,
-            cast(created_at as timestamp without time zone) as created_at,
-            cast(updated_at as timestamp without time zone) as updated_at,
-        {% else -%}
-            last_login_at,
-            created_at,
-            updated_at,
-        {% endif -%}
+        _fivetran_deleted,
+        cast(last_login_at as {{ dbt.type_timestamp() }}) as last_login_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         email,
         name,
         organization_id,
+        phone,
         {% if var('internal_user_criteria', false) -%}
             case 
                 when role in ('admin', 'agent') then role
@@ -62,6 +58,8 @@ final as (
         active as is_active,
         suspended as is_suspended,
         source_relation
+
+        {{ fivetran_utils.fill_pass_through_columns('zendesk__user_passthrough_columns') }}
         
     from fields
 )

@@ -1,6 +1,32 @@
 version: 2
 
 models:
+  - name: stg_zendesk__audit_log
+    description: >
+      The `audit_log` table captures historical changes and actions within Zendesk. It provides a record of modifications 
+      made to tickets, schedules, and other objects, allowing for a detailed audit trail. Each row represents an action 
+      performed by an actor, including the time of the action, the affected entity, and a description of the changes. This 
+      table is especially useful for tracking schedule modifications and maintaining a history of schedule changes.
+    columns:
+      - name: audit_log_id
+        description: The unique identifier for each audit log entry, representing a distinct action or change.
+      - name: action
+        description: Describes the specific action performed within Zendesk, such as ticket updates or schedule modifications.
+      - name: actor_id
+        description: The unique identifier of the user or system responsible for performing the action.
+      - name: change_description
+        description: A detailed description of the changes made during the action, capturing what was altered.
+      - name: created_at
+        description: The timestamp indicating when the action was performed and recorded in the audit log.
+      - name: source_id
+        description: The unique identifier of the entity affected by the action, such as a ticket or schedule.
+      - name: source_label
+        description: A label that provides additional context about the affected entity, typically related to its type or name.
+      - name: source_type
+        description: Specifies the type of entity impacted by the action, such as a ticket, schedule, or user.
+      - name: _fivetran_synced
+        description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
+
   - name: stg_zendesk__ticket
     description: >
       Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
@@ -67,6 +93,8 @@ models:
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
+      - name: _fivetran_deleted
+        description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
   - name: stg_zendesk__brand
     description: >
@@ -203,6 +231,8 @@ models:
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
+      - name: _fivetran_deleted
+        description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
   - name: stg_zendesk__user_tag
     description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
@@ -217,12 +247,7 @@ models:
           Empty string if you are not.
 
   - name: stg_zendesk__user
-    description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns: 
-            - user_id
-            - source_relation 
+    description: Zendesk Support has three types of users, end-users (your customers), agents, and administrators.
     columns:
       - name: user_id
         description: Automatically assigned when the user is created
@@ -238,6 +263,8 @@ models:
         description: The time the user was created
       - name: organization_id
         description: The id of the user's organization. If the user has more than one organization memberships, the id of the user's default organization
+      - name: phone
+        description: User's phone number.
       - name: role
         description: The user's role. Possible values are "end-user", "agent", or "admin"
       - name: time_zone
@@ -248,6 +275,18 @@ models:
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
+      - name: is_suspended
+        description: Boolean representing whether the user has been suspended, meaning that they can no longer sign in and any new support requests you receive from them are sent to the suspended tickets queue.
+      - name: external_id
+        description: A unique identifier from another system. The API treats the id as case insensitive.
+      - name: updated_at 
+        description: The time the user was last updated.
+      - name: last_login_at
+        description: Last time the user signed in to Zendesk Support or made an API request using an API token or basic authentication.
+      - name: locale 
+        description: The user's locale. A BCP-47 compliant tag for the locale. If both "locale" and "locale_id" are present on create or update, "locale_id" is ignored and only "locale" is used.
+      - name: _fivetran_deleted
+        description: Boolean created by Fivetran to indicate whether the record has been deleted.
 
   - name: stg_zendesk__schedule
     description: The support schedules created with different business hours and holidays.

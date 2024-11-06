@@ -36,13 +36,8 @@ final as (
     
     select 
         id as ticket_form_id,
-        {% if target.type == 'redshift' -%}
-            cast(created_at as timestamp without time zone) as created_at,
-            cast(updated_at as timestamp without time zone) as updated_at,
-        {% else -%}
-            created_at,
-            updated_at,
-        {% endif %}
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         display_name,
         active as is_active,
         name,

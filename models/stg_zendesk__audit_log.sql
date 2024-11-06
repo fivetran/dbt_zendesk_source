@@ -1,8 +1,9 @@
+{{ config(enabled=var('using_schedules', True) and var('using_schedule_histories', False)) }}
 
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__organization_tmp') }}
+    from {{ ref('stg_zendesk__audit_log_tmp') }}
 
 ),
 
@@ -17,31 +18,25 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__organization_tmp')),
-                staging_columns=get_organization_columns()
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__audit_log_tmp')),
+                staging_columns=get_audit_log_columns()
             )
         }}
         
-        {{ fivetran_utils.source_relation(
-            union_schema_variable='zendesk_union_schemas', 
-            union_database_variable='zendesk_union_databases') 
-        }}
-
     from base
 ),
 
 final as (
-    
     select 
-        id as organization_id,
-        created_at,
-        updated_at,
-        details,
-        name,
-        external_id,
-        source_relation
-
-        {{ fivetran_utils.fill_pass_through_columns('zendesk__organization_passthrough_columns') }}
+        cast(id as {{ dbt.type_string() }}) as audit_log_id,
+        action,
+        actor_id,
+        change_description,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        source_id,
+        source_label,
+        source_type,
+        _fivetran_synced
 
     from fields
 )

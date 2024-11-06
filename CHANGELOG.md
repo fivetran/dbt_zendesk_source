@@ -1,10 +1,71 @@
-# dbt_zendesk_source v0.11.0
+# dbt_zendesk_source v0.14.0
 
 ## 🎉 Feature Update 🎉 
 - This release supports running the package on multiple Zendesk sources at once! See the [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
 
 ## 🔧 Under the Hood 🔧
 - Swaps Redshift-speciifc casting logic in the `stg_zendesk__ticket_field_history` model with the cross-database `dbt.type_timestamp()` macro ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
+# dbt_zendesk_source v0.13.0
+[PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
+
+## Breaking Changes
+- Introduced the `stg_zendesk__audit_log` table for capturing schedule changes from Zendesk's audit log.
+  - This model is disabled by default, to enable it set variable `using_schedule_histories` to `true` in your `dbt_project.yml`.
+  - While currently used for schedule tracking, this table has possible future applications, such as tracking user changes.
+
+## Features
+- Updated the `stg_zendesk__schedule_holidays` model to allow users to disable holiday processing (while still using schedules) by setting `using_holidays` to `false`.
+- Added field-level documentation for the `stg_zendesk__audit_log` table.
+
+## Under the Hood Improvements
+- Added seed data for `audit_log` to enhance integration testing capabilities.
+
+# dbt_zendesk_source v0.12.0
+[PR #53](https://github.com/fivetran/dbt_zendesk_source/pull/53) includes the following updates:
+## Breaking changes
+- Added field `_fivetran_deleted` to the following models for use downstream:
+  - `stg_zendesk__ticket`
+  - `stg_zendesk__ticket_comment`
+  - `stg_zendesk__user`
+  - If you have already added `_fivetran_deleted` as a passthrough columns using the `zendesk__ticket_passthrough_columns` or `zendesk__user_passthrough_columns` vars, you will need to remove or alias this field from the variable to avoid duplicate column errors.
+
+## Documentation
+- Updated documentation to include `_fivetran_deleted`.
+
+# dbt_zendesk_source v0.11.2
+
+[PR #49](https://github.com/fivetran/dbt_zendesk_source/pull/49) includes the following updates:
+
+## Feature Updates
+- Adds passthrough column support for `USER` and `ORGANIZATION`. 
+  - Using the new `zendesk__user_passthrough_columns` and `zendesk__organization_passthrough_columns` variables, you can include custom columns from these source tables in their respective staging models. See [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#add-passthrough-columns) for more details on how to configure.
+- Also updated the format of the pre-existing `TICKET` passthrough column variable, `zendesk__ticket_passthrough_columns`, to align with the newly added passthrough variables delineated above.
+  - Previously, you could only provide a list of custom fields to be included in `stg_zendesk__ticket`. Now, you have the option to provide an `alias` and `transform_sql` clause to be applied to each field (see [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#add-passthrough-columns) for more details).
+  - **Note**: the package is and will continue to be backwards compatible with the old list-format.
+
+# dbt_zendesk_source v0.11.1
+
+[PR #48](https://github.com/fivetran/dbt_zendesk_source/pull/48) includes the following updates:
+
+## Feature Updates
+- Adds the `phone` field to `stg_zendesk__user` and ensures it is a `string` if the column is not found in your source data.
+- Adds documentation for `user` fields that were previously missing yml descriptions.
+
+# dbt_zendesk_source v0.11.0
+
+[PR #46](https://github.com/fivetran/dbt_zendesk_source/pull/46) includes the following updates:
+
+## 🚨 Breaking Change Bug Fixes 🚨
+- Updated the following staging models to leverage the `{{ dbt.type_timestamp() }}` macro on timestamp fields in order to ensure timestamp with no timezone is used in downstream models. This update will cause timestamps to be converted to have no timezone. If records were reported as timezone timestamps before, this will result in converted timestamp records.
+  - `stg_zendesk__ticket`
+  - `stg_zendesk__ticket_comment`
+  - `stg_zendesk__ticket_field_history`
+  - `stg_zendesk__ticket_form_history`
+  - `stg_zendesk__ticket_schedule`
+  - `stg_zendesk__user`
+
+## Documentation Updates
+- Updated "Zendesk" references within the README to now refer to "Zendesk Support" in order to more accurately reflect the name of the Fivetran Zendesk Support Connector.
 
 # dbt_zendesk_source v0.10.1
 [PR #43](https://github.com/fivetran/dbt_zendesk_source/pull/43) introduces the following updates:

@@ -26,13 +26,6 @@ fields as (
             union_schema_variable='zendesk_union_schemas', 
             union_database_variable='zendesk_union_databases') 
         }}
-
-        --The below script allows for pass through columns.
-        {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}
-        ,
-        {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
-
-        {% endif %}
         
     from base
 ),
@@ -42,15 +35,11 @@ final as (
     select 
         id as ticket_id,
         _fivetran_synced,
+        _fivetran_deleted,
         assignee_id,
         brand_id,
-        {% if target.type == 'redshift' -%}
-            cast(created_at as timestamp without time zone) as created_at,
-            cast(updated_at as timestamp without time zone) as updated_at,
-        {% else -%}
-            created_at,
-            updated_at,
-        {% endif %}
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         description,
         due_at,
         group_id,
@@ -75,12 +64,7 @@ final as (
         via_source_to_name as source_to_name,
         source_relation
 
-        --The below script allows for pass through columns.
-        {% if var('zendesk__ticket_passthrough_columns',[]) != [] %}
-        ,
-        {{ var('zendesk__ticket_passthrough_columns') | join (", ") }}
-
-        {% endif %}
+        {{ fivetran_utils.fill_pass_through_columns('zendesk__ticket_passthrough_columns') }}
 
     from fields
 )

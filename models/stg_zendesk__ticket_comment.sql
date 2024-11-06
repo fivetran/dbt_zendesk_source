@@ -35,12 +35,9 @@ final as (
     select 
         id as ticket_comment_id,
         _fivetran_synced,
+        _fivetran_deleted,
         body,
-        {% if target.type == 'redshift' -%}
-            cast(created as timestamp without time zone) as created_at,
-        {% else -%}
-            created as created_at,
-        {% endif %}
+        cast(created as {{ dbt.type_timestamp() }}) as created_at,
         public as is_public,
         ticket_id,
         user_id,
