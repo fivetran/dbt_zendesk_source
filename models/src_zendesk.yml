@@ -8,7 +8,7 @@ sources:
     loaded_at_field: _fivetran_synced
 
     config:
-      enabled: "{{ var('zendesk_union_schemas', []) == [] and var('zendesk_union_databases', []) == [] }}"
+      enabled: "{{ var('zendesk_sources', []) == [] }}"
       
     freshness:
       warn_after: {count: 72, period: hour}

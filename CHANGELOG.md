@@ -1,10 +1,8 @@
 # dbt_zendesk_source v0.14.0
 
-## 🎉 Feature Update 🎉 
+## Feature Update: Run Package on Unioned Connectors
 - This release supports running the package on multiple Zendesk sources at once! See the [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
 
-## 🔧 Under the Hood 🔧
-- Swaps Redshift-speciifc casting logic in the `stg_zendesk__ticket_field_history` model with the cross-database `dbt.type_timestamp()` macro ([PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44)).
 # dbt_zendesk_source v0.13.0
 [PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
 

@@ -2,14 +2,9 @@
 {{ config(enabled=var('using_organization_tags', True)) }}
 
 {{
-    fivetran_utils.union_data(
-        table_identifier='organization_tag', 
-        database_variable='zendesk_database', 
-        schema_variable='zendesk_schema', 
-        default_database=target.database,
-        default_schema='zendesk',
-        default_variable='organization_tag',
-        union_schema_variable='zendesk_union_schemas',
-        union_database_variable='zendesk_union_databases'
+    zendesk_source.union_zendesk_connections(
+        connection_dictionary=var('zendesk_sources'), 
+        single_source_name='zendesk', 
+        single_table_name='organization_tag'
     )
 }}
