@@ -26,8 +26,7 @@ fields as (
             zendesk_source.zendesk_source_relation(
                 connection_dictionary=var('zendesk_sources', []),
                 single_schema=var('zendesk_schema', 'zendesk'),
-                single_database=var('zendesk_schema', target.database),
-                single_table_identifier=var("zendesk_user_identifier", "user")
+                single_database=var('zendesk_schema', target.database)
             ) 
         }}
 
