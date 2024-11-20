@@ -34,3 +34,4 @@ vars:
   zendesk__ticket_passthrough_columns: []
   zendesk__user_passthrough_columns: []
   zendesk__organization_passthrough_columns: []
+  zendesk_sources: []
