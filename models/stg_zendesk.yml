@@ -26,6 +26,10 @@ models:
         description: Specifies the type of entity impacted by the action, such as a ticket, schedule, or user.
       - name: _fivetran_synced
         description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
+      - name: source_relation
+        description: >
+          The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
+          Empty string if you are not.
 
   - name: stg_zendesk__ticket
     description: >

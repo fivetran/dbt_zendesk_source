@@ -44,7 +44,8 @@ final as (
         source_id,
         source_label,
         source_type,
-        _fivetran_synced
+        _fivetran_synced,
+        source_relation
 
     from fields
 )
