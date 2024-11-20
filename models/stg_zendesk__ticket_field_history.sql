@@ -39,7 +39,7 @@ final as (
         ticket_id,
         field_name,
         cast(updated as {{ dbt.type_timestamp() }}) as valid_starting_at,
-        cast(lead(updated) over (partition by ticket_id, field_name {% ', source_relation' if var('zendesk_sources', [])|length > 1 %} order by updated) as {{ dbt.type_timestamp() }}) as valid_ending_at,
+        cast(lead(updated) over (partition by ticket_id, field_name {{ ', source_relation' if var('zendesk_sources', [])|length > 1 }} order by updated) as {{ dbt.type_timestamp() }}) as valid_ending_at,
         value,
         user_id,
         source_relation
