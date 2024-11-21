@@ -93,6 +93,10 @@ models:
         description: The address of the source the ticket was created from
       - name: source_to_name
         description: The name of the source the ticket was created from
+      - name: problem_id 
+        description: For tickets of type "incident", the ID of the problem the incident is linked to.
+      - name: external_id
+        description: An id you can use to link Zendesk Support tickets to local records.
       - name: source_relation
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
@@ -120,7 +124,7 @@ models:
         description: The name of the brand
       - name: subdomain
         description: The subdomain of the brand
-      - name: active
+      - name: is_active
         description: If the brand is set as active
       - name: source_relation
         description: >
@@ -161,6 +165,12 @@ models:
           - not_null 
       - name: name
         description: The name of the group
+      - name: external_id
+        description: A unique external id to associate organizations to an external record
+      - name: created_at
+        description: The time the organization was created
+      - name: updated_at
+        description: The time of the last update of the organization
       - name: source_relation
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
@@ -243,7 +253,7 @@ models:
     columns:
       - name: user_id
         description: Reference to the user
-      - name: tag
+      - name: tags
         description: Tag associated with the user
       - name: source_relation
         description: >
@@ -341,7 +351,7 @@ models:
         description: The time of the last update of the ticket form
       - name: display_name
         description: The name of the form that is displayed to an end user
-      - name: active
+      - name: is_active
         description: If the form is set as active
       - name: name
         description: The name of the form

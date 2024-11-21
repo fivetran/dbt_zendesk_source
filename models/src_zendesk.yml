@@ -102,8 +102,14 @@ sources:
             description: The address of the source the ticket was created from
           - name: via_source_to_name
             description: The name of the source the ticket was created from    
+          - name: problem_id 
+            description: For tickets of type "incident", the ID of the problem the incident is linked to.
+          - name: external_id
+            description: An id you can use to link Zendesk Support tickets to local records.
           - name: _fivetran_deleted
             description: Boolean created by Fivetran to indicate whether the record has been deleted.
+          - name: _fivetran_synced
+            description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
 
       - name: brand
         identifier: "{{ var('zendesk_brand_identifier', 'brand')}}"
@@ -126,7 +132,7 @@ sources:
         identifier: "{{ var('zendesk_domain_name_identifier', 'domain_name')}}"
         description: Domain names associated with an organization. An organization may have multiple domain names.
         config:
-          enabled: "{{ var('using_domain_names', true) }}"
+          enabled: "{{ var('using_domain_names', true) and var('zendesk_sources', []) == [] }}"
         columns:
           - name: organization_id
             description: Reference to the organization
@@ -154,7 +160,7 @@ sources:
         identifier: "{{ var('zendesk_organization_tag_identifier', 'organization_tag') }}"
         description: The tags associated with an organization. An organization may have multiple tags.
         config:
-          enabled: "{{ var('using_organization_tags', true) }}"
+          enabled: "{{ var('using_organization_tags', true) and var('zendesk_sources', []) == [] }}"
         columns:
           - name: organization_id
             description: Reference to the organization
@@ -226,12 +232,14 @@ sources:
             description: Boolean field indicating if the comment is a voice comment
           - name: _fivetran_deleted
             description: Boolean created by Fivetran to indicate whether the record has been deleted.
+          - name: _fivetran_synced
+            description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
 
       - name: user_tag
         identifier: "{{ var('zendesk_user_tag_identifier', 'user_tag') }}"
         description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
         config:
-          enabled: "{{ var('using_user_tags', true) }}"
+          enabled: "{{ var('using_user_tags', true) and var('zendesk_sources', []) == [] }}"
         columns:
           - name: user_id
             description: Reference to the user
@@ -275,13 +283,15 @@ sources:
             description: The user's locale. A BCP-47 compliant tag for the locale. If both "locale" and "locale_id" are present on create or update, "locale_id" is ignored and only "locale" is used.
           - name: _fivetran_deleted
             description: Boolean created by Fivetran to indicate whether the record has been deleted.
-
+          - name: _fivetran_synced
+            description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
+            
       - name: schedule
         identifier: "{{ var('zendesk_schedule_identifier', 'schedule') }}"
         description: The support schedules created with different business hours and holidays. 
         freshness: null
         config:
-          enabled: "{{ var('using_schedules', true) }}"
+          enabled: "{{ var('using_schedules', true) and var('zendesk_sources', []) == [] }}"
         columns: 
           - name: id
             description: ID automatically assigned to the schedule upon creation
@@ -312,7 +322,7 @@ sources:
         identifier: "{{ var('zendesk_ticket_form_history_identifier', 'ticket_form_history') }}"
         description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
         config:
-          enabled: "{{ var('using_ticket_form_history', true) }}"
+          enabled: "{{ var('using_ticket_form_history', true) and var('zendesk_sources', []) == [] }}"
         columns:
           - name: id
             description: Automatically assigned when creating ticket form
@@ -387,7 +397,7 @@ sources:
         description: Information about holidays for each specified schedule.
         freshness: null
         config:
-          enabled: "{{ var('using_schedules', true) and var('using_holidays', true) }}"
+          enabled: "{{ var('using_schedules', true) and var('using_holidays', true) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: end_date
             description: ISO 8601 representation of the holiday end date.

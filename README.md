@@ -58,17 +58,27 @@ vars:
 > **Note**: If you are running the package on one source connector, each model will have a `source_relation` column that is just an empty string.
 
 #### Option 2: Union multiple connectors
-If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `zendesk_union_schemas` OR `zendesk_union_databases` variables (cannot do both, though a more flexible approach is in the works...) in your root `dbt_project.yml` file:
+If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. For each source table, the package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source each record came from in the `source_relation` column of each model. 
+
+To use this functionality, you will need to set the `zendesk_sources` variable in your root `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
 
 vars:
-    zendesk_union_schemas: ['zendesk_usa','zendesk_canada'] # use this if the data is in different schemas/datasets of the same database/project
-    zendesk_union_databases: ['zendesk_usa','zendesk_canada'] # use this if the data is in different databases/projects but uses the same schema name
+  zendesk_sources:
+    - database: connector_1_destination_name # Required
+      schema: connector_1_schema_name # Rquired
+      name: connector_1_alias # Required only if following the step in the following subsection
+
+    - database: connector_2_destination_name
+      schema: connector_2_schema_name
+      name: connector_2_alias
 ```
 
 ##### Recommended: Incorporate unioned sources into DAG
+> *If you are running the package through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore), the below step is necessary in order to synchronize model runs with your Zendesk connectors. Alternatively, you may choose to run the package through Fivetran [Quickstart](https://fivetran.com/docs/transformations/quickstart), which would create separate sets of models for each Zendesk source rather than one set of unioned models.*
+
 By default, this package defines one single-connector source, called `zendesk`, which will be disabled if you are unioning multiple connectors. This means that your DAG will not include your Zendesk sources, though the package will run successfully.
 
 To properly incorporate all of your Zendesk connectors into your project's DAG:
@@ -77,9 +87,9 @@ To properly incorporate all of your Zendesk connectors into your project's DAG:
 ```yml
 # a .yml file in your root project
 sources:
-  - name: <name> # ex: zendesk_usa
-    schema: <schema_name> # one of var('zendesk_union_schemas') if unioning schemas, otherwise just 'zendesk'
-    database: <database_name> # one of var('zendesk_union_databases') if unioning databases, otherwise whatever DB your zendesk schemas all live in
+  - name: <name> # ex: Should match name in zendesk_sources
+    schema: <schema_name>
+    database: <database_name>
     loader: fivetran
     loaded_at_field: _fivetran_synced
       
@@ -87,7 +97,7 @@ sources:
       warn_after: {count: 72, period: hour}
       error_after: {count: 168, period: hour}
 
-    tables: # copy and paste from models/src_zendesk.yml 
+    tables: # copy and paste from models/src_zendesk.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
 ```
 
 > **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`. Otherwise, you may remove them from your source definition.
