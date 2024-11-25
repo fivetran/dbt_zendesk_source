@@ -1,15 +1,15 @@
-{% macro zendesk_source_relation(connection_dictionary, single_schema, single_database) -%}
+{% macro apply_source_relation() -%}
 
-{{ adapter.dispatch('zendesk_source_relation', 'zendesk_source') (connection_dictionary, single_schema, single_database) }}
+{{ adapter.dispatch('apply_source_relation', 'zendesk_source') () }}
 
 {%- endmacro %}
 
-{% macro default__zendesk_source_relation(connection_dictionary, single_schema, single_database) -%}
+{% macro default__apply_source_relation() -%}
 
-{% if connection_dictionary %}
+{% if var('zendesk_sources', []) != [] %}
 , _dbt_source_relation as source_relation
 {% else %}
-, '{{ single_database }}' || '.'|| '{{ single_schema }}' as source_relation
+, '{{ var("zendesk_database", target.database) }}' || '.'|| '{{ var("zendesk_schema", "zendesk") }}' as source_relation
 {% endif %} 
 
 {%- endmacro %}
