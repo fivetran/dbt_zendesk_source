@@ -11,12 +11,16 @@
     {%- set relations = [] -%}
     {%- for connection in connection_dictionary -%}
 
-        {%- set relation=source(connection.name, single_table_name) if var('has_defined_sources', false)
-            else adapter.get_relation(
-                database=connection.database if connection.database else target.database,
-                schema=connection.schema if connection.schema else single_source_name,
-                identifier=single_table_name
-            ) 
+        {%- set relation=adapter.get_relation(
+                            database=source(connection.name, single_table_name).database,
+                            schema=source(connection.name, single_table_name).schema,
+                            identifier=source(connection.name, single_table_name).identifier) if var('has_defined_sources', false)
+                            
+                    else adapter.get_relation(
+                            database=connection.database if connection.database else target.database,
+                            schema=connection.schema if connection.schema else single_source_name,
+                            identifier=single_table_name
+                    ) 
         -%}
 
         {%- if relation is not none -%}
