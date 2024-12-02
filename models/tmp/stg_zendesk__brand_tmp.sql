@@ -1,2 +1,7 @@
-select {{ dbt_utils.star(source('zendesk','brand')) }}  
-from {{ source('zendesk','brand') }} as brand_table
+{{
+    zendesk_source.union_zendesk_connections(
+        connection_dictionary=var('zendesk_sources'), 
+        single_source_name='zendesk', 
+        single_table_name='brand'
+    )
+}}

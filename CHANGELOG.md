@@ -1,3 +1,14 @@
+# dbt_zendesk_source v0.14.0
+[PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44) includes the following updates:
+
+## Feature Update: Run Package on Unioned Connectors
+- This release supports running the package on multiple Zendesk sources at once! See the [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature. 
+
+> Please note: This is a **Breaking Change** in that we have a added a new field, `source_relation`, that points to the source connector from which the record originated.
+
+## Documentation
+- Added missing documentation for staging model columns.
+
 # dbt_zendesk_source v0.13.0
 [PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
 

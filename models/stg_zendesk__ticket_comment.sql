@@ -22,6 +22,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -38,7 +40,9 @@ final as (
         user_id,
         facebook_comment as is_facebook_comment,
         tweet as is_tweet,
-        voice_comment as is_voice_comment
+        voice_comment as is_voice_comment,
+        source_relation
+        
     from fields
 )
 

@@ -38,15 +38,16 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 ```
 
-### Step 2: Install the package
+### Step 2: Install the package (skip if using `zendesk` transformation package)
 Include the following zendesk_source package version in your `packages.yml` file **only if you are NOT also installing the [Zendesk Support transformation package](https://github.com/fivetran/dbt_zendesk)**. The transform package has a dependency on this source package.
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.13.0", "<0.14.0"]
+    version: [">=0.14.0", "<0.15.0"]
 ```
 ### Step 3: Define database and schema variables
+#### Option A: Single connector
 By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk Support data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
@@ -54,8 +55,68 @@ vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
+> **Note**: When running the package with a single source connector, the `source_relation` column in each model will be populated with an empty string.
+
+#### Option B: Union multiple connectors
+If you have multiple Zendesk connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. For each source table, the package will union all of the data together and pass the unioned table into the transformations. The `source_relation` column in each model indicates the origin of each record. 
+
+To use this functionality, you will need to set the `zendesk_sources` variable in your root `dbt_project.yml` file:
+
+```yml
+# dbt_project.yml
+
+vars:
+  zendesk_sources:
+    - database: connector_1_destination_name # Required
+      schema: connector_1_schema_name # Rquired
+      name: connector_1_source_name # Required only if following the step in the following subsection
+
+    - database: connector_2_destination_name
+      schema: connector_2_schema_name
+      name: connector_2_source_name
+```
+
+##### Recommended: Incorporate unioned sources into DAG
+> *If you are running the package through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore), the below step is necessary in order to synchronize model runs with your Zendesk connectors.*
+
+By default, this package defines one single-connector source, called `zendesk`, which will be disabled if you are unioning multiple connectors. This means that your DAG will not include your Zendesk sources, though the package will run successfully.
+
+To properly incorporate all of your Zendesk connectors into your project's DAG:
+1. Define each of your sources in a `.yml` file in your project. Utilize the following template for the `source`-level configurations, and, **most importantly**, copy and paste the table and column-level definitions from the package's `src_zendesk.yml` [file](https://github.com/fivetran/dbt_zendesk_source/blob/main/models/src_zendesk.yml#L15-L351).
+
+```yml
+# a .yml file in your root project
+sources:
+  - name: <name> # ex: Should match name in zendesk_sources
+    schema: <schema_name>
+    database: <database_name>
+    loader: fivetran
+    loaded_at_field: _fivetran_synced
+      
+    freshness: # feel free to adjust to your liking
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+
+    tables: # copy and paste from models/src_zendesk.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
+```
+
+> **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), still include them in this source definition.
+
+2. Set the `has_defined_sources` variable (scoped to the `zendesk_source` package) to `True`, like such:
+```yml
+# dbt_project.yml
+vars:
+  zendesk_source:
+    has_defined_sources: true
+```
+
 ### Step 4: Enable/Disable models for non-existent sources
-This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`, except for `using_schedule_histories`. Add variables for only the tables you want to enable/disable:
+> _This step is optional if you are unioning multiple connectors together in the previous step. The `union_data` macro will create empty staging models for sources that are not found in any of your Zendesk schemas/databases. However, you can still leverage the below variables if you would like to avoid this behavior._
+
+This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality.
+
+By default, all variables' values are assumed to be `true`, except for `using_schedule_histories`. Add variables for only the tables you want to enable/disable:
+
 ```yml
 vars:
     using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
@@ -117,8 +178,8 @@ models:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
     
-#### Change the source table references
-If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
+### Change the source table references (only if using a single connector)
+If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable. This is not available when running the package on multiple unioned connectors.
 > IMPORTANT: See this project's [dbt_project.yml](https://github.com/fivetran/dbt_zendesk_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
     
 ```yml

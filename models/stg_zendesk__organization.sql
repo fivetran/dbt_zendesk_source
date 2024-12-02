@@ -22,6 +22,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -33,7 +35,8 @@ final as (
         updated_at,
         details,
         name,
-        external_id
+        external_id,
+        source_relation
 
         {{ fivetran_utils.fill_pass_through_columns('zendesk__organization_passthrough_columns') }}
 

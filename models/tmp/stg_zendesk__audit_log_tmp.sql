@@ -1,4 +1,9 @@
 {{ config(enabled=var('using_schedules', True) and var('using_schedule_histories', False)) }}
 
-select {{ dbt_utils.star(source('zendesk','audit_log')) }}  
-from {{ source('zendesk','audit_log') }} as audit_log_table
+{{
+    zendesk_source.union_zendesk_connections(
+        connection_dictionary=var('zendesk_sources'), 
+        single_source_name='zendesk', 
+        single_table_name='audit_log'
+    )
+}}

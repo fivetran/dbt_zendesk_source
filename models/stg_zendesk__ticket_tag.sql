@@ -22,6 +22,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -30,10 +32,12 @@ final as (
     select 
         ticket_id,
         {% if target.type == 'redshift' %}
-        "tag" as tags
+        "tag"
         {% else %}
-        tag as tags
-        {% endif %}
+        tag
+        {% endif %} as tags,
+        source_relation
+
     from fields
 )
 

@@ -18,6 +18,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -30,7 +32,8 @@ final as (
         -- let's convert it to an integer value of minutes
         cast( {{ dbt.split_part(string_text='standard_offset', delimiter_text="':'", part_number=1) }} as {{ dbt.type_int() }} ) * 60 +
             (cast( {{ dbt.split_part(string_text='standard_offset', delimiter_text="':'", part_number=2) }} as {{ dbt.type_int() }} ) *
-                (case when standard_offset like '-%' then -1 else 1 end) ) as standard_offset_minutes
+                (case when standard_offset like '-%' then -1 else 1 end) ) as standard_offset_minutes,
+        source_relation
     
     from fields
 )

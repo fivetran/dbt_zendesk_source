@@ -24,6 +24,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -36,7 +38,9 @@ final as (
         {% else %}
         tag
         {% endif %}
-        as tags
+        as tags,
+        source_relation
+        
     from fields
 )
 

@@ -24,6 +24,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -35,7 +37,8 @@ final as (
         start_time,
         name as schedule_name,
         created_at,
-        time_zone
+        time_zone,
+        source_relation
         
     from fields
     where not coalesce(_fivetran_deleted, false)

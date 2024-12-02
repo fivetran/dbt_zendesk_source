@@ -1,2 +1,7 @@
-select {{ dbt_utils.star(source('zendesk', 'ticket_field_history')) }}
-from {{ source('zendesk', 'ticket_field_history') }} as ticket_field_history_table
+{{
+    zendesk_source.union_zendesk_connections(
+        connection_dictionary=var('zendesk_sources'), 
+        single_source_name='zendesk', 
+        single_table_name='ticket_field_history'
+    )
+}}
