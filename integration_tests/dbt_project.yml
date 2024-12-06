@@ -22,7 +22,7 @@ vars:
     zendesk_time_zone_identifier:              "time_zone_data"
     zendesk_daylight_time_identifier:          "daylight_time_data"
     zendesk_brand_identifier:                  "brand_data"
-    zendesk_group_identifier:                  "group_data" 
+    zendesk_group_identifier:                  "GROUP_DATA" 
     zendesk_organization_tag_identifier:       "organization_tag_data"
     zendesk_user_identifier:                   "user_data"
     zendesk_user_tag_identifier:               "user_tag_data"

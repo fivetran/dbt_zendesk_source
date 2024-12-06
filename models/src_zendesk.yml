@@ -144,7 +144,7 @@ sources:
       - name: group
         # identifier: >
         #   "{%- if target.type == 'snowflake' -%} {{ var('zendesk_group_identifier', 'GROUP') }} {%- else -%} {{ var('zendesk_group_identifier', 'group') }} {%- endif -%}"
-        identifier: "{%- if var('zendesk_group_identifier', '') != '' -%} var('zendesk_group_identifier') {%- elif target.type == 'snowflake' -%} GROUP {%- else -%} group {%- endif -%}"
+        identifier: "{%- if var('zendesk_group_identifier', '') != '' -%} {{ var('zendesk_group_identifier') }} {%- elif target.type == 'snowflake' -%} GROUP {%- else -%} group {%- endif -%}"
         quoting: 
           identifier: true
         description: >
