@@ -47,7 +47,7 @@
         schema=source(single_source_name, single_table_name).schema,
         identifier=source(single_source_name, single_table_name).identifier
     ) -%}
-
+    
     {%- if relation is not none -%}
         select
             {{ dbt_utils.star(from=source(single_source_name, single_table_name)) }}
