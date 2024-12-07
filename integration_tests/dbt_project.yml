@@ -22,7 +22,8 @@ vars:
     zendesk_time_zone_identifier:              "time_zone_data"
     zendesk_daylight_time_identifier:          "daylight_time_data"
     zendesk_brand_identifier:                  "brand_data"
-    zendesk_group_identifier:                  "{%- if target.type == 'snowflake' -%} GROUP_DATA {%- else -%} group_data {%- endif -%}"
+    zendesk_group_identifier:                  "GROUP_DATA_TMP" 
+    # zendesk_group_identifier:                  "{{ GROUP_DATA if target.type == 'snowflake' else group_data }}"
     zendesk_organization_tag_identifier:       "organization_tag_data"
     zendesk_user_identifier:                   "user_data"
     zendesk_user_tag_identifier:               "user_tag_data"
@@ -36,7 +37,7 @@ seeds:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     +column_types:
       _fivetran_synced: timestamp
-    group_data:
+    GROUP_DATA_TMP:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
