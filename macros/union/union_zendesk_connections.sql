@@ -47,10 +47,7 @@
         schema=source(single_source_name, single_table_name).schema,
         identifier=source(single_source_name, single_table_name).identifier
     ) -%}
-    {{ log('database is ' ~ source(single_source_name, single_table_name).database, info=true) }}
-    {{ log('schema is ' ~ source(single_source_name, single_table_name).schema, info=true) }}
-    {{ log('table is ' ~ source(single_source_name, single_table_name).name, info=true) }}
-
+    
     {%- if relation is not none -%}
         select
             {{ dbt_utils.star(from=source(single_source_name, single_table_name)) }}
