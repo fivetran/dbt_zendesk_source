@@ -42,10 +42,13 @@
 
 {% else %}
 {# Not unioning #}
+
+    {% set identifier_var = "zendesk_" + single_table_name + "_identifier"%}
+
     {%- set relation=adapter.get_relation(
         database=source(single_source_name, single_table_name).database,
         schema=source(single_source_name, single_table_name).schema,
-        identifier=source(single_source_name, single_table_name).identifier
+        identifier=var(identifier_var, single_table_name)
     ) -%}
 
     {%- if relation is not none -%}

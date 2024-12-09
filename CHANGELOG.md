@@ -1,3 +1,10 @@
+# dbt_zendesk_source v0.14.1
+
+[PR #58](https://github.com/fivetran/dbt_zendesk_source/pull/58) includes the following update:
+
+## Bug Fixes
+- In v0.14.0 (or [v0.19.0](https://github.com/fivetran/dbt_zendesk/releases/tag/v0.19.0) of the transform package), Snowflake users may have seen `when searching for a relation, dbt found an approximate match` errors when running the `stg_zendesk__group_tmp` model. The issue stemmed from the `adapter.get_relation()` logic within the `union_zendesk_connections` macro, which has now been updated to resolve the error.
+
 # dbt_zendesk_source v0.14.0
 [PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44) includes the following updates:
 
