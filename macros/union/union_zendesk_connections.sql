@@ -51,9 +51,6 @@
         identifier=var(identifier_var, single_table_name)
     ) -%}
 
-    {# {{ log('Old identifier = ' ~ source(single_source_name, single_table_name).identifier, info=true) }}
-    {{ log('New identifier = ' ~ identifier_var, info=true) }} #}
-
     {%- if relation is not none -%}
         select
             {{ dbt_utils.star(from=source(single_source_name, single_table_name)) }}
