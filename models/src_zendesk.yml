@@ -142,7 +142,7 @@ sources:
             description: Index number of the domain name associated with the organization
 
       - name: group
-        identifier: "{%- if var('zendesk_group_identifier', '') != '' -%} {{ var('zendesk_group_identifier') }} {%- elif target.type in ('snowflake', 'postgres', 'redshift') -%} GROUP {%- else -%} group {%- endif -%}"
+        identifier: "{%- if var('zendesk_group_identifier', '') != '' -%} {{ var('zendesk_group_identifier') }} {%- elif target.type in ('snowflake', 'postgres') -%} 'GROUP' {%- else -%} group {%- endif -%}"
         quoting: 
           identifier: true
         description: >

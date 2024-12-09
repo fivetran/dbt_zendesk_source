@@ -23,7 +23,7 @@ vars:
     zendesk_daylight_time_identifier:          "daylight_time_data"
     zendesk_brand_identifier:                  "brand_data"
     # zendesk_group_identifier:                  "GROUP_DATA_TMP" 
-    zendesk_group_identifier:                  "group_data_tmp" 
+    # zendesk_group_identifier:                  "group_data_tmp" 
 
     # zendesk_group_identifier:                  "{{ GROUP_DATA if target.type == 'snowflake' else group_data }}"
     zendesk_organization_tag_identifier:       "organization_tag_data"
@@ -40,6 +40,11 @@ seeds:
     +column_types:
       _fivetran_synced: timestamp
     GROUP_DATA_TMP:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        created_at: timestamp
+        updated_at: timestamp
+    group:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         created_at: timestamp
