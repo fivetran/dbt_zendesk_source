@@ -23,7 +23,9 @@ fields as (
                 staging_columns=get_ticket_form_history_columns()
             )
         }}
-        
+
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -35,7 +37,9 @@ final as (
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         display_name,
         active as is_active,
-        name
+        name,
+        source_relation
+        
     from fields
     where not coalesce(_fivetran_deleted, false)
     

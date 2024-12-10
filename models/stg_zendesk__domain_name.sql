@@ -23,6 +23,8 @@ fields as (
                 staging_columns=get_domain_name_columns()
             )
         }}
+
+        {{ zendesk_source.apply_source_relation() }}
         
     from base
 ),
@@ -32,7 +34,9 @@ final as (
     select 
         organization_id,
         domain_name,
-        index
+        index,
+        source_relation
+        
     from fields
 )
 

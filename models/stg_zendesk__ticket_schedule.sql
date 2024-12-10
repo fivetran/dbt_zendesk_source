@@ -24,6 +24,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+        
     from base
 ),
 
@@ -32,7 +34,8 @@ final as (
     select 
         ticket_id,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
-        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
+        cast(schedule_id as {{ dbt.type_string() }}) as schedule_id, --need to convert from numeric to string for downstream models to work properly
+        source_relation
     from fields
 )
 

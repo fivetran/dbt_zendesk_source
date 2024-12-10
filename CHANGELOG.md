@@ -1,8 +1,8 @@
-# dbt_zendesk_source v0.13.1
+# dbt_zendesk_source v0.14.2
 [PR #57](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
 
 ## New Features
-- Introduced the new `using_brands` and `using_organizations` variables to configure/disable `brand` and `organizations` staging models.
+- Introduced the new `using_brands` and `using_organizations` variables to allow customers to enable or disable staging models bringing in brand and organization data
   - Updated `stg_zendesk__brand` with the new `using_brands` config variable.  
   - Updated `stg_zendesk__organization` and `stg_zendesk__organization_tag` models.  
 ## Documentation

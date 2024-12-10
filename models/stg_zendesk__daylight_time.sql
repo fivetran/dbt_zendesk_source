@@ -24,6 +24,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -35,7 +37,8 @@ final as (
         daylight_start_utc,
         time_zone,
         year,
-        daylight_offset * 60 as daylight_offset_minutes
+        daylight_offset * 60 as daylight_offset_minutes,
+        source_relation
         
     from fields
 )

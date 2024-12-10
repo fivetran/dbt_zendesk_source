@@ -22,6 +22,8 @@ fields as (
                 staging_columns=get_brand_columns()
             )
         }}
+
+        {{ zendesk_source.apply_source_relation() }}
         
     from base
 ),
@@ -33,7 +35,9 @@ final as (
         brand_url,
         name,
         subdomain,
-        active as is_active
+        active as is_active,
+        source_relation
+        
     from fields
     where not coalesce(_fivetran_deleted, false)
 )

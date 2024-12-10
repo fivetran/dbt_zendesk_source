@@ -22,6 +22,8 @@ fields as (
                 staging_columns=get_audit_log_columns()
             )
         }}
+
+        {{ zendesk_source.apply_source_relation() }}
         
     from base
 ),
@@ -36,7 +38,8 @@ final as (
         source_id,
         source_label,
         source_type,
-        _fivetran_synced
+        _fivetran_synced,
+        source_relation
 
     from fields
 )

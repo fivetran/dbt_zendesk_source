@@ -22,6 +22,8 @@ fields as (
             )
         }}
         
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -51,10 +53,11 @@ final as (
         time_zone,
         locale,
         active as is_active,
-        suspended as is_suspended
+        suspended as is_suspended,
+        source_relation
 
         {{ fivetran_utils.fill_pass_through_columns('zendesk__user_passthrough_columns') }}
-
+        
     from fields
 )
 

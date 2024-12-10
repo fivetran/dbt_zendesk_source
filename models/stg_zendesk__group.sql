@@ -21,7 +21,9 @@ fields as (
                 staging_columns=get_group_columns()
             )
         }}
-        
+
+        {{ zendesk_source.apply_source_relation() }}
+
     from base
 ),
 
@@ -29,9 +31,10 @@ final as (
     
     select 
         id as group_id,
-        name
+        name,
+        source_relation
+
     from fields
-    
     where not coalesce(_fivetran_deleted, false)
 )
 
