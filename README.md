@@ -13,24 +13,24 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
-# Zendesk Support Source dbt Package ([Docs](https://fivetran.github.io/dbt_zendesk_source/))
-## What does this dbt package do?
+# Zendesk Source dbt Package ([Docs](https://fivetran.github.io/dbt_zendesk_source/))
+# 📣 What does this dbt package do?
 <!--section="zendesk_source_model"-->
-- Materializes [Zendesk Support staging tables](https://fivetran.github.io/dbt_github_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk Support data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
+- Materializes [Zendesk staging tables](https://fivetran.github.io/dbt_github_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
   - Name columns for consistency across all packages and for easier analysis
   - Adds freshness tests to source data
   - Adds column-level testing where applicable. For example, all primary keys are tested for uniqueness and non-null values.
-- Generates a comprehensive data dictionary of your Zendesk Support data through the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/).
-- These tables are designed to work simultaneously with our [Zendesk Support transformation package](https://github.com/fivetran/dbt_zendesk).
+- Generates a comprehensive data dictionary of your Zendesk data through the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/).
+- These tables are designed to work simultaneously with our [Zendesk transformation package](https://github.com/fivetran/dbt_zendesk).
 <!--section-end-->
 
-## How do I use the dbt package?
-### Step 1: Prerequisites
+# 🎯 How do I use the dbt package?
+## Step 1: Prerequisites
 To use this dbt package, you must have the following:
-- A Fivetran Zendesk Support connector syncing data into your destination.
+- A Fivetran Zendesk connector syncing data into your destination. 
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
-#### Databricks Dispatch Configuration
+### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
 ```yml
 dispatch:
@@ -38,78 +38,46 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 ```
 
-### Step 2: Install the package
-Include the following zendesk_source package version in your `packages.yml` file **only if you are NOT also installing the [Zendesk Support transformation package](https://github.com/fivetran/dbt_zendesk)**. The transform package has a dependency on this source package.
+## Step 2: Install the package
+Include the following zendesk_source package version in your `packages.yml` file **only if you are NOT also installing the [Zendesk transformation package](https://github.com/fivetran/dbt_zendesk)**. The transform package has a dependency on this source package.
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.13.0", "<0.14.0"]
+    version: [">=0.10.0", "<0.11.0"]
 ```
-### Step 3: Define database and schema variables
-By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk Support data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
+## Step 3: Define database and schema variables
+By default, this package runs using your target database and the `zendesk` schema. If this is not where your Zendesk data is (for example, if your zendesk schema is named `zendesk_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 vars:
     zendesk_database: your_destination_name
     zendesk_schema: your_schema_name 
 ```
-### Step 4: Enable/Disable models for non-existent sources
-This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`, except for `using_schedule_histories`. Add variables for only the tables you want to enable/disable:
+## Step 4: Disable models for non-existent sources
+This package takes into consideration that not every Zendesk account utilizes the `brand`, `organization`,  `schedule`, `domain_name`, `user_tag`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality. By default, all variables' values are assumed to be `true`. Add variables for only the tables you want to disable:
 ```yml
 vars:
-    using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
-    using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
-    using_holidays:             False         #Disable if you are not using schedule_holidays for holidays
+    using_brands:               False 
+    using_schedules:            False         #Disable if you are not using schedules
     using_domain_names:         False         #Disable if you are not using domain names
     using_user_tags:            False         #Disable if you are not using user tags
     using_ticket_form_history:  False         #Disable if you are not using ticket form history
     using_organization_tags:    False         #Disable if you are not using organization tags
 ```
 
-### (Optional) Step 5: Additional configurations
-<details open><summary>Collapse/Expand configurations</summary>
-
-#### Add passthrough columns
-This package includes all source columns defined in the macros folder. You can add more columns from the `TICKET`, `USER`, and `ORGANIZATION` tables using our pass-through column variables, which will persist these custom fields to the `stg_zendesk__ticket`, `stg_zendesk__user`, and `stg_zendesk__organization` models, respectively.
-
-These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-through fields will be casted accordingly. Use the below format for declaring the respective pass-through variables:
-
+## (Optional) Step 5: Additional configurations
+<details><summary>Expand to view configurations</summary>
+    
+### Add passthrough columns
+This package includes all source columns defined in the staging models. However, the `stg_zendesk__ticket` model allows for additional columns to be added using a pass-through column variable. This is extremely useful if you'd like to include custom fields to the package.
 ```yml
 vars:
-  zendesk__ticket_passthrough_columns:
-    - name: "account_custom_field_1" # required
-      alias: "account_1" # optional
-      transform_sql: "cast(account_1 as string)" # optional, must reference the alias if an alias is provided (otherwise the original name)
-    - name: "account_custom_field_2"
-      transform_sql: "cast(account_custom_field_2 as string)"
-    - name: "account_custom_field_3"
-  zendesk__user_passthrough_columns:
-    - name: "internal_app_id_c"
-      alias: "app_id"
-  zendesk__organization_passthrough_columns:
-    - name: "custom_org_field_1"
+  zendesk__ticket_passthrough_columns: [account_custom_field_1, account_custom_field_2]
 ```
 
-> Note: Earlier versions of this package employed a more rudimentary format for passthrough columns, in which the user provided a list of field names to pass in, rather than a mapping. In the above `ticket` example, this would be `[account_custom_field_1, account_custom_field_2, account_custom_field_3]`.
->
-> This old format will still work, as our passthrough-column macros are all backwards compatible.
-
-#### Mark Former Internal Users as Agents
-If a team member leaves your organization and their internal account is deactivated, their `USER.role` will switch from `agent` or `admin` to `end-user`. This will skew historical ticket SLA metrics, as we calculate reply times and other metrics based on `agent` or `admin` activity only.
-
-To persist the integrity of historical ticket SLAs and mark these former team members as agents, provide the `internal_user_criteria` variable with a SQL clause to identify them, based on fields in the `USER` table. This SQL will be wrapped in a `case when` statement in the `stg_zendesk__user` model.
-
-Example usage:
-```yml
-# dbt_project.yml
-vars:
-  zendesk_source:
-    internal_user_criteria: "lower(email) like '%@fivetran.com' or external_id = '12345' or name in ('Garrett', 'Alfredo')" # can reference any non-custom field in USER
-```
-
-#### Change the build schema
-By default, this package builds the zendesk staging models within a schema titled (`<target_schema>` + `_zendesk_source`) in your target database. If this is not where you would like your Zendesk Support staging data to be written to, add the following configuration to your root `dbt_project.yml` file:
+### Change the build schema
+By default, this package builds the zendesk staging models within a schema titled (`<target_schema>` + `_zendesk_source`) in your target database. If this is not where you would like your Zendesk staging data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 models:
@@ -117,7 +85,7 @@ models:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
     
-#### Change the source table references
+### Change the source table references
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 > IMPORTANT: See this project's [dbt_project.yml](https://github.com/fivetran/dbt_zendesk_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
     
@@ -126,27 +94,27 @@ vars:
     zendesk_<default_source_table_name>_identifier: your_table_name 
 ```
 
-#### Snowflake Users
-If you do **not** use the default all-caps naming conventions for Snowflake, you may need to provide the case-sensitive spelling of your source tables that are also Snowflake reserved words.
+### 🚨 Snowflake Users
+If you do **not** use the default all-caps naming conventions for Snowflake, you may need to provide the case-sensitive spelling of your source tables that are also Snowflake reserved words. 
 
 In this package, this would apply to the `GROUP` source. If you are receiving errors for this source, include the below identifier in your `dbt_project.yml` file:
 
 ```yml
 vars:
-    zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case
+    zendesk_group_identifier: "Group" # as an example, must include the double-quotes and correct case!
 ```  
-
+    
 </details>
 
-### (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
+## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand to view details</summary>
 <br>
     
 Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core™ setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
 </details>
     
-## Does this package have dependencies?
-This dbt package is dependent on the following dbt packages. These dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
+# 🔍 Does this package have dependencies?
+This dbt package is dependent on the following dbt packages. Please be aware that these dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
 > IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them from your root `packages.yml` to avoid package version conflicts.
 ```yml
 packages:
@@ -160,15 +128,16 @@ packages:
       version: [">=0.3.0", "<0.4.0"]
 ```
           
-## How is this package maintained and can I contribute?
-### Package Maintenance
+# 🙌 How is this package maintained and can I contribute?
+## Package Maintenance
 The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend that you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/zendesk_source/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_zendesk_source/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
-### Contributions
-A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions.
+## Contributions
+A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions! 
 
-We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) to learn how to contribute to a dbt package.
+We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) to learn how to contribute to a dbt package!
 
-## Are there any resources available?
-- If you have questions or want to reach out for help, see the [GitHub Issue](https://github.com/fivetran/dbt_zendesk_source/issues/new/choose) section to find the right avenue of support for you.
+# 🏪 Are there any resources available?
+- If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/fivetran/dbt_zendesk_source/issues/new/choose) section to find the right avenue of support for you.
 - If you would like to provide feedback to the dbt package team at Fivetran or would like to request a new dbt package, fill out our [Feedback Form](https://www.surveymonkey.com/r/DQ7K7WW).
+- Have questions or want to be part of the community discourse? Create a post in the [Fivetran community](https://community.fivetran.com/t5/user-group-for-dbt/gh-p/dbt-user-group) and our team along with the community can join in on the discussion!

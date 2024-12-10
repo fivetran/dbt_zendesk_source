@@ -105,6 +105,8 @@ sources:
 
       - name: brand
         identifier: "{{ var('zendesk_brand_identifier', 'brand')}}"
+        config:
+          enabled: "{{ var('using_brands', false) }}"
         description: >
           Brands are your customer-facing identities. They might represent multiple products or services, or they 
           might literally be multiple brands owned and represented by your company.
@@ -161,6 +163,8 @@ sources:
 
       - name: organization
         identifier: "{{ var('zendesk_organization_identifier', 'organization') }}"
+        config:
+          enabled: "{{ var('using_organizations', false) }}"
         description: >
           Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
           organizations. You can manually assign customers to an organization or automatically assign them to an organization 
