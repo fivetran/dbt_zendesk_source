@@ -1,3 +1,4 @@
+{{ config(enabled=var('using_organizations', True)) }}
 
 with base as (
 

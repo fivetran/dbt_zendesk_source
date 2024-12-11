@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.14.1'
+version: '0.14.2'
 
 profile: 'integration_tests'
 
@@ -28,7 +28,7 @@ vars:
     zendesk_user_tag_identifier:               "user_tag_data"
     zendesk_audit_log_identifier:              "audit_log_data"
 
-  ## Uncomment for docs generation
+  # Uncomment for docs generation
   # using_schedule_histories: True
 
 seeds:
