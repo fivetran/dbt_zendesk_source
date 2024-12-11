@@ -2,10 +2,34 @@
 [PR #57](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
 
 ## New Features
-- Introduced the new `using_brands` and `using_organizations` variables to allow customers to enable or disable staging models bringing in brand and organization data
-  - Updated `stg_zendesk__brand` with the new `using_brands` config variable.  
-  - Updated `stg_zendesk__organization` and `stg_zendesk__organization_tag` models.  
+- Introduced new config variables to allow customers to enable or disable staging and tmp models which bring in brand and organization data:
+  - Updated `stg_zendesk__brand` (and equivalent tmp model) with the new `using_brands` config variable.  
+  - Updated `stg_zendesk__organization` (and equivalent tmp model) with the new `using_organizations` config variable.
+  - Updated `stg_zendesk__organization_tag` (and equivalent tmp model) with the new `using_organizations` config variable, as the `organization_tag` source table can be disabled in some situations, while `organization` is not. Thus anything that is disabled/enabled by `using_organization_tags` should contain both the `using_organization_tags` AND `using_organizations` variables. 
+
+## Under the Hood
+- Updated our Buildkite model run script to ensure we test for when `using_brands` and `using_organizations` is set to true and false. 
+
 ## Documentation
+- Added enabled config variables to `brand`, `organization` and `organization_tag` in the `src_zendesk.yml` models. 
+
+# dbt_zendesk_source v0.14.1
+
+[PR #58](https://github.com/fivetran/dbt_zendesk_source/pull/58) includes the following update:
+
+## Bug Fixes
+- In v0.14.0 (or [v0.19.0](https://github.com/fivetran/dbt_zendesk/releases/tag/v0.19.0) of the transform package), Snowflake users may have seen `when searching for a relation, dbt found an approximate match` errors when running the `stg_zendesk__group_tmp` model. The issue stemmed from the `adapter.get_relation()` logic within the `union_zendesk_connections` macro, which has now been updated to resolve the error.
+
+# dbt_zendesk_source v0.14.0
+[PR #44](https://github.com/fivetran/dbt_zendesk_source/pull/44) includes the following updates:
+
+## Feature Update: Run Package on Unioned Connectors
+- This release supports running the package on multiple Zendesk sources at once! See the [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature. 
+
+> Please note: This is a **Breaking Change** in that we have a added a new field, `source_relation`, that points to the source connector from which the record originated.
+
+## Documentation
+- Added missing documentation for staging model columns.
 
 # dbt_zendesk_source v0.13.0
 [PR #55](https://github.com/fivetran/dbt_zendesk_source/pull/55) includes the following updates:
