@@ -126,8 +126,8 @@ vars:
     using_user_tags:            False         #Disable if you are not using user tags
     using_ticket_form_history:  False         #Disable if you are not using ticket form history
     using_brands:               False         #Disable if you are not using brands
-    using_organizations:        False         #Disable if you are not using organizations
-    using_organization_tags:    False         #Disable if you are not using organization tags
+    using_organizations:        False         #Disable if you are not using organizations. Setting this to false will also disable organization tags. 
+    using_organization_tags:    False         #Disable if you are not using organization tags.
 ```
 
 ### (Optional) Step 5: Additional configurations

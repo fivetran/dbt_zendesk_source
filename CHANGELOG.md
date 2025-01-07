@@ -2,7 +2,7 @@
 [PR #59](https://github.com/fivetran/dbt_zendesk_source/pull/59) includes the following updates:
 
 ## New Features
-- Introduced new config variables to allow customers to enable or disable staging and tmp `brand` and `organization` models which bring in brand and organization data:
+- Introduced new config variables for whether `brand` or `organization` tables are present, allowing customers to either enable or disable the respective staging and tmp  models:
   - Updated `stg_zendesk__brand` (and upstream `tmp` model) with the new `using_brands` config variable.  
   - Updated `stg_zendesk__organization` (and upstream `tmp` model) with the new `using_organizations` config variable.
   - Updated `stg_zendesk__organization_tag` (and upstream `tmp` model) with the new `using_organizations` config variable, as the `organization_tag` source table can be disabled in some situations, while `organization` is not. Thus anything that is disabled/enabled by `using_organization_tags` should contain both the `using_organization_tags` AND `using_organizations` variables. 
