@@ -29,7 +29,7 @@ vars:
     zendesk_audit_log_identifier:              "audit_log_data"
 
   # Uncomment for docs generation
-  using_schedule_histories: True
+  # using_schedule_histories: True
 
 seeds:
   zendesk_source_integration_tests:
