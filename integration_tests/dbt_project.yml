@@ -7,7 +7,7 @@ profile: 'integration_tests'
 
 vars:
 
-  zendesk_schema: zendesk_source_integrations_tests_5
+  zendesk_schema: zendesk_source_integrations_tests_6
   zendesk_source:
     zendesk_organization_identifier:           "organization_data"
     zendesk_schedule_identifier:               "schedule_data"
@@ -29,7 +29,7 @@ vars:
     zendesk_audit_log_identifier:              "audit_log_data"
 
   # Uncomment for docs generation
-  # using_schedule_histories: True
+  using_schedule_histories: True
 
 seeds:
   zendesk_source_integration_tests:
