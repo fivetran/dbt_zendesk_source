@@ -19,6 +19,7 @@
 
 ## Documentation Updates
 - Added enabled config variables to `brand`, `organization` and `organization_tag` in the `src_zendesk.yml` models. 
+- [Updated README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-enabledisable-models-for-non-existent-sources) with instructions on how to disable `brand` and `organization` sources.
 
 # dbt_zendesk_source v0.14.1
 
