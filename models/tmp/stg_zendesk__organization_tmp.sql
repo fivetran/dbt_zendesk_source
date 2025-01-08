@@ -1,3 +1,5 @@
+{{ config(enabled=var('using_organizations', True)) }}
+
 {{
     zendesk_source.union_zendesk_connections(
         connection_dictionary=var('zendesk_sources'), 
