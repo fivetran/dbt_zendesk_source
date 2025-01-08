@@ -1,3 +1,19 @@
+# dbt_zendesk_source v0.14.2
+[PR #59](https://github.com/fivetran/dbt_zendesk_source/pull/59) includes the following updates:
+
+## New Features
+- Introduced new config variables for whether `brand` or `organization` tables are present, allowing customers to either enable or disable the respective staging and tmp  models:
+  - Updated `stg_zendesk__brand` (and upstream `tmp` model) with the new `using_brands` config variable.  
+  - Updated `stg_zendesk__organization` (and upstream `tmp` model) with the new `using_organizations` config variable.
+  - Updated `stg_zendesk__organization_tag` (and upstream `tmp` model) with the new `using_organizations` config variable, as the `organization_tag` source table can be disabled in some situations, while `organization` is not. Thus anything that is disabled/enabled by `using_organization_tags` should contain both the `using_organization_tags` AND `using_organizations` variables. 
+
+## Under the Hood
+- Updated our Buildkite model run script to ensure we test for when `using_brands` and `using_organizations` is set to either true or false. 
+
+## Documentation Updates
+- Added enabled config variables to `brand`, `organization` and `organization_tag` in the `src_zendesk.yml` models. 
+- [Updated README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-enabledisable-models-for-non-existent-sources) with instructions on how to disable `brand` and `organization` sources. 
+
 # dbt_zendesk_source v0.14.1
 
 [PR #58](https://github.com/fivetran/dbt_zendesk_source/pull/58) includes the following update:

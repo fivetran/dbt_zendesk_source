@@ -1,3 +1,4 @@
+{{ config(enabled=var('using_brands', True)) }}
 
 with base as (
 
