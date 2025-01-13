@@ -37,7 +37,7 @@
         {% endif -%}
     select 
         cast(null as {{ dbt.type_string() }}) as _dbt_source_relation
-    limit 0
+    limit {{ '0' if target.type != 'redshift' else '1' }}
     {%- endif -%}
 
 {% else %}
@@ -63,7 +63,7 @@
         
         select 
             cast(null as {{ dbt.type_string() }}) as _dbt_source_relation
-        limit 0
+        limit {{ '0' if target.type != 'redshift' else '1' }}
     {%- endif -%}
 {% endif -%}
 
