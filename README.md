@@ -1,4 +1,6 @@
-<p align="center">
+# Zendesk Support Source dbt Package ([Docs](https://fivetran.github.io/dbt_zendesk_source/))
+
+<p align="left">
     <a alt="License"
         href="https://github.com/fivetran/dbt_zendesk_source/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
@@ -13,7 +15,6 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
-# Zendesk Support Source dbt Package ([Docs](https://fivetran.github.io/dbt_zendesk_source/))
 ## What does this dbt package do?
 <!--section="zendesk_source_model"-->
 - Materializes [Zendesk Support staging tables](https://fivetran.github.io/dbt_github_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk Support data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
@@ -44,7 +45,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.14.0", "<0.15.0"]
+    version: [">=0.15.0", "<0.16.0"]
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
