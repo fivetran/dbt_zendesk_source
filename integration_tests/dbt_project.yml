@@ -27,6 +27,8 @@ vars:
     zendesk_user_identifier:                   "user_data"
     zendesk_user_tag_identifier:               "user_tag_data"
     zendesk_audit_log_identifier:              "audit_log_data"
+    zendesk_ticket_chat_identifier:            "ticket_chat_data"
+    zendesk_ticket_chat_event_identifier:      "ticket_chat_event_data"
 
   # Uncomment for docs generation
   # using_schedule_histories: True
