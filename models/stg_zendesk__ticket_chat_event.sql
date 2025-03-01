@@ -30,7 +30,7 @@ final as (
         cast(actor_id as {{ dbt.type_int() }}) as actor_id,
         chat_id,
         chat_index,
-        created_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         external_message_id,
         filename,
         is_history_context,
@@ -43,7 +43,7 @@ final as (
         reason,
         size,
         status,
-        status_updated_at,
+        cast(status_updated_at as {{ dbt.type_timestamp() }}) as status_updated_at,
         type,
         url
 

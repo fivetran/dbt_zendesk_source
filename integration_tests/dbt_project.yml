@@ -148,6 +148,12 @@ seeds:
     organization_tag_data_snowflake:
       +alias: organization_tag_data
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
+    ticket_chat_event_data:
+      +column_types:
+        actor_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_chat_data:
+      +column_types:
+        user_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
