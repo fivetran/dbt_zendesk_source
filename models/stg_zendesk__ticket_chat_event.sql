@@ -27,7 +27,7 @@ final as (
     select 
         source_relation, 
         _fivetran_synced,
-        cast(actor_id as {{ dbt.type_int() }}) as actor_id,
+        cast(actor_id as {{ dbt.type_bigint() }}) as actor_id,
         chat_id,
         chat_index,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,

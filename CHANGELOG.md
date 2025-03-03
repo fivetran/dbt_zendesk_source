@@ -1,4 +1,7 @@
-# dbt_zendesk_source version.version
+# dbt_zendesk_source v0.16.0
+
+## New Features
+- [TODO] added `ticket_chat` and `ticket_chat_event`
 
 ## Documentation
 - Corrected references to connectors and connections in the README. ([#61](https://github.com/fivetran/dbt_zendesk_source/pull/61))
