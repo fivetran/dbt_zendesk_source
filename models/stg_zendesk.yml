@@ -466,3 +466,100 @@ models:
         description: >
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
+
+  - name: ticket_chat
+    description: Information about ticket chat conversations.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - chat_id
+            - source_relation 
+    columns:
+      - name: chat_id
+        description: Unique ID of the chat.
+      - name: _fivetran_synced
+        description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
+      - name: is_authenticated
+        description: Boolean indicating whether the user has been given access to restricted Help Center content and authenticated Chat.
+      - name: backend
+        description: Indicates the underlying system or technology that is processing and managing the chat session associated with a ticket.
+      - name: channel
+        description: The channel the conversation was created from. Likely `native_messaging` or `chat`.
+      - name: conversation_id
+        description: ID of the conversation.
+      - name: integration_id
+        description: Identifier for the specific integration that created or is associated with the chat ticket.
+      - name: tags
+        description: Tags placed on the chat. 
+      - name: ticket_id
+        description: ID of the associated ticket.
+      - name: user_id
+        description: ID of the customer user who initiated the chat.
+      - name: visitor_id
+        description: >
+          Uniquely identify a visitor who is engaged in a chat session. This ID is typically assigned when a visitor starts a chat session on a platform integrated with Zendesk Chat. 
+          It helps track the visitor's interactions across different chat sessions and can be used to re-associate returning visits or sessions with the same visitor.
+      - name: webpath
+        description: The list of pages the customer navigated to during the chat.
+      - name: source_relation
+        description: >
+          The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
+          Empty string if you are not.
+
+  - name: ticket_chat_event
+    description: Information about chat and messaging events on tickets.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - chat_id
+            - created_at
+            - source_relation 
+    columns:
+      - name: chat_id
+        description: The ID of the chat.
+      - name: created_at
+        description: Timestamp of the chat event.
+      - name: _fivetran_synced
+        description: The timestamp when the record was last synchronized by Fivetran, used to track data freshness.
+      - name: actor_id
+        description: Zendesk user id for the user or system that triggered the event.
+      - name: chat_index
+        description: Index of the chat 
+      - name: external_message_id
+        description: External identifier of the chat message.
+      - name: filename
+        description: Name of an attached file for `ChatFileAttachment` types of events.
+      - name: is_history_context
+        description: >
+          Boolean that signifies whether a specific chat event is part of the historical context being constructed within the table. This implies that the event is being recorded as a 
+          part of the historical data collection process, where previous interactions or statuses are captured to provide a complete view of changes over time.
+      - name: message
+        description: Body of the chat message.
+      - name: message_id
+        description: id of the chat message.
+      - name: message_source
+        description: Where the message originated from (e.g. `NATIVE_MESSAGING`)
+      - name: mime_type
+        description: MIME type of the document for `ChatFileAttachment` types of events.
+      - name: original_message
+        description: JSON storing information about the message event object.
+      - name: original_message_type
+        description: Type of message. Including but not limited to - `file`, `text`, `form_response`, `form`, and `image`.
+      - name: parent_message_id
+        description: id of the parent chat message.
+      - name: reason
+        description: The underlying cause or justification for a specific event (such as the session ending) within the chat.
+      - name: size
+        description: Size of an attached file for `ChatFileAttachment` types of events.
+      - name: status
+        description: Status of the chat - including but not limited to `READ`, `SEND_SUCCESS`, and `DELIVERY_SUCCESS`. Populated for `ChatMessageStatus` types of events.
+      - name: status_updated_at
+        description: Timestamp at which the status was updated. 
+      - name: type
+        description: Type of chat event. Including but not limited to - `ChatMessage`, `ChatJoin`, `ChatLeave`, `ChatMessageStatus`, `ChatFileAttachment`, `ChatAcdSkillsDetected`, `ChatDepartmentTransfer`, `ChatEmailChanged`, `ChatNameChanged`, `ChatRatingChanged`, and `ChatRatingCommentChanged`.
+      - name: url
+        description: URL of the attached file for `ChatFileAttachment` types of events.
+      - name: source_relation
+        description: >
+          The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
+          Empty string if you are not.

@@ -27,12 +27,11 @@ final as (
     select 
         source_relation, 
         _fivetran_synced,
-        authenticated,
+        authenticated as is_authenticated,
         backend,
         channel,
         chat_id,
         conversation_id,
-        initiator,
         integration_id,
         ticket_id,
         user_id,
