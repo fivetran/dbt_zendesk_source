@@ -467,7 +467,7 @@ models:
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
 
-  - name: ticket_chat
+  - name: stg_zendesk__ticket_chat
     description: Information about ticket chat conversations.
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -506,7 +506,7 @@ models:
           The schema or database this record came from if you are unioning multiple Zendesk connectors together in this package.
           Empty string if you are not.
 
-  - name: ticket_chat_event
+  - name: stg_zendesk__ticket_chat_event
     description: Information about chat and messaging events on tickets.
     tests:
       - dbt_utils.unique_combination_of_columns:
