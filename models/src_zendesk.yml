@@ -419,7 +419,7 @@ sources:
         description: Information about ticket chat conversations.
         freshness: null
         config:
-          enabled: "{{ var('using_chat', true) and var('using_holidays', true) and var('zendesk_sources', []) == []  }}"
+          enabled: "{{ var('using_ticket_chat', false) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: chat_id
             description: Unique ID of the chat.
@@ -453,7 +453,7 @@ sources:
         description: Information about chat and messaging events on tickets.
         freshness: null
         config:
-          enabled: "{{ var('using_chat', true) and var('using_holidays', true) and var('zendesk_sources', []) == []  }}"
+          enabled: "{{ var('using_ticket_chat', false) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: chat_id
             description: The ID of the chat.
