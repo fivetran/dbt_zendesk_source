@@ -3,11 +3,16 @@
 ## New Features
 - [TODO] Incorporated `ticket_chat` and `ticket_chat_event` source tables to include tickets created via `chat` and `native_messaging` channels in downstream SLA policy transformations.
 - `using_ticket_chat` variable, disabled or enabled by default for dbt core users
+- 4 new staging models
 
 ## Documentation
-- Corrected references to connectors and connections in the README. ([#61](https://github.com/fivetran/dbt_zendesk_source/pull/61))
+- Corrected references to connectors and connections in the README. ([#PR 61](https://github.com/fivetran/dbt_zendesk_source/pull/61))
+
+## Contributors
+- [@segoldma](https://github.com/segoldma) ([PR #62](https://github.com/fivetran/dbt_zendesk_source/pull/62))
 
 # dbt_zendesk_source v0.15.0
+[PR #60](https://github.com/fivetran/dbt_zendesk_source/pull/60) includes the following updates:
 
 ## Under the Hood
 - (Affects Redshift only) Updates the `union_zendesk_connections` macro to use a limit 1 instead of limit 0 for empty tables.
