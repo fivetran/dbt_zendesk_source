@@ -32,6 +32,7 @@ vars:
 
   # Uncomment for docs generation
   # using_schedule_histories: True
+  # using_ticket_chat: True
 
 seeds:
   zendesk_source_integration_tests:

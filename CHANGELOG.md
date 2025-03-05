@@ -7,6 +7,7 @@
 
 ## Documentation
 - Corrected references to connectors and connections in the README. ([#PR 61](https://github.com/fivetran/dbt_zendesk_source/pull/61))
+- Corrected DAG link in the README. ([PR #62](https://github.com/fivetran/dbt_zendesk_source/pull/62))
 
 ## Contributors
 - [@segoldma](https://github.com/segoldma) ([PR #62](https://github.com/fivetran/dbt_zendesk_source/pull/62))

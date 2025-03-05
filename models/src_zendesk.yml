@@ -436,7 +436,7 @@ sources:
           - name: integration_id
             description: Identifier for the specific integration that created or is associated with the chat ticket.
           - name: tags
-            description: Tags placed on the chat. 
+            description: JSON list of tags placed on the chat. 
           - name: ticket_id
             description: ID of the associated ticket.
           - name: user_id
@@ -446,7 +446,7 @@ sources:
               Uniquely identify a visitor who is engaged in a chat session. This ID is typically assigned when a visitor starts a chat session on a platform integrated with Zendesk Chat. 
               It helps track the visitor's interactions across different chat sessions and can be used to re-associate returning visits or sessions with the same visitor.
           - name: webpath
-            description: The list of pages the customer navigated to during the chat.
+            description: JSON list of pages the customer navigated to during the chat.
 
       - name: ticket_chat_event
         identifier: '{{ var("zendesk_ticket_chat_event_identifier", "ticket_chat_event") }}'

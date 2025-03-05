@@ -1,4 +1,3 @@
-
 {{ config(enabled=var('using_ticket_chat', False)) }}
 
 with base as (
