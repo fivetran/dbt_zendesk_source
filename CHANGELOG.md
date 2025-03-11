@@ -1,4 +1,4 @@
-# dbt_zendesk_source v0.16.0
+# dbt_zendesk_source v0.16.0-a1
 
 ## New Features
 - Incorporated the `ticket_chat` and `ticket_chat_event` source tables to capture tickets created via `chat` and `native_messaging` channels in downstream SLA policy transformations. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
