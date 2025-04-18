@@ -1,3 +1,6 @@
+# dbt_zendesk_source v0.16.0 or v0.16.0-a2
+- Handle `actor_id` in `ticket_chat_event` sometimes having inconsistent formatting - either just the ID or `agent:#######`. 
+
 # dbt_zendesk_source v0.16.0-a1
 
 ## New Features

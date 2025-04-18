@@ -26,7 +26,8 @@ final as (
     select 
         source_relation, 
         _fivetran_synced,
-        cast(actor_id as {{ dbt.type_bigint() }}) as actor_id,
+        {# Very infrequently, the actor_id field may look like agent:####### instead of just ####### #}
+        cast( (case when actor_id like 'agent%' then {{ dbt.split_part('actor_id', "'agent:'", 2) }} else actor_id end) as {{ dbt.type_bigint() }}) as actor_id,
         chat_id,
         chat_index,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
