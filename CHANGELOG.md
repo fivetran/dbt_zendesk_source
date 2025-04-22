@@ -1,5 +1,5 @@
-# dbt_zendesk_source v0.16.0 or v0.16.0-a2
-- Handle `actor_id` in `ticket_chat_event` sometimes having inconsistent formatting - either just the ID or `agent:#######`. 
+# dbt_zendesk_source v0.16.0-a2
+- Handles `actor_id` in `ticket_chat_event` having inconsistent formatting, so that we can safely cast it as a bigint. Typically, `actor_id` just contains the ID, but it may also look like `agent:<#######>`. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
 
 # dbt_zendesk_source v0.16.0-a1
 
