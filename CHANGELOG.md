@@ -14,7 +14,7 @@ This release includes the following updates from pre-releases `v0.16.0-a1` and `
 
 ## Feature Updates
 - Incorporated the `ticket_chat` and `ticket_chat_event` source tables to capture tickets created via `chat` and `native_messaging` channels in downstream SLA policy transformations. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
-- Handles `actor_id` in `ticket_chat_event` having inconsistent formatting, so that we can safely cast it as a bigint. Typically, `actor_id` just contains the ID, but it may also look like `agent:<#######>`. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
+- Handled `actor_id` in `ticket_chat_event` having inconsistent formatting, so that we can safely cast it as a bigint. Typically, `actor_id` just contains the ID, but it may also look like `agent:<#######>`. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
 - Added the `using_ticket_chat` variable to enable/disable the `ticket_chat` and `ticket_chat_event` staging models and downstream transformations. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
   - For Fivetran Quickstart users, `using_ticket_chat` is dynamically set based on the presence of the `ticket_chat` and `ticket_chat_event` source tables.
   - For other users, `using_ticket_chat` is set to **False** by default. To change this and enable the ticket chat models, add the following configuration (see [README](https://github.com/fivetran/dbt_zendesk_source?tab=readme-ov-file#step-4-enabledisable-models-for-non-existent-sources) for details).
