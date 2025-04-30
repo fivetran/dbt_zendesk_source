@@ -1,4 +1,4 @@
-{{ config(enabled=var('using_audit_log', True)) }}
+{{ config(enabled=var('using_audit_log', False)) }}
 
 {{
     zendesk_source.union_zendesk_connections(
