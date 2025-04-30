@@ -120,6 +120,7 @@ By default, all variables' values are assumed to be `true`, except for `using_sc
 
 ```yml
 vars:
+    using_audit_log:            True          #Enable if you are using audit_logs
     using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
     using_ticket_chat:          True          #Enable if you are using ticket_chat or ticket_chat_event
     using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
