@@ -45,7 +45,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: 0.16.0-a2
+    version: 0.17.0-a1
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
