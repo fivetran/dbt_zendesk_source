@@ -38,10 +38,6 @@ vars:
   zendesk: # if using Zendesk transformation package
     using_ticket_chat: True
 ```
-<<<<<<< HEAD
-> Note: If `using_ticket_chat` is enabled, this update increases the model count of the package by **4 models**.
-=======
->>>>>>> main
 
 ## Documentation
 - Corrected references to connectors and connections in the README. ([#PR 61](https://github.com/fivetran/dbt_zendesk_source/pull/61))
@@ -49,8 +45,6 @@ vars:
 
 ## Contributors
 - [@segoldma](https://github.com/segoldma) ([PR #62](https://github.com/fivetran/dbt_zendesk_source/pull/62))
-<<<<<<< HEAD
-=======
 
 # dbt_zendesk_source v0.16.0-a2
 - Handles `actor_id` in `ticket_chat_event` having inconsistent formatting, so that we can safely cast it as a bigint. Typically, `actor_id` just contains the ID, but it may also look like `agent:<#######>`. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
@@ -78,7 +72,6 @@ vars:
 
 ## Contributors
 - [@segoldma](https://github.com/segoldma) ([PR #62](https://github.com/fivetran/dbt_zendesk_source/pull/62))
->>>>>>> main
 
 # dbt_zendesk_source v0.15.0
 [PR #60](https://github.com/fivetran/dbt_zendesk_source/pull/60) includes the following updates:
