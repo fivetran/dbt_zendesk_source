@@ -30,8 +30,8 @@ vars:
     zendesk_ticket_chat_identifier:            "ticket_chat_data"
     zendesk_ticket_chat_event_identifier:      "ticket_chat_event_data"
 
-  # Uncomment for docs generation
-  # using_schedule_histories: True
+  ## Uncomment for docs generation
+  # using_audit_log: True
   # using_ticket_chat: True
 
 seeds:
