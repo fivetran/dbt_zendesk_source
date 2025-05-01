@@ -17,7 +17,7 @@
 
 ## What does this dbt package do?
 <!--section="zendesk_source_model"-->
-- Materializes [Zendesk Support staging tables](https://fivetran.github.io/dbt_github_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk Support data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
+- Materializes [Zendesk Support staging tables](https://fivetran.github.io/dbt_zendesk_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk Support data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
   - Name columns for consistency across all packages and for easier analysis
   - Adds freshness tests to source data
   - Adds column-level testing where applicable. For example, all primary keys are tested for uniqueness and non-null values.
@@ -45,7 +45,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.15.0", "<0.16.0"]
+    version: [">=0.16.0", "<0.17.0"]
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
@@ -114,13 +114,14 @@ vars:
 ### Step 4: Enable/Disable models for non-existent sources
 > _This step is optional if you are unioning multiple connections together in the previous step. The `union_data` macro will create empty staging models for sources that are not found in any of your Zendesk schemas/databases. However, you can still leverage the below variables if you would like to avoid this behavior._
 
-This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`,  `brand`, `organization`, `organization_tag`, or `ticket_form_history` features, and allows you to disable the corresponding functionality.
+This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`,  `brand`, `organization`, `organization_tag`, `ticket_form_history`, `ticket_chat`, or `ticket_chat_event` features, and allows you to disable the corresponding functionality.
 
-By default, all variables' values are assumed to be `true`, except for `using_schedule_histories`. Add variables for only the tables you want to enable/disable:
+By default, all variables' values are assumed to be `true`, except for `using_schedule_histories` and `using_ticket_chat`. Add variables for only the tables you want to enable/disable:
 
 ```yml
 vars:
     using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
+    using_ticket_chat:          True          #Enable if you are using ticket_chat or ticket_chat_event
     using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
     using_holidays:             False         #Disable if you are not using schedule_holidays for holidays
     using_domain_names:         False         #Disable if you are not using domain names
