@@ -1,3 +1,8 @@
+# dbt_zendesk_source v0.16.0-a3
+[PR #68](https://github.com/fivetran/dbt_zendesk_source/pull/68) includes the following update:
+
+- Renamed the enablement variable from `using_schedule_histories` to `using_audit_log` in `stg_zendesk__audit_log` to support its expanded use for both schedule and user role histories. Use `using_schedule_histories` and `using_user_role_histories` to control downstream model inclusion.
+
 # dbt_zendesk_source v0.16.0-a2
 - Handles `actor_id` in `ticket_chat_event` having inconsistent formatting, so that we can safely cast it as a bigint. Typically, `actor_id` just contains the ID, but it may also look like `agent:<#######>`. ([PR #63](https://github.com/fivetran/dbt_zendesk_source/pull/63))
 
