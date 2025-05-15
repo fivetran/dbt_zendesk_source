@@ -45,7 +45,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: 0.17.0-a1
+    version: [">=0.17.0", "<0.18.0"]
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
@@ -121,7 +121,6 @@ By default, all variables' values are assumed to be `true`, except for `using_sc
 ```yml
 vars:
     using_audit_log:            True          #Enable if you are using audit_logs
-    using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
     using_ticket_chat:          True          #Enable if you are using ticket_chat or ticket_chat_event
     using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
     using_holidays:             False         #Disable if you are not using schedule_holidays for holidays
