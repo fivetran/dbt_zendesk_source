@@ -6,7 +6,7 @@ This release includes the following updates from pre-release `v0.17.0-a1`:
   - See the `v0.23.0 dbt_zendesk` [release notes](https://github.com/fivetran/dbt_zendesk/releases/tag/v0.23.0) for more details.
 
 ## Under the Hood
-- Updated seed for `audit_log_data` to add support role changes
+- Updated seed for `audit_log_data` to add support role changes.
 
 # dbt_zendesk_source v0.17.0-a1
 [PR #68](https://github.com/fivetran/dbt_zendesk_source/pull/68) includes the following update:
