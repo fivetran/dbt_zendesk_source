@@ -1,9 +1,12 @@
 # dbt_zendesk_source v0.17.0
 This release includes the following updates from pre-release `v0.17.0-a1`:
 
-## Breaking changes
-- Renamed the enablement variable for the `stg_zendesk__audit_log` model from `using_schedule_histories` to `using_audit_log` to support its expanded use for both schedule and user role histories. Use `using_schedule_histories` and `using_user_role_histories` to control downstream feature inclusion. 
+## Breaking Changes
+- Renamed the enablement variable for the `stg_zendesk__audit_log` model from `using_schedule_histories` to `using_audit_log`. This supports the audit log's expanded use for both schedule and user role histories downstream. Use `using_schedule_histories` and `using_user_role_histories` to control downstream feature inclusion. 
   - See the `v0.23.0 dbt_zendesk` [release notes](https://github.com/fivetran/dbt_zendesk/releases/tag/v0.23.0) for more details.
+
+## Under the Hood
+- Updated seed 
 
 # dbt_zendesk_source v0.17.0-a1
 [PR #68](https://github.com/fivetran/dbt_zendesk_source/pull/68) includes the following update:
