@@ -116,7 +116,7 @@ vars:
 
 This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`,  `brand`, `organization`, `organization_tag`, `ticket_form_history`, `ticket_chat`, or `ticket_chat_event` features, and allows you to disable the corresponding functionality.
 
-By default, all variables' values are assumed to be `true`, except for `using_schedule_histories` and `using_ticket_chat`. Add variables for only the tables you want to enable/disable:
+By default, all variables' values are assumed to be `true`, except for `using_audit_log` and `using_ticket_chat`. Add variables for only the tables you want to enable/disable:
 
 ```yml
 vars:
