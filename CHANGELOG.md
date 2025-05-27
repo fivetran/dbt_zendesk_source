@@ -1,3 +1,11 @@
+# dbt_zendesk_source v0.16.1
+
+## Under the Hood
+- Prepends `materialized` configs in the package's `dbt_project.yml` file with `+` to improve compatibility with the new dbt engine being released on 5/28 at the dbt Launch Showcase. ([PR #69](https://github.com/fivetran/dbt_zendesk_source/pull/69))
+
+## Contributors
+- [@b-per](https://github.com/b-per) ([PR #69](https://github.com/fivetran/dbt_zendesk_source/pull/69))
+
 # dbt_zendesk_source v0.16.0
 
 This release includes the following updates from pre-releases `v0.16.0-a1` and `v0.16.0-a2`.
