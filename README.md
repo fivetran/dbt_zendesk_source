@@ -45,7 +45,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.16.0", "<0.17.0"]
+    version: [">=0.17.0", "<0.18.0"]
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
@@ -116,11 +116,11 @@ vars:
 
 This package takes into consideration that not every Zendesk Support account utilizes the `schedule`, `schedule_holiday`, `ticket_schedule`, `daylight_time`, `time_zone`, `audit_log`, `domain_name`, `user_tag`,  `brand`, `organization`, `organization_tag`, `ticket_form_history`, `ticket_chat`, or `ticket_chat_event` features, and allows you to disable the corresponding functionality.
 
-By default, all variables' values are assumed to be `true`, except for `using_schedule_histories` and `using_ticket_chat`. Add variables for only the tables you want to enable/disable:
+By default, all variables' values are assumed to be `true`, except for `using_audit_log` and `using_ticket_chat`. Add variables for only the tables you want to enable/disable:
 
 ```yml
 vars:
-    using_schedule_histories:   True          #Enable if you are using audit_logs for schedule histories
+    using_audit_log:            True          #Enable if you are using audit_logs
     using_ticket_chat:          True          #Enable if you are using ticket_chat or ticket_chat_event
     using_schedules:            False         #Disable if you are not using schedules, which requires source tables ticket_schedule, daylight_time, and time_zone
     using_holidays:             False         #Disable if you are not using schedule_holidays for holidays

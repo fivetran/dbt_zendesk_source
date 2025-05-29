@@ -21,6 +21,6 @@ dbt run --target "$db" --full-refresh
 dbt test --target "$db"
 dbt run --vars '{using_schedules: false, using_domain_names: false, using_user_tags: false, using_ticket_form_history: false, using_organization_tags: false, using_organizations: false, using_brands: false}' --target "$db" --full-refresh
 dbt test --target "$db"
-dbt run --vars '{using_schedule_histories: true, using_holidays: false, using_ticket_chat: true}' --target "$db" --full-refresh
+dbt run --vars '{using_audit_log: true, using_holidays: false, using_ticket_chat: true}' --target "$db" --full-refresh
 dbt test --target "$db"
 dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"
