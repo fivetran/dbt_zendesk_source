@@ -20,6 +20,7 @@
 - Materializes [Zendesk Support staging tables](https://fivetran.github.io/dbt_zendesk_source/#!/overview/zendesk_source/models/?g_v=1) which leverage data in the format described by [this ERD](https://fivetran.com/docs/applications/zendesk#schemainformation). These staging tables clean, test, and prepare your Zendesk Support data from [Fivetran's connector](https://fivetran.com/docs/applications/zendesk) for analysis by doing the following:
   - Name columns for consistency across all packages and for easier analysis
   - Adds freshness tests to source data
+    - dbt Core >= 1.9.6 is required to run freshness tests out of the box.
   - Adds column-level testing where applicable. For example, all primary keys are tested for uniqueness and non-null values.
 - Generates a comprehensive data dictionary of your Zendesk Support data through the [dbt docs site](https://fivetran.github.io/dbt_zendesk_source/).
 - These tables are designed to work simultaneously with our [Zendesk Support transformation package](https://github.com/fivetran/dbt_zendesk).
@@ -45,7 +46,7 @@ Include the following zendesk_source package version in your `packages.yml` file
 ```yaml
 packages:
   - package: fivetran/zendesk_source
-    version: [">=0.17.0", "<0.18.0"]
+    version: [">=0.18.0", "<0.19.0"]
 ```
 ### Step 3: Define database and schema variables
 #### Option A: Single connection
