@@ -9,17 +9,16 @@ sources:
 
     config:
       enabled: "{{ var('zendesk_sources', []) == [] }}"
-      
-    freshness:
-      warn_after: {count: 72, period: hour}
-      error_after: {count: 168, period: hour}
+      freshness:
+        warn_after: {count: 72, period: hour}
+        error_after: {count: 168, period: hour}
 
     tables:
       - name: audit_log
         identifier: "{{ var('zendesk_audit_log_identifier', 'audit_log')}}"
         config:
           enabled: "{{ var('using_audit_log', False) }}"
-        freshness: null
+          freshness: null
         description: >
           The `audit_log` table captures historical changes and actions within Zendesk. It provides a record of modifications 
           made to tickets, schedules, and other objects, allowing for a detailed audit trail. Each row represents an action 
@@ -149,9 +148,10 @@ sources:
         description: >
           When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
           element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
-          only, or to an assigned agent within a Group. A ticket can never be assigned to an agent without also being 
+          only, or to an assigned agent within a Group. A ticket can never be assigned to an agent without also being
           assigned to a Group.
-        freshness: null
+        config:
+          freshness: null
         columns:
           - name: id
             description: Automatically assigned when creating groups
@@ -173,12 +173,12 @@ sources:
         identifier: "{{ var('zendesk_organization_identifier', 'organization') }}"
         config:
           enabled: "{{ var('using_organizations', true) and var('zendesk_sources', []) == [] }}"
+          freshness: null
         description: >
-          Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
-          organizations. You can manually assign customers to an organization or automatically assign them to an organization 
-          by their email address domain. Organizations can be used in business rules to route tickets to groups of agents or 
+          Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into
+          organizations. You can manually assign customers to an organization or automatically assign them to an organization
+          by their email address domain. Organizations can be used in business rules to route tickets to groups of agents or
           to send email notifications.
-        freshness: null
         columns:
           - name: id
             description: Automatically assigned when the organization is created
@@ -253,7 +253,8 @@ sources:
       - name: user
         identifier: "{{ var('zendesk_user_identifier', 'user') }}"
         description: Zendesk Support has three types of users, end-users (your customers), agents, and administrators.
-        freshness: null
+        config:
+          freshness: null
         columns:
           - name: id
             description: Automatically assigned when the user is created
@@ -292,11 +293,11 @@ sources:
             
       - name: schedule
         identifier: "{{ var('zendesk_schedule_identifier', 'schedule') }}"
-        description: The support schedules created with different business hours and holidays. 
-        freshness: null
+        description: The support schedules created with different business hours and holidays.
         config:
+          freshness: null
           enabled: "{{ var('using_schedules', true) and var('zendesk_sources', []) == [] }}"
-        columns: 
+        columns:
           - name: id
             description: ID automatically assigned to the schedule upon creation
           - name: name
@@ -313,8 +314,9 @@ sources:
       - name: ticket_schedule
         identifier: "{{ var('zendesk_ticket_schedule_identifier', 'ticket_schedule') }}"
         description: The schedules applied to tickets through a trigger.
-        freshness: null
-        columns: 
+        config:
+          freshness: null
+        columns:
           - name: ticket_id
             description: The ID of the ticket assigned to the schedule
           - name: created_at
@@ -346,8 +348,9 @@ sources:
         description: >
           Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
           tags currently associated with a ticket.
-        freshness: null
-        columns: 
+        config:
+          freshness: null
+        columns:
           - name: ticket_id
             description: The ID of the ticket associated with the tag
           - name: tags
@@ -356,8 +359,9 @@ sources:
       - name: ticket_field_history
         identifier: "{{ var('zendesk_ticket_field_history_identifier', 'ticket_field_history') }}"
         description: All fields and field values associated with tickets.
-        freshness: null
-        columns: 
+        config:
+          freshness: null
+        columns:
           - name: ticket_id
             description: The ID of the ticket associated with the field
           - name: field_name
@@ -373,7 +377,8 @@ sources:
         identifier: "{{ var('zendesk_daylight_time_identifier', 'daylight_time') }}"
         description: >
           Appropriate offsets (from UTC) for timezones that engage or have engaged with Daylight Savings at some point since 1970.
-        freshness: null
+        config:
+          freshness: null
         columns:
           - name: daylight_end_utc
             description: UTC timestamp of when Daylight Time ended in this year.
@@ -388,8 +393,9 @@ sources:
 
       - name: time_zone
         identifier: "{{ var('zendesk_time_zone_identifier', 'time_zone') }}"
-        description: Offsets (from UTC) for each timezone. 
-        freshness: null
+        description: Offsets (from UTC) for each timezone.
+        config:
+          freshness: null
         columns:
           - name: time_zone
             description: Name of the time zone. 
@@ -399,8 +405,8 @@ sources:
       - name: schedule_holiday
         identifier: "{{ var('zendesk_schedule_holiday_identifier', 'schedule_holiday') }}"
         description: Information about holidays for each specified schedule.
-        freshness: null
         config:
+          freshness: null
           enabled: "{{ var('using_schedules', true) and var('using_holidays', true) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: end_date
@@ -417,8 +423,8 @@ sources:
       - name: ticket_chat
         identifier: '{{ var("zendesk_ticket_chat_identifier", "ticket_chat") }}'
         description: Information about ticket chat conversations.
-        freshness: null
         config:
+          freshness: null
           enabled: "{{ var('using_ticket_chat', false) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: chat_id
@@ -451,8 +457,8 @@ sources:
       - name: ticket_chat_event
         identifier: '{{ var("zendesk_ticket_chat_event_identifier", "ticket_chat_event") }}'
         description: Information about chat and messaging events on tickets.
-        freshness: null
         config:
+          freshness: null
           enabled: "{{ var('using_ticket_chat', false) and var('zendesk_sources', []) == []  }}"
         columns:
           - name: chat_id
