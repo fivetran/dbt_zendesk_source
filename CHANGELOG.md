@@ -1,3 +1,10 @@
+# dbt_zendesk_source v0.18.1
+
+[PR #72](https://github.com/fivetran/dbt_zendesk_source/pull/72) includes the following updates:
+
+## Bug Fix
+- Excludes `ticket_chat_event` records where the `actor_id` is `__trigger` or `__system` (instead of the expected `######` or `agent:######` formats). This was done to avoid data-casting errors in `stg_zendesk__ticket_chat_event` and maintain downstream joins and comment metrics.
+
 # dbt_zendesk_source v0.18.0
 
 [PR #71](https://github.com/fivetran/dbt_zendesk_source/pull/71) includes the following updates:

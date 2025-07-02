@@ -48,6 +48,8 @@ final as (
         url
 
     from fields
+    {# Exclude these types of chat events from downstream metrics #}
+    where actor_id not in ('__trigger', '__system')
 )
 
 select *
