@@ -1,6 +1,6 @@
 # dbt_zendesk_source v0.18.2
 
-[PR #XX](https://github.com/fivetran/dbt_zendesk_source/pull/XX) includes the following updates:
+[PR #76](https://github.com/fivetran/dbt_zendesk_source/pull/76) includes the following updates:
 
 ## Bug Fix
 - Updated `actor_id` extraction in `stg_zendesk__ticket_chat_event` to handle edge cases where the value is `agent:` with no ID. Now using a nullif condition to cast missing IDs as `null`, ensuring consistent typing and preventing model compilation errors across warehouses.
