@@ -5,6 +5,16 @@
 ## Bug Fix
 - Updated `actor_id` extraction in `stg_zendesk__ticket_chat_event` to handle edge cases where the value is `agent:` with no ID. Now using a nullif condition to cast missing IDs as `null`, ensuring consistent typing and preventing model compilation errors across warehouses.
 
+[PR #73](https://github.com/fivetran/dbt_zendesk_source/pull/73) includes the following updates:
+
+### Under the Hood - July 2025 Updates
+- Updated conditions in `.github/workflows/auto-release.yml`.
+- Added `.github/workflows/generate-docs.yml`.
+- Added `+docs: show: False` to `integration_tests/dbt_project.yml`.
+- Migrated `flags` (e.g., `send_anonymous_usage_stats`, `use_colors`) from `sample.profiles.yml` to `integration_tests/dbt_project.yml`.
+- Updated `maintainer_pull_request_template.md` with improved checklist.
+- Updated `.gitignore` to exclude additional DBT, Python, and system artifacts.
+
 # dbt_zendesk_source v0.18.1
 
 [PR #72](https://github.com/fivetran/dbt_zendesk_source/pull/72) includes the following updates:
