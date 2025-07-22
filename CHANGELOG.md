@@ -1,20 +1,18 @@
+# dbt_zendesk_source v0.18.2
+
+[PR #76](https://github.com/fivetran/dbt_zendesk_source/pull/76) includes the following updates:
+
+## Bug Fix
+- Updated `actor_id` extraction in `stg_zendesk__ticket_chat_event` to handle edge cases where the value is `agent:` with no ID. Now using a nullif condition to cast missing IDs as `null`, ensuring consistent typing and preventing model compilation errors across warehouses.
+
 [PR #73](https://github.com/fivetran/dbt_zendesk_source/pull/73) includes the following updates:
 
 ### Under the Hood - July 2025 Updates
-
 - Updated conditions in `.github/workflows/auto-release.yml`.
 - Added `.github/workflows/generate-docs.yml`.
 - Added `+docs: show: False` to `integration_tests/dbt_project.yml`.
 - Migrated `flags` (e.g., `send_anonymous_usage_stats`, `use_colors`) from `sample.profiles.yml` to `integration_tests/dbt_project.yml`.
 - Updated `maintainer_pull_request_template.md` with improved checklist.
-- Refreshed README tag block:
-  - Standardized Quickstart-compatible badge set
-  - Left-aligned and positioned below the H1 title.
-- Updated Python image version to `3.10.13` in `pipeline.yml`.
-- Added `CI_DATABRICKS_DBT_CATALOG` to:
-  - `.buildkite/hooks/pre-command` (as an export)
-  - `pipeline.yml` (under the `environment` block, after `CI_DATABRICKS_DBT_TOKEN`)
-- Added `certifi==2025.1.31` to `requirements.txt` (if missing).
 - Updated `.gitignore` to exclude additional DBT, Python, and system artifacts.
 
 # dbt_zendesk_source v0.18.1
