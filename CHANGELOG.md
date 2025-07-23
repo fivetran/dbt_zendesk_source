@@ -4,6 +4,7 @@
 
 ## Bug Fix
 - Updated `actor_id` extraction in `stg_zendesk__ticket_chat_event` to handle edge cases where the value is `agent:` with no ID. Now using a nullif condition to cast missing IDs as `null`, ensuring consistent typing and preventing model compilation errors across warehouses.
+  - In addition to the nullif update, these records are also filtered out of the final staging model as they are not relevant for downstream use.
 
 [PR #73](https://github.com/fivetran/dbt_zendesk_source/pull/73) includes the following updates:
 
