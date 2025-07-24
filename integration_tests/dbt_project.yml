@@ -1,12 +1,11 @@
 config-version: 2
 
 name: 'zendesk_source_integration_tests'
-version: '0.18.1'
+version: '0.18.2'
 
 profile: 'integration_tests'
 
 vars:
-
   zendesk_schema: zendesk_source_integrations_tests_7
   zendesk_source:
     zendesk_organization_identifier:           "organization_data"
@@ -31,10 +30,12 @@ vars:
     zendesk_ticket_chat_event_identifier:      "ticket_chat_event_data"
 
   ## Uncomment for docs generation
-  # using_audit_log: True
-  # using_ticket_chat: True
+  # using_audit_log: True # @docs-include
+  # using_ticket_chat: True # @docs-include
 
 seeds:
+  +docs:
+    show: False
   zendesk_source_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     +column_types:
@@ -163,3 +164,5 @@ dispatch:
 
 flags:
   send_anonymous_usage_stats: False
+
+  use_colors: True

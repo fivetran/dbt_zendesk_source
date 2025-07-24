@@ -27,7 +27,7 @@ final as (
         source_relation, 
         _fivetran_synced,
         {# Very infrequently, the actor_id field may look like agent:####### instead of just ####### #}
-        cast( (case when actor_id like 'agent%' then {{ dbt.split_part('actor_id', "'agent:'", 2) }} else actor_id end) as {{ dbt.type_bigint() }}) as actor_id,
+        cast( (case when actor_id like 'agent%' then nullif({{ dbt.split_part('actor_id', "'agent:'", 2) }},'') else actor_id end) as {{ dbt.type_bigint() }}) as actor_id,
         chat_id,
         chat_index,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
@@ -49,7 +49,7 @@ final as (
 
     from fields
     {# Exclude these types of chat events from downstream metrics #}
-    where actor_id not in ('__trigger', '__system')
+    where actor_id not in ('__trigger', '__system', 'agent:', '')
 )
 
 select *
